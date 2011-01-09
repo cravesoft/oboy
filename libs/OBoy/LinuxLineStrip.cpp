@@ -1,49 +1,60 @@
 #include "LinuxLineStrip.h"
 
-using namespace OBoy;
+#include <assert.h>
+#include "LinuxGLInterface.h"
+#include <iostream>
+
+using namespace oboy;
 
 LinuxLineStrip::LinuxLineStrip(int numVerts)
 {
-  mShape.numberVertices = numVerts;
-  mShape.numberIndices = numVerts;
+	mVertices.clear();
+  mColors.clear();
+	mTexCoords.clear();
+  mTangents.clear();
+  mNormals.clear();
+  mIndices.clear();
 
-  mShape.vertices = (GLUSfloat*)malloc(4*numVerts*sizeof(GLUSfloat));
-	memset(mShape.vertices, 0, 4*numVerts*sizeof(GLUSfloat));
+  mNumVerts = numVerts;
 
-  mShape.texCoords = (GLUSfloat*)malloc(2*numVerts*sizeof(GLUSfloat));
-	memset(mShape.texCoords, 0, 2*numVerts*sizeof(GLUSfloat));
-
-  mNumIndices = mShape.numberIndices;
-}
-
-LinuxLineStrip::~LinuxLineStrip()
-{
-	glusDestroyShapef(&mShape);
+  mVertices.resize(numVerts);
+  mColors.resize(4*numVerts);
+  mIndices.resize(numVerts);
+  for (int i=0 ; i<mNumVerts ; i++)
+    mIndices[i] = i;
 }
 
 void LinuxLineStrip::setVertPos(int i, float x, float y, float z)
 {
-	mShape.vertices[i*4+0] = x;
-  mShape.vertices[i*4+1] = y;
-  mShape.vertices[i*4+2] = z;
-  mShape.vertices[i*4+3] = 1.0f;
-}
-
-void LinuxLineStrip::setVertTex(int i, float u, float v)
-{
-  mShape.texCoords[i*2+0] = u;
-  mShape.texCoords[i*2+0] = v;
+  assert(i < mNumVerts);
+	mVertices[i].x() = x;
+  mVertices[i].y() = y;
+  mVertices[i].z() = z;
 }
 
 void LinuxLineStrip::setVertColor(int i, Color color)
 {
-	//mVerts[i].color = (D3DCOLOR)color; // both are ARGB format
+  assert(i < mNumVerts);
+  glColor vcolor = parseColor(color);
+	mColors[4*i+0] = vcolor.red;
+  mColors[4*i+1] = vcolor.green;
+  mColors[4*i+2] = vcolor.blue;
+  mColors[4*i+3] = vcolor.alpha;
 }
 
 void LinuxLineStrip::setColor(Color color)
 {
-	/*for (int i=0 ; i<mVertexCount ; i++)
+  glColor vcolor = parseColor(color);
+	for (int i=0 ; i<mNumVerts ; i++)
 	{
-		mVerts[i].color = (D3DCOLOR)color;
-	}*/
+		mColors[4*i+0] = vcolor.red;
+    mColors[4*i+1] = vcolor.green;
+    mColors[4*i+2] = vcolor.blue;
+    mColors[4*i+3] = vcolor.alpha;
+	}
+}
+
+void LinuxLineStrip::draw()
+{
+  LinuxShape::draw(0, GL_LINE_STRIP);
 }

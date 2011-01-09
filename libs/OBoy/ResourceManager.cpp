@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include "OBoy/Crypto.h"
-#include "OBoyLib/OBoyUtil.h"
+#include "oboylib/OBoyUtil.h"
 #include "Environment.h"
 #include "Font.h"
 #include <fstream>
@@ -14,9 +14,9 @@
 #include "Sound.h"
 #include <string>
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 ResourceManager::ResourceManager(ResourceLoader *loader, ResourceSaver *saver, unsigned char *key, const std::string &language1, const std::string &language2)
 {
@@ -98,7 +98,7 @@ void ResourceManager::loadStrings(const char *filename, const char *filenamebin,
 		// load and decrypt the strings when we have an encryption key
 		char *data;
 		int dataSize;
-		if (OBoy::loadDecrypt(key, filenamebin, &data, &dataSize)==false)
+		if (oboy::loadDecrypt(key, filenamebin, &data, &dataSize)==false)
 		{
 			return;
 		}
@@ -154,7 +154,7 @@ void ResourceManager::loadStrings(const char *filename, const char *filenamebin,
 		{
 			// skip the 'id' and 'text' attributes:
 			const char *name = a->Name();
-			if (OBoy::Environment::instance()->stricmp("id",name)==0 || OBoy::Environment::instance()->stricmp("text",name)==0)
+			if (oboy::Environment::instance()->stricmp("id",name)==0 || oboy::Environment::instance()->stricmp("text",name)==0)
 			{
 				continue;
 			}
@@ -217,7 +217,7 @@ bool ResourceManager::parseResourceFile(const std::string &fileName, unsigned ch
 		// load and decrypt the resource file
 		char *data;
 		int dataSize;
-		bool success = OBoy::loadDecrypt(key, encFileName.c_str(), &data, &dataSize);
+		bool success = oboy::loadDecrypt(key, encFileName.c_str(), &data, &dataSize);
 		if (!success)
 		{
 			return false;
@@ -236,7 +236,7 @@ bool ResourceManager::parseResourceFile(const std::string &fileName, unsigned ch
 
 	for (TiXmlElement *e = root->FirstChildElement() ; e!=NULL ; e = e->NextSiblingElement())
 	{
-		if (OBoy::Environment::instance()->stricmp(e->Value(),"resources")==0)
+		if (oboy::Environment::instance()->stricmp(e->Value(),"resources")==0)
 		{
 			parseResourceGroup(e);
 		}
@@ -263,7 +263,7 @@ void ResourceManager::parseResourceGroup(TiXmlElement *elem)
 	for (TiXmlElement *child = elem->FirstChildElement() ; child!=NULL ; child = child->NextSiblingElement())
 	{
 		const char *val = child->Value();
-		if (OBoy::Environment::instance()->stricmp(val,"SetDefaults")==0)
+		if (oboy::Environment::instance()->stricmp(val,"SetDefaults")==0)
 		{
 			idPrefix = child->Attribute("idprefix");
 			basePath = child->Attribute("path");
@@ -305,7 +305,7 @@ void ResourceManager::parseResourceGroup(TiXmlElement *elem)
 			else
 			{
 				// create and add the resource:
-				OBoy::Resource *res = createResource(val,fullPath);
+				oboy::Resource *res = createResource(val,fullPath);
 				addResource(id, fullPath, group, res);
 			}
 		}
@@ -315,15 +315,15 @@ void ResourceManager::parseResourceGroup(TiXmlElement *elem)
 Resource *ResourceManager::createResource(const char *type, const std::string &path)
 {
 	Resource *res;
-	if (OBoy::Environment::instance()->stricmp(type,"image")==0)
+	if (oboy::Environment::instance()->stricmp(type,"image")==0)
 	{
 		res = mResourceLoader->createImage(path);
 	}
-  else if (OBoy::Environment::instance()->stricmp(type,"font")==0)
+  else if (oboy::Environment::instance()->stricmp(type,"font")==0)
 	{
     res = new Font(mResourceLoader, path);
 	}
-	else if (OBoy::Environment::instance()->stricmp(type,"sound")==0)
+	else if (oboy::Environment::instance()->stricmp(type,"sound")==0)
 	{
 		res = mResourceLoader->createSound(path);
 	}
@@ -336,7 +336,7 @@ Resource *ResourceManager::createResource(const char *type, const std::string &p
 
 bool ResourceManager::saveResource(Resource *res, const char *type)
 {
-	if (OBoy::Environment::instance()->stricmp(type,"image")==0)
+	if (oboy::Environment::instance()->stricmp(type,"image")==0)
 	{
     Image *img = dynamic_cast<Image*>(res);
 		return mResourceSaver->save(img);
@@ -362,7 +362,7 @@ void ResourceManager::addResource(const std::string &id,
 		else
 		{
 		  // create and add the resource:
-		  OBoy::Resource *res = createResource(type,path);
+		  oboy::Resource *res = createResource(type,path);
 		  addResource(id, path, g, res);
     }
   }
@@ -548,7 +548,7 @@ Image *ResourceManager::getImage(const std::string &id)
 	return image;
 }
 
-OBoy::UString ResourceManager::getString(const std::string &id)
+oboy::UString ResourceManager::getString(const std::string &id)
 {
 	assert(mText.find(id)!=mText.end());
 	return mText[id];

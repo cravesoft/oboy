@@ -4,10 +4,9 @@
 #include "Graphics.h"
 #include <string>
 #include <GL/glew.h>
-#include <GL/glus.h>
 #include <SDL.h>
 
-namespace OBoy
+namespace oboy
 {
 	struct BoyVertex
 	{
@@ -24,7 +23,7 @@ namespace OBoy
     float alpha;
   } glColor;
 
-  glColor parseColor(const OBoy::Color color)
+  inline glColor parseColor(const oboy::Color color)
   {
     glColor col;
     col.red = ((color & 0x00ff0000) >> 16) / 256.0;
@@ -39,6 +38,8 @@ namespace OBoy
 	class LinuxTriStrip;
   class LinuxLineStrip;
   class LinuxSphere;
+  class LinuxCube;
+  class LinuxLines;
 
 	class LinuxGLInterface
 	{
@@ -56,14 +57,16 @@ namespace OBoy
 		// rendering methods:
 		bool beginScene();
 		void endScene();
-		void drawImage(LinuxImage *image, DWORD color, float z);
-		void drawImage(LinuxImage *image, DWORD color, float z, int x, int y, int w, int h);
-		void drawRect(int x, int y, int w, int h, float z, DWORD color);
+		void drawImage(LinuxImage *image, Color color, float z);
+		void drawImage(LinuxImage *image, Color color, float z, int x, int y, int w, int h);
+		void drawRect(int x, int y, int w, int h, float z, Color color);
     void drawCircle(int x, int y, float radius, int delta, Color color);
 		void drawTriStrip(LinuxTriStrip *strip);
     void drawLineStrip(LinuxLineStrip *strip);
+    void drawLines(LinuxLines *lines);
 		void drawLine(int x0, int y0, int x1, int y1, Color color);
-    void drawSphere(LinuxSphere *image, DWORD color, float z);
+    void drawSphere(LinuxSphere *sphere, Color color, float z);
+    void drawCube(LinuxCube *cube, Color color, float z);
 
     // toggle screen mode
     void toggleFullScreen();
@@ -73,7 +76,7 @@ namespace OBoy
 
 		// clearing:
 		inline void setClearZ(float z) { mClearZ = z; }
-    inline void setClearColor(OBoy::Color color) { mClearColor = parseColor(color); }
+    inline void setClearColor(oboy::Color color) { mClearColor = parseColor(color); }
 
 		// gl state:
     void setCapability(int state, bool enabled);
@@ -90,45 +93,33 @@ namespace OBoy
 
 		// misc:
 		void dumpInfo(std::ofstream &file);
-		void handleLostDevice();
-		void handleResetDevice();
+
+    // input:
+    
+    void            handleMouseDown(int button);
+    void            handleMouseUp(int button);
+    void            handleKeyDown(SDL_keysym key);
+    void            handleKeyUp(SDL_keysym key);
+    void            injectInput();
 
 	private:
 
     void initIL();
 		void initGL();
 		void assertSuccess(const char* funcName);
-		void drawImage(GLuint tex);
-    void drawSphere(LinuxSphere *sphere, GLuint tex);
+    int getKeyMods();
 		//void printDisplayModes(D3DFORMAT format, bool windowed);
 
 	private:
 
-		std::string				mTitle;
+		std::string	  mTitle;
 
-		OBoy::Game				*mGame;
+		oboy::Game   *mGame;
 
 		bool					mRendering;
 
-    GLUSshaderprogram mProgram;
-
 		GLuint        mImageVertices;
     GLuint        mImageIndices;
-    GLuint        vertexPositionAttrib;
-    GLuint        vertexColorAttrib;
-    GLuint        texCoordAttrib;
-
-    // location of the projection matrix in the shader program
-    GLint mProjectionLocation;
-
-    // location of the model view matrix in the shader program
-    GLint mModelViewLocation;
-
-    // location of the vertex in the shader program
-    GLint mVertexLocation;
-
-    // location of the normal in the shader program
-    GLint mNormalLocation;
 
     SDL_Surface  *mScreen;
 
@@ -138,7 +129,7 @@ namespace OBoy
     bool mWindowed;
 
 		// hardware capabilities:
-		unsigned int  mMaxTextureSize;
+		GLint  mMaxTextureSize;
 	};
 }
 

@@ -36,37 +36,37 @@ void Demo1::destroy()
 
 void Demo1::update(float dt)
 {
-	OBoy::Graphics *g = OBoy::Environment::instance()->getGraphics();
+	oboy::Graphics *g = oboy::Environment::instance()->getGraphics();
 	float w = (float)g->getWidth();
 	float h = (float)g->getHeight();
 
-	OBoy::GamePad *pad = OBoy::Environment::instance()->getGamePad(0);
+	oboy::GamePad *pad = oboy::Environment::instance()->getGamePad(0);
 	mPos = pad->getAnalogL();
-	mPos.x = w/2 + mPos.x*w/2;
-	mPos.y = h/2 - mPos.y*h/2;
+	mPos.x() = w/2 + mPos.x()*w/2;
+	mPos.y() = h/2 - mPos.y()*h/2;
 }
 
-void Demo1::draw(OBoy::Graphics *g)
+void Demo1::draw(oboy::Graphics *g)
 {
 	g->setColor(0xFFFFFFFF);
-	g->fillRect((int)mPos.x-5,(int)mPos.y-5,10,10);
+	g->fillRect((int)mPos.x()-5,(int)mPos.y()-5,10,10);
 }
 
 void Demo1::handleGamePadAdded(int gamePadId)
 {
-	OBoy::Environment::instance()->getGamePad(gamePadId)->addListener(this);
+	oboy::Environment::instance()->getGamePad(gamePadId)->addListener(this);
 }
 
 void Demo1::handleGamePadRemoved(int gamePadId)
 {
-	OBoy::Environment::instance()->getGamePad(gamePadId)->removeListener(this);
+	oboy::Environment::instance()->getGamePad(gamePadId)->removeListener(this);
 }
 
-void Demo1::gamePadButtonDown(OBoy::GamePad *pad, OBoy::GamePad::Button button)
+void Demo1::gamePadButtonDown(oboy::GamePad *pad, oboy::GamePad::Button button)
 {
-	OBoy::Environment::instance()->stopMainLoop();
+	oboy::Environment::instance()->stopMainLoop();
 }
 
-void Demo1::gamePadButtonUp(OBoy::GamePad *pad, OBoy::GamePad::Button button)
+void Demo1::gamePadButtonUp(oboy::GamePad *pad, oboy::GamePad::Button button)
 {
 }

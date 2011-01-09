@@ -1,13 +1,14 @@
 #pragma once
 
-#include "OBoyLib/Rect.h"
+#include "oboylib/Rect.h"
 #include "Graphics.h"
 #include "TriStrip.h"
 #include "LineStrip.h"
-
+#include "Lines.h"
+#include <GL/glew.h>
 #include <stack>
 
-namespace OBoy
+namespace oboy
 {
 	class GraphicsState;
 	class LinuxGLInterface;
@@ -28,21 +29,23 @@ namespace OBoy
     virtual void drawCircle(int x, int y, float radius, int delta);
 		virtual void drawTriStrip(TriStrip *strip);
     virtual void drawLineStrip(LineStrip *strip);
+    virtual void drawLines(Lines *lines);
     virtual void drawSphere(Sphere *sphere);
+    virtual void drawCube(Cube *cube);
 
 		virtual void scale(float x, float y);
-		virtual void rotateDeg(float angle);
-		virtual void rotateRad(float angle);
-    virtual void rotateRad(float xangle, float yangle, float zangle);
+		virtual void rotate(float angle);
+		virtual void rotate(float xangle, float yangle, float zangle);
 		virtual void translate(float x, float y);
 		virtual void preScale(float x, float y);
-		virtual void preRotateDeg(float angle);
-		virtual void preRotateRad(float angle);
+		virtual void preRotate(float angle);
 		virtual void preTranslate(float x, float y);
 
 		virtual void pushTransform();
 		virtual void popTransform();
 		virtual int getTransformStackSize();
+
+    void setLineWidth(float width);
 
 		virtual void setAlpha(float alpha);
 		virtual void setColor(Color color);
@@ -80,7 +83,7 @@ namespace OBoy
 
 		float mZ;
 
-    int mTransformStackSize;
+    GLuint mTransformStackSize;
 
 		LinuxGLInterface *mInterface;
 

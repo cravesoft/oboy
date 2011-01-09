@@ -2,7 +2,7 @@
 
 #include <assert.h>
 #include "OBoy/Mouse.h"
-#include "OBoyLib/OBoyUtil.h"
+#include "oboylib/OBoyUtil.h"
 #include "dxerr9.h"
 #include "DXUT.h"
 #include "Environment.h"
@@ -17,9 +17,11 @@
 #include "WinImage.h"
 #include "WinTriStrip.h"
 #include "WinLineStrip.h"
+#include "WinLines.h"
 #include "WinSphere.h"
+#include "WinCube.h"
 
-using namespace OBoy;
+using namespace oboy;
 
 #define PROJECTION_Z_NEAR -50//0
 #define PROJECTION_Z_FAR 1//1
@@ -28,7 +30,7 @@ using namespace OBoy;
 
 #define DEFAULT_D3DFORMAT D3DFMT_X8R8G8B8
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 bool getPresentationParameters(D3DPRESENT_PARAMETERS &pp, int width, int height, bool windowed)
 {
@@ -342,7 +344,7 @@ LRESULT CALLBACK MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, boo
 	case WM_QUIT:
 		break;
 	case WM_CLOSE:
-		OBoy::Environment::instance()->stopMainLoop();
+		oboy::Environment::instance()->stopMainLoop();
 		break;
 	case WM_SYSCOMMAND:
 		/*
@@ -355,7 +357,7 @@ LRESULT CALLBACK MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, boo
 			wParam==HTBOTTOMLEFT ||
 			wParam==HTBOTTOMRIGHT)
 		*/
-		if (!OBoy::Environment::instance()->isWindowResizable())
+		if (!oboy::Environment::instance()->isWindowResizable())
 		{
 			if (wParam==0xf001 || // left
 				wParam==0xf002 || // right
@@ -463,7 +465,7 @@ WinD3DInterface::WinD3DInterface(Game *game, int width, int height, const char *
 	settings.d3d9.pp.FullScreen_RefreshRateInHz = refreshRate;
 	if (windowed)
 	{
-		OBoy::UString unicodeTitle(title);
+		oboy::UString unicodeTitle(title);
 		DXUTCreateWindow(unicodeTitle.wc_str());
 	}
 	DXUTCreateDeviceFromSettings(&settings);
@@ -782,7 +784,7 @@ void WinD3DInterface::drawCircle(int x, int y, float radius, int delta, Color co
 	if(FAILED(hr)) return;
 
 	// render from vertex buffer:
-	hr = DXUTGetD3D9Device()->DrawPrimitive(D3DPT_LINESTRIP, 0, numVertex-2);
+	hr = DXUTGetD3D9Device()->DrawPrimitive(D3DPT_LINESTRIP, 0, numVertex-1);
 	if(FAILED(hr)) return;
 
 	// release the vertex buffer:
@@ -809,7 +811,7 @@ void WinD3DInterface::drawSphere(WinSphere *sphere, IDirect3DTexture9 *tex)
 
 void WinD3DInterface::drawSphere(WinSphere *sphere, DWORD color, float z)
 {
-  Image *img = sphere->getImage();
+  Image *img = sphere->getTexture();
 
   if (img == NULL)
   {
@@ -829,6 +831,46 @@ void WinD3DInterface::drawSphere(WinSphere *sphere, DWORD color, float z)
 
 	// draw the image:
 	drawSphere(sphere, image->getTexture());
+}
+
+void WinD3DInterface::drawCube(WinCube *cube, IDirect3DTexture9 *tex)
+{
+	// make sure beginScene was called:
+	assert(mRendering);
+
+  HRESULT hr = DXUTGetD3D9Device()->SetTexture(0,tex);
+	if(FAILED(hr)) return;
+
+  // render from mesh buffer:
+  hr = cube->mCubeMesh->DrawSubset(0);
+  if(FAILED(hr)) return;
+
+  // make sure the FVF is the default one:
+  hr = DXUTGetD3D9Device()->SetFVF(BOYFVF);
+}
+
+void WinD3DInterface::drawCube(WinCube *cube, DWORD color, float z)
+{
+  Image *img = cube->getTexture();
+
+  if (img == NULL)
+  {
+  	// draw the cube without texture:
+    drawCube(cube, NULL);
+    return;
+  }
+
+  WinImage *image = dynamic_cast<WinImage*>(img);
+  // if texture not loaded
+  if (image->getTexture()==NULL)
+	{
+    // draw the cube without texture:
+		drawCube(cube, NULL);
+		return;
+	}
+
+	// draw the image:
+	drawCube(cube, image->getTexture());
 }
 
 void WinD3DInterface::drawTriStrip(WinTriStrip *strip)
@@ -897,6 +939,42 @@ void WinD3DInterface::drawLineStrip(WinLineStrip *strip)
 
 	// render from vertex buffer:
 	hr = DXUTGetD3D9Device()->DrawPrimitive(D3DPT_LINESTRIP, 0, strip->mVertexCount-1);
+  if(FAILED(hr)) return;
+
+	// release the vertex buffer:
+	vb->Release();
+}
+
+void WinD3DInterface::drawLines(WinLines *lines)
+{
+	// make sure beginScene was called:
+	assert(mRendering);
+
+	// create a vertex buffer:
+	IDirect3DVertexBuffer9 *vb = createVertexBuffer(lines->mVertexCount);
+
+	// lock the vertex buffer:
+	void *vbData = NULL;
+	HRESULT hr = vb->Lock(0, 0, &vbData, 0);
+	handleError(hr);
+
+	// copy the data into the buffer:
+	int byteCount = sizeof(BoyVertex) * lines->mVertexCount;
+	memcpy(vbData, lines->mVerts, byteCount);
+
+	// unlock it:
+	vb->Unlock();
+
+	// bind to linestrip's vertex buffer:
+	hr = DXUTGetD3D9Device()->SetStreamSource(0, vb, 0, sizeof(BoyVertex));
+	if(FAILED(hr)) return;
+
+	// set texture to NULL:
+	hr = DXUTGetD3D9Device()->SetTexture(0,NULL);
+	if(FAILED(hr)) return;
+
+	// render from vertex buffer:
+	hr = DXUTGetD3D9Device()->DrawPrimitive(D3DPT_LINELIST, 0, lines->mVertexCount-1);
   if(FAILED(hr)) return;
 
 	// release the vertex buffer:
@@ -1332,8 +1410,8 @@ void WinD3DInterface::handleLostDevice()
 void WinD3DInterface::handleResetDevice()
 {
 	// persist the fullscreen setting:
-	OBoy::Environment *env = OBoy::Environment::instance();
-	OBoy::PersistenceLayer *pl = env->getPersistenceLayer();
+	oboy::Environment *env = oboy::Environment::instance();
+	oboy::PersistenceLayer *pl = env->getPersistenceLayer();
 	bool fullscreen = env->isFullScreen();
 	pl->putString("fullscreen",fullscreen?"true":"false",true);
 

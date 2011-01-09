@@ -2,7 +2,7 @@
 
 #include <assert.h>
 
-using namespace OBoyLib;
+using namespace oboylib;
 
 bool PerfTimer::gIsEnabled = false;
 std::map<std::string,PerfTimerEntry*> *PerfTimer::gEntries = NULL;

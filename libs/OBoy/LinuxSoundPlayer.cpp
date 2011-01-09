@@ -7,9 +7,9 @@
 #include "ResourceManager.h"
 #include "LinuxSound.h"
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 LinuxSoundPlayer::LinuxSoundPlayer()
 {

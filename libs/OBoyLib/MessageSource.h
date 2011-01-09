@@ -3,7 +3,7 @@
 #include "Messenger.h"
 #include <string>
 
-namespace OBoyLib
+namespace oboylib
 {
 	class MessageSource
 	{

@@ -3,7 +3,7 @@
 #include <assert.h>
 #include "OBoyUtil.h"
 
-using namespace OBoyLib;
+using namespace oboylib;
 
 #include "CrtDbgNew.h"
 
@@ -101,8 +101,8 @@ void Positionable::setAnchor(Positionable *anchor, bool inheritRotation)
 	
 void Positionable::setPosition(float x, float y) 
 { 
-	mPos.x = x; 
-	mPos.y = y; 
+	mPos.x() = x; 
+	mPos.y() = y; 
 	mPosRegisterDirty = true;
 }
 

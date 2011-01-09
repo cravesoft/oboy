@@ -2,7 +2,7 @@
 
 #include "Gui.h"
 
-namespace OBoy
+namespace oboy
 {
 	class WinGui : public Gui
 	{

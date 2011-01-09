@@ -38,7 +38,7 @@ Demo2::Demo2()
 Demo2::~Demo2()
 {
 	// stop listening to the keyboard:
-	OBoy::Environment::instance()->getKeyboard(0)->removeListener(this);
+	oboy::Environment::instance()->getKeyboard(0)->removeListener(this);
 }
 
 Demo2 *Demo2::instance()
@@ -66,7 +66,7 @@ void Demo2::init()
 void Demo2::load()
 {
 	// load the common resource group:
-	OBoy::ResourceManager *rm = OBoy::Environment::instance()->getResourceManager();
+	oboy::ResourceManager *rm = oboy::Environment::instance()->getResourceManager();
 	rm->parseResourceFile("res/resources.xml",NULL);
 	rm->loadResourceGroup("common");
 }
@@ -74,14 +74,14 @@ void Demo2::load()
 void Demo2::loadComplete()
 {
 	// start listening to the keyboard:
-	OBoy::Environment::instance()->getKeyboard(0)->addListener(this);
+	oboy::Environment::instance()->getKeyboard(0)->addListener(this);
 
 	// set the load complete flag (this will trigger 
 	// the start of the game in the update method):
 	mLoadComplete = true;
 
 	// fetch whatever resources we need:
-	OBoy::ResourceManager *rm = OBoy::Environment::instance()->getResourceManager();
+	oboy::ResourceManager *rm = oboy::Environment::instance()->getResourceManager();
 	mShipImage = rm->getImage("IMAGE_SHIP");
 	mThrustImage = rm->getImage("IMAGE_THRUST");
 	mFont = rm->getFont("FONT_MAIN");
@@ -103,7 +103,7 @@ void Demo2::nextLevel()
 
 	// create new ship:
 	mShip = new Body(SHIP);
-	mLastRespawn = OBoy::Environment::instance()->getTime();
+	mLastRespawn = oboy::Environment::instance()->getTime();
 
 	// put ship in center of screen
 	// create some asteroids:
@@ -122,7 +122,7 @@ void Demo2::nextLevel()
 
 void Demo2::update(float dt)
 {
-	OBoy::Graphics *g = OBoy::Environment::instance()->getGraphics();
+	oboy::Graphics *g = oboy::Environment::instance()->getGraphics();
 	float w = (float)g->getWidth();
 	float h = (float)g->getHeight();
 
@@ -148,7 +148,7 @@ void Demo2::update(float dt)
 		// accelerate:
 		if (mThrust)
 		{
-			mShip->mVel += rotate(OBoyLib::Vector2(0,-SHIP_ACCELERATION), -deg2rad(mShip->mRot));
+			mShip->mVel += rotate(oboylib::Vector2(0,-SHIP_ACCELERATION), -deg2rad(mShip->mRot));
 		}
 
 		// cap velocity:
@@ -160,16 +160,16 @@ void Demo2::update(float dt)
 		// dampen ship velocity:
 		mShip->mVel *= (1-SHIP_DAMPENING_FACTOR*dt);
 	}
-	else if (!mGameOver && OBoy::Environment::instance()->getTime() > mTimeOfDeath + RESPAWN_DELAY)
+	else if (!mGameOver && oboy::Environment::instance()->getTime() > mTimeOfDeath + RESPAWN_DELAY)
 	{
 		// respawn:
 		mShip = new Body(SHIP);
-		mLastRespawn = OBoy::Environment::instance()->getTime();
+		mLastRespawn = oboy::Environment::instance()->getTime();
 
 		// if the thruster is on, play the sound:
 		if (mThrust)
 		{
-			OBoy::Environment::instance()->getSoundPlayer()->playSound(mThrustSound);
+			oboy::Environment::instance()->getSoundPlayer()->playSound(mThrustSound);
 		}
 	}
 
@@ -188,15 +188,15 @@ void Demo2::update(float dt)
 				switch (type)
 				{
 				case BIG_ASTEROID:
-					mAsteroids.push_back(new Body(MEDIUM_ASTEROID, mAsteroids[i]->mPos.x, mAsteroids[i]->mPos.y));
-					mAsteroids.push_back(new Body(MEDIUM_ASTEROID, mAsteroids[i]->mPos.x, mAsteroids[i]->mPos.y));
+					mAsteroids.push_back(new Body(MEDIUM_ASTEROID, mAsteroids[i]->mPos.x(), mAsteroids[i]->mPos.y()));
+					mAsteroids.push_back(new Body(MEDIUM_ASTEROID, mAsteroids[i]->mPos.x(), mAsteroids[i]->mPos.y()));
 					break;
 				case MEDIUM_ASTEROID:
-					mAsteroids.push_back(new Body(SMALL_ASTEROID, mAsteroids[i]->mPos.x, mAsteroids[i]->mPos.y));
-					mAsteroids.push_back(new Body(SMALL_ASTEROID, mAsteroids[i]->mPos.x, mAsteroids[i]->mPos.y));
+					mAsteroids.push_back(new Body(SMALL_ASTEROID, mAsteroids[i]->mPos.x(), mAsteroids[i]->mPos.y()));
+					mAsteroids.push_back(new Body(SMALL_ASTEROID, mAsteroids[i]->mPos.x(), mAsteroids[i]->mPos.y()));
 					break;
 				case SMALL_ASTEROID:
-					mExplosions.push_back(new Explosion(mAsteroids[i]->mPos.x, mAsteroids[i]->mPos.y, mAsteroids[i]->mRadius));
+					mExplosions.push_back(new Explosion(mAsteroids[i]->mPos.x(), mAsteroids[i]->mPos.y(), mAsteroids[i]->mRadius));
 				}
 
 				// mark the hit asteroid for death:
@@ -206,7 +206,7 @@ void Demo2::update(float dt)
 				mBullets[j]->mTimeOfDeath = -1;
 
 				// play a sound:
-				OBoy::Environment::instance()->getSoundPlayer()->playSound(mBoomSound);
+				oboy::Environment::instance()->getSoundPlayer()->playSound(mBoomSound);
 
 				// increment score:
 				mScore++;
@@ -217,7 +217,7 @@ void Demo2::update(float dt)
 		if (mShip!=NULL && mAsteroids[i]->collidesWith(mShip))
 		{
 			// if we are not in the invulnerability period:
-			if (OBoy::Environment::instance()->getTime()-mLastRespawn > INVULNERABILITY_PERIOD)
+			if (oboy::Environment::instance()->getTime()-mLastRespawn > INVULNERABILITY_PERIOD)
 			{
 				death();
 			}
@@ -244,7 +244,7 @@ void Demo2::update(float dt)
 	}
 
 	// tick the bullets:
-	float t = OBoy::Environment::instance()->getTime();
+	float t = oboy::Environment::instance()->getTime();
 	for (int i=(int)mBullets.size()-1 ; i>=0 ; i--)
 	{
 		mBullets[i]->update(dt);
@@ -261,16 +261,16 @@ void Demo2::update(float dt)
 	}
 }
 
-void Demo2::draw(OBoy::Graphics *g)
+void Demo2::draw(oboy::Graphics *g)
 {
 	mDrawCount++;
 
 	if (mShip!=NULL)
 	{
-		bool invulnerable = OBoy::Environment::instance()->getTime()-mLastRespawn < INVULNERABILITY_PERIOD;
+		bool invulnerable = oboy::Environment::instance()->getTime()-mLastRespawn < INVULNERABILITY_PERIOD;
 
 		// draw the ship:
-		if  (!invulnerable || ((int)(OBoy::Environment::instance()->getTime()*1000))%100<50)
+		if  (!invulnerable || ((int)(oboy::Environment::instance()->getTime()*1000))%100<50)
 		{
 			mShip->draw(g);
 
@@ -279,8 +279,13 @@ void Demo2::draw(OBoy::Graphics *g)
 			{
 				// draw the thruster image:
 				g->pushTransform();
-					g->rotateDeg(mShip->mRot);
-					g->translate(mShip->mPos.x,mShip->mPos.y);
+#ifdef OBOY_PLATFORM_WIN32
+					g->rotate(mShip->mRot);
+					g->translate(mShip->mPos.x(),mShip->mPos.y());
+#else
+          g->translate(mShip->mPos.x(),mShip->mPos.y());
+					g->rotate(mShip->mRot);
+#endif
 					g->drawImage(mThrustImage);
 				g->popTransform();
 				
@@ -319,7 +324,7 @@ void Demo2::draw(OBoy::Graphics *g)
 		g->popTransform();
 
 		// draw score:
-		OBoy::UString score = OBoy::UString::format("%04d",mScore);
+		oboy::UString score = oboy::UString::format("%04d",mScore);
 		g->setColorizationEnabled(true);
 		g->setColor(0xffffffff);
 		g->pushTransform();
@@ -332,35 +337,35 @@ void Demo2::draw(OBoy::Graphics *g)
 	// if the game is over:
 	if (mGameOver)
 	{
-		OBoy::UString str1("GAME OVER");
-		OBoy::UString str2("press ENTER to restart");
+		oboy::UString str1("GAME OVER");
+		oboy::UString str2("press ENTER to restart");
 		float str2scale = 0.5f;
-		float x1 = (OBoy::Environment::screenWidth() - mFont->getStringWidth(str1)) / 2.0f;
-		float x2 = (OBoy::Environment::screenWidth() - mFont->getStringWidth(str2)*str2scale) / 2.0f;
+		float x1 = (oboy::Environment::screenWidth() - mFont->getStringWidth(str1)) / 2.0f;
+		float x2 = (oboy::Environment::screenWidth() - mFont->getStringWidth(str2)*str2scale) / 2.0f;
 		g->pushTransform();
-			g->translate(x1, OBoy::Environment::screenHeight()/2.0f - 50.0f);
+			g->translate(x1, oboy::Environment::screenHeight()/2.0f - 50.0f);
 			mFont->drawString(g,str1);
 		g->popTransform();
 		g->pushTransform();
-			g->translate(x2, OBoy::Environment::screenHeight()/2.0f + 50.0f);
+			g->translate(x2, oboy::Environment::screenHeight()/2.0f + 50.0f);
 			mFont->drawString(g,str2,str2scale);
 		g->popTransform();
 	}
 }
 
-void Demo2::keyUp(wchar_t unicode, OBoy::Keyboard::Key key, OBoy::Keyboard::Modifiers mods)
+void Demo2::keyUp(wchar_t unicode, oboy::Keyboard::Key key, oboy::Keyboard::Modifiers mods)
 {
 	switch (key)
 	{
-	case OBoy::Keyboard::KEY_LEFT:
+	case oboy::Keyboard::KEY_LEFT:
 		mLeft = false;
 		break;
-	case OBoy::Keyboard::KEY_RIGHT:
+	case oboy::Keyboard::KEY_RIGHT:
 		mRight = false;
 		break;
-	case OBoy::Keyboard::KEY_UP:
+	case oboy::Keyboard::KEY_UP:
 		mThrust = false;
-		OBoy::Environment::instance()->getSoundPlayer()->stopSound(mThrustSound);
+		oboy::Environment::instance()->getSoundPlayer()->stopSound(mThrustSound);
 		break;
 	}
 
@@ -372,25 +377,25 @@ void Demo2::keyUp(wchar_t unicode, OBoy::Keyboard::Key key, OBoy::Keyboard::Modi
 	}
 }
 
-void Demo2::keyDown(wchar_t unicode, OBoy::Keyboard::Key key, OBoy::Keyboard::Modifiers mods)
+void Demo2::keyDown(wchar_t unicode, oboy::Keyboard::Key key, oboy::Keyboard::Modifiers mods)
 {
 	switch (key)
 	{
-	case OBoy::Keyboard::KEY_ESCAPE:
+	case oboy::Keyboard::KEY_ESCAPE:
 		// on escape, exit game:
-		OBoy::Environment::instance()->stopMainLoop();
+		oboy::Environment::instance()->stopMainLoop();
 		break;
-	case OBoy::Keyboard::KEY_LEFT:
+	case oboy::Keyboard::KEY_LEFT:
 		mLeft = true;
 		break;
-	case OBoy::Keyboard::KEY_RIGHT:
+	case oboy::Keyboard::KEY_RIGHT:
 		mRight = true;
 		break;
-	case OBoy::Keyboard::KEY_UP:
+	case oboy::Keyboard::KEY_UP:
 		mThrust = true;
-		OBoy::Environment::instance()->getSoundPlayer()->playSound(mThrustSound,1,true);
+		oboy::Environment::instance()->getSoundPlayer()->playSound(mThrustSound,1,true);
 		break;
-	case OBoy::Keyboard::KEY_RETURN:
+	case oboy::Keyboard::KEY_RETURN:
 		if (mGameOver)
 		{
 			newGame();
@@ -401,11 +406,11 @@ void Demo2::keyDown(wchar_t unicode, OBoy::Keyboard::Key key, OBoy::Keyboard::Mo
 	if (unicode==' ' && mGunArmed && !mGameOver && mShip!=NULL)
 	{
 		// add a bullet:
-		OBoyLib::Vector2 vel = rotate(OBoyLib::Vector2(0.0f,-BULLET_SPEED),-deg2rad(mShip->mRot));
-		mBullets.push_back(new Body(BULLET, mShip->mPos.x, mShip->mPos.y, vel.x, vel.y));
+		oboylib::Vector2 vel = rotate(oboylib::Vector2(0.0f,-BULLET_SPEED),-deg2rad(mShip->mRot));
+		mBullets.push_back(new Body(BULLET, mShip->mPos.x(), mShip->mPos.y(), vel.x(), vel.y()));
 
 		// make a sound:
-		OBoy::Environment::playSound("SOUND_FIRE");
+		oboy::Environment::playSound("SOUND_FIRE");
 
 		// gun is no longer armed:
 		mGunArmed = false;
@@ -415,18 +420,18 @@ void Demo2::keyDown(wchar_t unicode, OBoy::Keyboard::Key key, OBoy::Keyboard::Mo
 void Demo2::death()
 {
 	// create an explosion:
-	mExplosions.push_back(new Explosion(mShip->mPos.x, mShip->mPos.y, mShip->mRadius));
-	mExplosions.push_back(new Explosion(mShip->mPos.x, mShip->mPos.y, mShip->mRadius));
+	mExplosions.push_back(new Explosion(mShip->mPos.x(), mShip->mPos.y(), mShip->mRadius));
+	mExplosions.push_back(new Explosion(mShip->mPos.x(), mShip->mPos.y(), mShip->mRadius));
 
 	// destroy ship:
 	delete mShip;
 	mShip = NULL;
 
 	// make sound:
-	OBoy::Environment::instance()->getSoundPlayer()->playSound(mBoomSound);
+	oboy::Environment::instance()->getSoundPlayer()->playSound(mBoomSound);
 
 	// stop thruster sound if it's playing:
-	OBoy::Environment::instance()->getSoundPlayer()->stopSound(mThrustSound);
+	oboy::Environment::instance()->getSoundPlayer()->stopSound(mThrustSound);
 
 	// decrement lives and see if game is over:
 	mLives--;
@@ -436,7 +441,7 @@ void Demo2::death()
 	}
 
 	// mark time of death:
-	mTimeOfDeath = OBoy::Environment::instance()->getTime();
+	mTimeOfDeath = oboy::Environment::instance()->getTime();
 }
 
 void Demo2::gameOver()

@@ -1,26 +1,21 @@
 #pragma once
 
-#include "OBoyLib/CrtDbgInc.h"
+#include "oboylib/CrtDbgInc.h"
 #include "Graphics.h"
+#include "Texturable.h"
 
-namespace OBoy
+namespace oboy
 {
-  class Image;
-
-	class Sphere
+  class Sphere : public Texturable
 	{
 	public:
 
-    Sphere(float radius, int numSlices, int numStacks) : mImage(NULL) {}
+    Sphere(float radius, unsigned int numSlices, unsigned int numStacks) {}
 		virtual ~Sphere() {}
 
 		virtual void setColor(Color color) = 0;
 
-    inline void setImage(Image *image) { mImage = image; };
-    inline Image *getImage() const { return mImage; };
+    virtual bool build() = 0;
 
-  private:
-
-    Image *mImage;
 	};
 }

@@ -4,7 +4,7 @@
 #include "Storage.h"
 #include <map>
 
-namespace OBoy
+namespace oboy
 {
 
 	class LinuxStorage : public Storage

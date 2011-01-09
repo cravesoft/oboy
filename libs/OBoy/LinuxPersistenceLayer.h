@@ -1,19 +1,19 @@
 #pragma once
 
-#include "OBoyLib/CrtDbgInc.h"
+#include "oboylib/CrtDbgInc.h"
 
 #include "PersistenceLayer.h"
 #include <map>
 #include <string>
-#include "OBoyLib/UString.h"
+#include "oboylib/UString.h"
 
-namespace OBoy
+namespace oboy
 {
 	class LinuxPersistenceLayer : public PersistenceLayer
 	{
 	public:
 
-		LinuxPersistenceLayer(const OBoy::UString &filename, unsigned char *key);
+		LinuxPersistenceLayer(const oboy::UString &filename, unsigned char *key);
 		virtual ~LinuxPersistenceLayer();
 
 		virtual void putString(const std::string &name, const std::string &value, bool persist=false);

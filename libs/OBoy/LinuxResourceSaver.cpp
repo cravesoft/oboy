@@ -5,9 +5,9 @@
 #include "LinuxGLInterface.h"
 #include "LinuxImage.h"
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 LinuxResourceSaver::LinuxResourceSaver(const std::string &language1, 
 									 const std::string &language2,

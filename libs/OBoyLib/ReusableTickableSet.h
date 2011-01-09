@@ -3,7 +3,7 @@
 #include "ReusableTickable.h"
 #include <vector>
 
-namespace OBoyLib
+namespace oboylib
 {
 	class ReusableTickableSet : public ReusableTickable
 	{

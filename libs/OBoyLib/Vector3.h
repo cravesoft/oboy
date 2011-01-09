@@ -4,44 +4,189 @@
 
 #include <math.h>
 #include "OBoyMath.h"
+#include "Vector2.h"
 
-namespace OBoyLib
+namespace oboylib
 {
 	class Vector3
 	{
-	public:
-		
-		Vector3(float x=0, float y=0, float z=0) { this->x = x; this->y = y; this->z = z; }
-		Vector3(const Vector3 &vec) { x=vec.x; y=vec.y; z=vec.z; }
-		virtual ~Vector3() {}
+  public:
 
-		Vector3 operator+(const Vector3 &v) const { return Vector3(x+v.x, y+v.y, z+v.z); }
-		Vector3 operator-(const Vector3 &v) const { return Vector3(x-v.x, y-v.y, z-v.z); }
-		Vector3 operator-() const { return Vector3(-x, -y, -z); }
-		Vector3 operator*(float t) const { return Vector3(t*x, t*y, t*z); }
-		Vector3 operator/(float t) const { return Vector3(x/t, y/t, z/t); }
-		void operator+=(const Vector3 &v) { x+=v.x; y+=v.y; z+=v.z; }
-		void operator-=(const Vector3 &v) { x-=v.x; y-=v.y; z-=v.z; }
-		void operator*=(float t) { x*=t; y*=t; z*=t; }
-		void operator/=(float t) { x/=t; y/=t; z/=t; }
+      /** Type of Vec class.*/
+      typedef float valueType;
 
-		void operator=(const Vector3 &v) { x=v.x; y=v.y; z=v.z; }
+      /** Number of vector components. */
+      enum { numComponents = 3 };
+      
+      valueType mValues[3];
 
-		bool operator==(const Vector3 &v) { return x==v.x && y==v.y && z==v.z; }
-		bool operator!=(const Vector3 &v) { return x!=v.x || y!=v.y || z!=v.z; }
+      Vector3() { mValues[0]=0.0f; mValues[1]=0.0f; mValues[2]=0.0f;}
+      Vector3(valueType x,valueType y,valueType z) { mValues[0]=x; mValues[1]=y; mValues[2]=z; }
+      Vector3(const Vector2& v2,valueType zz)
+      {
+          mValues[0] = v2[0];
+          mValues[1] = v2[1];
+          mValues[2] = zz;
+      }
 
-		float dot(const Vector3 &v) const { return x*v.x + y*v.y + z*v.z; }
-		float magnitude() const { return boy_sqrtf(x*x + y*y + z*z); }
-		float magnitudeSquared() const { return x*x+y*y+z*z; }
 
-		Vector3 normalize() const { float aMag = magnitude(); return aMag!=0 ? (*this)/aMag : *this; }
+      inline bool operator == (const Vector3& v) const { return mValues[0]==v.mValues[0] && mValues[1]==v.mValues[1] && mValues[2]==v.mValues[2]; }
+      
+      inline bool operator != (const Vector3& v) const { return mValues[0]!=v.mValues[0] || mValues[1]!=v.mValues[1] || mValues[2]!=v.mValues[2]; }
 
-		Vector3 perp() const { return Vector3(-y, x, z); }
+      inline bool operator <  (const Vector3& v) const
+      {
+          if (mValues[0]<v.mValues[0]) return true;
+          else if (mValues[0]>v.mValues[0]) return false;
+          else if (mValues[1]<v.mValues[1]) return true;
+          else if (mValues[1]>v.mValues[1]) return false;
+          else return (mValues[2]<v.mValues[2]);
+      }
 
-	public:
+      inline valueType* ptr() { return mValues; }
+      inline const valueType* ptr() const { return mValues; }
 
-		float x;
-		float y;
-    float z;
-	};
+      inline void set( valueType x, valueType y, valueType z)
+      {
+          mValues[0]=x; mValues[1]=y; mValues[2]=z;
+      }
+
+      inline void set( const Vector3& rhs)
+      {
+          mValues[0]=rhs.mValues[0]; mValues[1]=rhs.mValues[1]; mValues[2]=rhs.mValues[2];
+      }
+
+      inline valueType& operator [] (int i) { return mValues[i]; }
+      inline valueType operator [] (int i) const { return mValues[i]; }
+
+      inline valueType& x() { return mValues[0]; }
+      inline valueType& y() { return mValues[1]; }
+      inline valueType& z() { return mValues[2]; }
+
+      inline valueType x() const { return mValues[0]; }
+      inline valueType y() const { return mValues[1]; }
+      inline valueType z() const { return mValues[2]; }
+
+      /** Dot product. */
+      inline valueType operator * (const Vector3& rhs) const
+      {
+          return mValues[0]*rhs.mValues[0]+mValues[1]*rhs.mValues[1]+mValues[2]*rhs.mValues[2];
+      }
+
+      /** Cross product. */
+      inline const Vector3 operator ^ (const Vector3& rhs) const
+      {
+          return Vector3(mValues[1]*rhs.mValues[2]-mValues[2]*rhs.mValues[1],
+                       mValues[2]*rhs.mValues[0]-mValues[0]*rhs.mValues[2] ,
+                       mValues[0]*rhs.mValues[1]-mValues[1]*rhs.mValues[0]);
+      }
+      inline const Vector3 cross(const Vector3 &rhs) const
+      {
+        return Vector3(mValues[1]*rhs.mValues[2]-mValues[2]*rhs.mValues[1],
+                       mValues[2]*rhs.mValues[0]-mValues[0]*rhs.mValues[2] ,
+                       mValues[0]*rhs.mValues[1]-mValues[1]*rhs.mValues[0]);
+      }
+
+      /** Multiply by scalar. */
+      inline const Vector3 operator * (valueType rhs) const
+      {
+          return Vector3(mValues[0]*rhs, mValues[1]*rhs, mValues[2]*rhs);
+      }
+
+      /** Unary multiply by scalar. */
+      inline Vector3& operator *= (valueType rhs)
+      {
+          mValues[0]*=rhs;
+          mValues[1]*=rhs;
+          mValues[2]*=rhs;
+          return *this;
+      }
+
+      /** Divide by scalar. */
+      inline const Vector3 operator / (valueType rhs) const
+      {
+          return Vector3(mValues[0]/rhs, mValues[1]/rhs, mValues[2]/rhs);
+      }
+
+      /** Unary divide by scalar. */
+      inline Vector3& operator /= (valueType rhs)
+      {
+          mValues[0]/=rhs;
+          mValues[1]/=rhs;
+          mValues[2]/=rhs;
+          return *this;
+      }
+
+      /** Binary vector add. */
+      inline const Vector3 operator + (const Vector3& rhs) const
+      {
+          return Vector3(mValues[0]+rhs.mValues[0], mValues[1]+rhs.mValues[1], mValues[2]+rhs.mValues[2]);
+      }
+
+      /** Unary vector add. Slightly more efficient because no temporary
+        * intermediate object.
+      */
+      inline Vector3& operator += (const Vector3& rhs)
+      {
+          mValues[0] += rhs.mValues[0];
+          mValues[1] += rhs.mValues[1];
+          mValues[2] += rhs.mValues[2];
+          return *this;
+      }
+
+      /** Binary vector subtract. */
+      inline const Vector3 operator - (const Vector3& rhs) const
+      {
+          return Vector3(mValues[0]-rhs.mValues[0], mValues[1]-rhs.mValues[1], mValues[2]-rhs.mValues[2]);
+      }
+
+      /** Unary vector subtract. */
+      inline Vector3& operator -= (const Vector3& rhs)
+      {
+          mValues[0]-=rhs.mValues[0];
+          mValues[1]-=rhs.mValues[1];
+          mValues[2]-=rhs.mValues[2];
+          return *this;
+      }
+
+      /** Negation operator. Returns the negative of the Vector3. */
+      inline const Vector3 operator - () const
+      {
+          return Vector3 (-mValues[0], -mValues[1], -mValues[2]);
+      }
+
+      /** Length of the vector = sqrt( vec . vec ) */
+      inline valueType magnitude() const
+      {
+          return sqrtf( mValues[0]*mValues[0] + mValues[1]*mValues[1] + mValues[2]*mValues[2] );
+      }
+
+      /** Length squared of the vector = vec . vec */
+      inline valueType magnitudeSquared() const
+      {
+          return mValues[0]*mValues[0] + mValues[1]*mValues[1] + mValues[2]*mValues[2];
+      }
+
+      /** Normalize the vector so that it has length unity.
+        * Returns the previous length of the vector.
+      */
+      inline valueType normalize()
+      {
+          valueType norm = Vector3::magnitude();
+          if (norm>0.0)
+          {
+              valueType inv = 1.0f/norm;
+              mValues[0] *= inv;
+              mValues[1] *= inv;
+              mValues[2] *= inv;
+          }                
+          return( norm );
+      }
+
+  };
+
+const Vector3 X_AXIS(1.0,0.0,0.0);
+const Vector3 Y_AXIS(0.0,1.0,0.0);
+const Vector3 Z_AXIS(0.0,0.0,1.0);
+
 }

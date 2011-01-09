@@ -1,7 +1,7 @@
 #include "LinuxPersistenceLayer.h"
 
 #include <assert.h>
-#include "OBoyLib/OBoyUtil.h"
+#include "oboylib/OBoyUtil.h"
 #include "Crypto.h"
 #include <iostream>
 #include <sstream>
@@ -12,9 +12,9 @@
 #	include <shlobj.h>
 //#endif
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 LinuxPersistenceLayer::LinuxPersistenceLayer(const UString &filename, unsigned char *key)
 {
@@ -106,7 +106,7 @@ void LinuxPersistenceLayer::load()
 
 		char *decData;
 		int decDataSize;
-		OBoy::aesDecrypt(mKey,data,size,&decData,&decDataSize);
+		oboy::aesDecrypt(mKey,data,size,&decData,&decDataSize);
 
 		parse(decData,decDataSize);
 
@@ -138,7 +138,7 @@ void LinuxPersistenceLayer::save()
 	int dataSize = (int)writeStr.str().size();
 	int encryptedDataSize;
 	char *encryptedData;
-	OBoy::aesEncrypt(mKey,
+	oboy::aesEncrypt(mKey,
 		writeStr.str().c_str(), dataSize,
 		&encryptedData, &encryptedDataSize);
 

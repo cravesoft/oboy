@@ -1,7 +1,7 @@
 #include "LinuxEnvironment.h"
 
 #include <assert.h>
-#include "OBoyLib/md5.h"
+#include "oboylib/md5.h"
 #include <fstream>
 #include "Game.h"
 #include "irrKlang.h"
@@ -17,7 +17,11 @@
 #include "LinuxSoundPlayer.h"
 #include "LinuxTriStrip.h"
 #include "LinuxLineStrip.h"
+#include "LinuxLines.h"
 #include "LinuxSphere.h"
+#include "LinuxCube.h"
+#include "LinuxTorus.h"
+#include "LinuxPlane.h"
 #include "LinuxStorage.h"
 
 // the higher this number is, the lower the framerate will 
@@ -27,9 +31,9 @@
 // uncomment this to get timing info for every update/draw call on the console
 //#define _VERBOSE_TIMING_STATS
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 // an environment is a static object now so ctor/dtor stuff should be done in init/destroy
 LinuxEnvironment::LinuxEnvironment() {}
@@ -101,8 +105,8 @@ void LinuxEnvironment::init(Game *game,
 		refreshRate = atoi(rrStr->second.c_str());
 	}
 	mPlatformInterface = new LinuxGLInterface(game, screenWidth, screenHeight, windowTitle, windowed, refreshRate);
-	mLastKnownWindowSize.x = screenWidth;
-	mLastKnownWindowSize.y = screenHeight;
+	mLastKnownWindowSize.x() = screenWidth;
+	mLastKnownWindowSize.y() = screenHeight;
 
 	// resource loader:
 	std::vector<std::string> langs;
@@ -302,32 +306,25 @@ LineStrip *LinuxEnvironment::createLineStrip(int numVerts)
 	return strip;
 }
 
+Lines *LinuxEnvironment::createLines(int numVerts)
+{
+	LinuxLines *lines = new LinuxLines(numVerts);
+	return lines;
+}
+
 Sphere *LinuxEnvironment::createSphere(float radius, int numSlices, int numStacks)
 {
   LinuxSphere *sphere = new LinuxSphere(radius, numSlices, numStacks);
 	return sphere;
 }
 
-SDL_semaphore *gLoadingSemaphore;
-
-int loadingProc(void *data)
+Cube *LinuxEnvironment::createCube(float halfExtend)
 {
-	Game *game = (Game*)data;
-
-	// create a locked semaphore for synchronizing with loading thread:
-	gLoadingSemaphore = SDL_CreateSemaphore(0);
-
-	// give priority to loading:
-//	::SetThreadPriority(::GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
-
-	// load the game:
-	game->load();
-
-	// unlock the loading semaphore:
-	SDL_SemPost(gLoadingSemaphore);
-
-	return 0;
+  LinuxCube *cube = new LinuxCube(halfExtend);
+	return cube;
 }
+
+//SDL_semaphore *gLoadingSemaphore;
 
 void LinuxEnvironment::startMainLoop()
 {
@@ -343,12 +340,14 @@ void LinuxEnvironment::startMainLoop()
 	mGame->init();
 
 	// semaphore for synchronizing with loading thread:
-	gLoadingSemaphore = NULL;
+	//gLoadingSemaphore = NULL;
 
 	// start loading thread:
-	SDL_CreateThread(loadingProc, mGame);
+	//SDL_CreateThread(loadingProc, mGame);
+	mGame->load();
+  mGame->loadComplete();
 
-	// timing variables:
+  // timing variables:
 	mT0 = SDL_GetTicks();
 	mIntervalStartTime = SDL_GetTicks();
 
@@ -357,7 +356,7 @@ void LinuxEnvironment::startMainLoop()
 	{
 		// keep track of when this iteration of the main loop started:
 		Uint32 t0 = SDL_GetTicks();
-
+#if 0
 		// if the loading thread is done:
 		if (gLoadingSemaphore!=NULL && SDL_SemTryWait(gLoadingSemaphore)==0)
 		{
@@ -368,7 +367,7 @@ void LinuxEnvironment::startMainLoop()
 			// handle loading completion:
 			mGame->loadComplete();
 		}
-
+#endif
 		// handle events (mouse movement, window stuff):
 		MSG msg;
 		msg.message = WM_NULL;
@@ -423,6 +422,9 @@ void LinuxEnvironment::update()
 
 	// tick the sound player:
 	getSoundPlayer()->tick();
+
+  // inject input and change of window size
+  mPlatformInterface->injectInput();
 
 	// update:
 	Uint32 t = SDL_GetTicks();
@@ -605,20 +607,20 @@ void LinuxEnvironment::updateVirtualMice()
 {
 	for (int i=0 ; i<MOUSE_COUNT_MAX ; i++)
 	{
-		int x = mMouseVelocity[i].x;
-		int y = mMouseVelocity[i].y;
+		int x = mMouseVelocity[i].x();
+		int y = mMouseVelocity[i].y();
 		if (x!=0 || y!=0)
 		{
 			Mouse *m = mMice[i];
 			m->fireMoveEvent(
-				m->getPosition().x + x,
-				m->getPosition().y + y);
+				m->getPosition().x() + x,
+				m->getPosition().y() + y);
 		}
 	}
 }
 
 #define VIRTUAL_MOUSE_SPEED 2
-bool LinuxEnvironment::processVirtualMouseEvents(UINT key, bool down)
+bool LinuxEnvironment::processVirtualMouseEvents(unsigned int key, bool down)
 {
 	if (!isDebugEnabled())
 	{
@@ -630,21 +632,21 @@ bool LinuxEnvironment::processVirtualMouseEvents(UINT key, bool down)
 		switch(key)
 		{
 		case VK_UP:
-			mMouseVelocity[1].y = -VIRTUAL_MOUSE_SPEED;
+			mMouseVelocity[1].y() = -VIRTUAL_MOUSE_SPEED;
 			return true;
 		case VK_DOWN:
-			mMouseVelocity[1].y = VIRTUAL_MOUSE_SPEED;
+			mMouseVelocity[1].y() = VIRTUAL_MOUSE_SPEED;
 			return true;
 		case VK_RIGHT:
-			mMouseVelocity[1].x = VIRTUAL_MOUSE_SPEED;
+			mMouseVelocity[1].x() = VIRTUAL_MOUSE_SPEED;
 			return true;
 		case VK_LEFT:
-			mMouseVelocity[1].x = -VIRTUAL_MOUSE_SPEED;
+			mMouseVelocity[1].x() = -VIRTUAL_MOUSE_SPEED;
 			return true;
 		case VK_OEM_2: // this is / and ? for US keyboards
 			if (!mIsLeftMouseButtonDown[1])
 			{
-				mMice[1]->fireDownEvent(OBoy::Mouse::BUTTON_LEFT,1);
+				mMice[1]->fireDownEvent(oboy::Mouse::BUTTON_LEFT,1);
 				mIsLeftMouseButtonDown[1] = true;
 			}
 			return true;
@@ -656,16 +658,16 @@ bool LinuxEnvironment::processVirtualMouseEvents(UINT key, bool down)
 		{
 		case VK_UP:
 		case VK_DOWN:
-			mMouseVelocity[1].y = 0;
+			mMouseVelocity[1].y() = 0;
 			return true;
 		case VK_RIGHT:
 		case VK_LEFT:
-			mMouseVelocity[1].x = 0;
+			mMouseVelocity[1].x() = 0;
 			return true;
 		case VK_OEM_2: // this is / and ? for US keyboards
 			if (mIsLeftMouseButtonDown[1])
 			{
-				getMouse(1)->fireUpEvent(OBoy::Mouse::BUTTON_LEFT);
+				getMouse(1)->fireUpEvent(oboy::Mouse::BUTTON_LEFT);
 				mIsLeftMouseButtonDown[1] = false;
 			}
 			return true;
@@ -836,10 +838,10 @@ void LinuxEnvironment::checkMouseInBounds()
 	if (GetCursorPos(&p) && GetWindowInfo(DXUTGetHWND(),&info))
 	{
 		bool mouseInBounds = 
-			p.x>=info.rcClient.left && 
-			p.x<=info.rcClient.right &&
-			p.y>=info.rcClient.top &&
-			p.y<=info.rcClient.bottom;
+			p.x()>=info.rcClient.left && 
+			p.x()<=info.rcClient.right &&
+			p.y()>=info.rcClient.top &&
+			p.y()<=info.rcClient.bottom;
 
 		if (mouseInBounds!=mMouseInBounds)
 		{

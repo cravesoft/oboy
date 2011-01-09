@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-namespace OBoyLib
+namespace oboylib
 {
 	class MessageListener;
 	class MessageSource;

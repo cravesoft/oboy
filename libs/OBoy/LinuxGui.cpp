@@ -4,7 +4,7 @@
 #include <RendererModules/OpenGL/CEGUIOpenGLRenderer.h>
 #include <CEGUIDefaultResourceProvider.h>
 
-using namespace OBoy;
+using namespace oboy;
 
 LinuxGui::LinuxGui() : Gui()
 {

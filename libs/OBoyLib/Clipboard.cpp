@@ -6,7 +6,7 @@
 
 	// hack for getting things to compile with old DXSDK:
 	#include <windows.h>
-	std::string OBoyLib::getClipboardText()
+	std::string oboylib::getClipboardText()
 	{
 		HGLOBAL hGlobal;		// Global memory handle
 		LPSTR lpszData;			// Pointer to clipboard data
@@ -49,7 +49,7 @@
 
 #else
 
-	std::string OBoyLib::getClipboardText()
+	std::string oboylib::getClipboardText()
 	{
 		return "";
 	}

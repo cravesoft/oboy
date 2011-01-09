@@ -5,9 +5,9 @@
 #include <string.h>  /* memset(), memcpy() */
 #include <string>
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
-void OBoy::aesEncrypt(const unsigned char *key, const char *inData, int inDataSize, char **outData, int *outDataSize)
+void oboy::aesEncrypt(const unsigned char *key, const char *inData, int inDataSize, char **outData, int *outDataSize)
 {
 	// allocate output data buffer:
 	*outDataSize = (inDataSize+15)&(~15); // round up
@@ -39,7 +39,7 @@ void OBoy::aesEncrypt(const unsigned char *key, const char *inData, int inDataSi
 	delete buf;
 }
 
-void OBoy::aesDecrypt(const unsigned char *key, const char *inData, int inDataSize, char **outData, int *outDataSize)
+void oboy::aesDecrypt(const unsigned char *key, const char *inData, int inDataSize, char **outData, int *outDataSize)
 {
 	// allocate output data buffer:
 	*outDataSize = (inDataSize+15)&(~15); // round up
@@ -72,7 +72,7 @@ void OBoy::aesDecrypt(const unsigned char *key, const char *inData, int inDataSi
 	delete buf;
 }
 
-bool OBoy::loadDecrypt(const unsigned char *key, const char *filename, char **outData, int *outDataSize)
+bool oboy::loadDecrypt(const unsigned char *key, const char *filename, char **outData, int *outDataSize)
 {
 	// open the input file:
 	FILE *file = fopen(filename,"rb");
@@ -95,7 +95,7 @@ bool OBoy::loadDecrypt(const unsigned char *key, const char *filename, char **ou
 	if (key!=NULL)
 	{
 		// decrypt it:
-		OBoy::aesDecrypt(key, inData, size, outData, outDataSize);
+		oboy::aesDecrypt(key, inData, size, outData, outDataSize);
 
 		// delete the input data buffer:
 		delete[] inData;

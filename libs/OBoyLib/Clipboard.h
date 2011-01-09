@@ -1,6 +1,6 @@
 #include <string>
 
-namespace OBoyLib
+namespace oboylib
 {
 	std::string getClipboardText();
 }

@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <time.h>
 
-using namespace OBoyLib;
+using namespace oboylib;
 
 static bool gShowLeaks = false;
 static bool gAllocMapValid = false;
@@ -27,7 +27,7 @@ AllocMap::~AllocMap()
 	gAllocMapValid = false; 
 }
 
-int OBoyLib::AllocHook(int allocType, 
+int oboylib::AllocHook(int allocType, 
 					  void *userData, 
 					  size_t size, 
 					  int blockType, 
@@ -49,12 +49,12 @@ int OBoyLib::AllocHook(int allocType,
 	return true;
 }
 
-void OBoyLib::DumpClientFunction(void *userPortion, size_t blockSize)
+void oboylib::DumpClientFunction(void *userPortion, size_t blockSize)
 {
 	printf("%s : %d\n",userPortion,blockSize);
 }
 
-void OBoyLib::MemAddTrack(void *addr,  size_t asize,  const char* fname, int lnum)
+void oboylib::MemAddTrack(void *addr,  size_t asize,  const char* fname, int lnum)
 {
 	if (!gAllocMapValid)
 	{
@@ -70,7 +70,7 @@ void OBoyLib::MemAddTrack(void *addr,  size_t asize,  const char* fname, int lnu
 	info.seq = gSequenceCounter++;
 };
 
-void OBoyLib::MemRemoveTrack(void* addr)
+void oboylib::MemRemoveTrack(void* addr)
 {
 	if (!gAllocMapValid)
 	{
@@ -84,7 +84,7 @@ void OBoyLib::MemRemoveTrack(void* addr)
 	}
 };
 
-void OBoyLib::DumpUnfreed()
+void oboylib::DumpUnfreed()
 {
 	if (!gAllocMapValid)
 	{

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OBoyLib/CrtDbgInc.h"
+#include "oboylib/CrtDbgInc.h"
 
 #include "irrKlang.h"
 #include <map>
@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace OBoy
+namespace oboy
 {
 	class LinuxSound;
 

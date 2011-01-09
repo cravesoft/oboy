@@ -2,9 +2,9 @@
 
 #include <assert.h>
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 WinTriStrip::WinTriStrip(int numVerts)
 {
@@ -42,4 +42,9 @@ void WinTriStrip::setColor(Color color)
 	{
 		mVerts[i].color = (D3DCOLOR)color;
 	}
+}
+
+bool WinTriStrip::build()
+{
+  return 0;
 }

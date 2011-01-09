@@ -1,16 +1,16 @@
 #include "GamePad.h"
 
 #include <algorithm>
-#include "OBoyLib/OBoyUtil.h"
+#include "oboylib/OBoyUtil.h"
 #include "Environment.h"
 #include "GamePadListener.h"
 #include "Graphics.h"
 #include "Image.h"
 #include "MouseListener.h"
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 GamePad::GamePad(int id)
 {
@@ -130,24 +130,24 @@ bool GamePad::isButtonDown(Button button)
 	return mIsButtonDown[button];
 }
 
-const OBoyLib::Vector2 &GamePad::getAnalogL()
+const oboylib::Vector2 &GamePad::getAnalogL()
 {
 	return mAnalogL;
 }
 
-const OBoyLib::Vector2 &GamePad::getAnalogR()
+const oboylib::Vector2 &GamePad::getAnalogR()
 {
 	return mAnalogR;
 }
 
 void GamePad::setAnalogL(float x, float y)
 {
-	mAnalogL.x = x;
-	mAnalogL.y = y;
+	mAnalogL.x() = x;
+	mAnalogL.y() = y;
 }
 
 void GamePad::setAnalogR(float x, float y)
 {
-	mAnalogR.x = x;
-	mAnalogR.y = y;
+	mAnalogR.x() = x;
+	mAnalogR.y() = y;
 }

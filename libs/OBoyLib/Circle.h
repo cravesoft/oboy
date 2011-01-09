@@ -3,7 +3,7 @@
 #include "Boundary.h"
 #include <map>
 
-namespace OBoyLib
+namespace oboylib
 {
 	class Circle : public Boundary
 	{

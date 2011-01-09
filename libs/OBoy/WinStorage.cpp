@@ -1,11 +1,11 @@
 #include "WinStorage.h"
 
-#include "OBoyLib/UString.h"
+#include "oboylib/UString.h"
 #include <stdio.h>
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 WinStorage::WinStorage() :
 	mFileKey( 0 )
@@ -44,7 +44,7 @@ Storage::StorageResult WinStorage::FileOpen( const char *pFilePathUtf8, int mode
 		if( pModeStr )
 		{
 			FILE *f = NULL;
-			OBoy::UString pFilePathUnicode(pFilePathUtf8);
+			oboy::UString pFilePathUnicode(pFilePathUtf8);
 			int openResult = _wfopen_s( &f, pFilePathUnicode.wc_str(), pModeStr );
 			if( openResult == 0 )
 			{

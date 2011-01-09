@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OBoyLib/UString.h"
+#include "oboylib/UString.h"
 #include "Environment.h"
 #include "Keyboard.h"
 #include "WinGui.h"
@@ -9,7 +9,7 @@
 #include "SDL.h"
 #include "WinGamePad.h"
 
-namespace OBoy
+namespace oboy
 {
 	class Game;
 	class ResourceLoader;
@@ -49,6 +49,7 @@ namespace OBoy
 		virtual TriStrip			*createTriStrip(int numVerts);
     virtual LineStrip			*createLineStrip(int numVerts);
     virtual Sphere        *createSphere(float radius, int numSlices, int numStacks);
+    virtual Cube          *createCube(float halfExtent);
 		virtual void				startMainLoop();
 		virtual void				stopMainLoop();
 		virtual bool				isShuttingDown();
@@ -111,7 +112,7 @@ namespace OBoy
 		// controllers:
 		Mouse						*mMice[MOUSE_COUNT_MAX];
 		GamePad						*mGamePads[GAMEPAD_COUNT_MAX];
-		OBoyLib::Vector2				mMouseVelocity[MOUSE_COUNT_MAX];
+		oboylib::Vector2				mMouseVelocity[MOUSE_COUNT_MAX];
 		Keyboard					*mKeyboard;
 		bool						mShowSystemMouse;
 
@@ -129,7 +130,7 @@ namespace OBoy
 
 		// graphics stuff:
 		int							mFullScreenToggleDisableCount;
-		OBoyLib::Vector2				mLastKnownWindowSize;
+		oboylib::Vector2				mLastKnownWindowSize;
 		bool						mMouseInBounds;
 
 		// timing related:

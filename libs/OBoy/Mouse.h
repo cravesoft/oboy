@@ -1,10 +1,10 @@
 #pragma once
 
-#include "OBoyLib/Vector2.h"
+#include "oboylib/Vector2.h"
 #include "Controller.h"
 #include <vector>
 
-namespace OBoy
+namespace oboy
 {
 	class MouseListener;
 	class Image;
@@ -25,8 +25,8 @@ namespace OBoy
 		Mouse(int id);
 		virtual ~Mouse();
 
-		const OBoyLib::Vector2 &getPosition();
-		void setPosition(const OBoyLib::Vector2 &pos);
+		const oboylib::Vector2 &getPosition();
+		void setPosition(const oboylib::Vector2 &pos);
 
 		inline int getId() { return mId; }
 
@@ -63,7 +63,7 @@ namespace OBoy
 
 		std::vector<MouseListener*> mListeners;
 		std::vector<MouseListener*> mLowLevelListeners;
-		OBoyLib::Vector2 mPosition;
+		oboylib::Vector2 mPosition;
 		bool mIsVisible;
 		int mId;
 		bool mButtonsEnabled;

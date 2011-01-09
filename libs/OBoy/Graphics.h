@@ -1,17 +1,19 @@
 #pragma once
 
-#include "OBoyLib/CrtDbgInc.h"
+#include "oboylib/CrtDbgInc.h"
 
-#include "OBoyLib/Rect.h"
+#include "oboylib/Rect.h"
 
-namespace OBoy
+namespace oboy
 {
 	typedef unsigned long Color;
 
 	class Image;
 	class TriStrip;
   class LineStrip;
+  class Lines;
   class Sphere;
+  class Cube;
 
 	class Graphics
 	{
@@ -42,7 +44,7 @@ namespace OBoy
 		 * image drawing methods:
 		 */
 		virtual void drawImage(Image *img) = 0;
-		virtual void drawImage(Image *img, const OBoyLib::Rect &subrect) { drawImage(img, (int)subrect.getX(), (int)subrect.getY(), (int)subrect.getWidth(), (int)subrect.getHeight()); }
+		virtual void drawImage(Image *img, const oboylib::Rect &subrect) { drawImage(img, (int)subrect.getX(), (int)subrect.getY(), (int)subrect.getWidth(), (int)subrect.getHeight()); }
 		virtual void drawImage(Image *img, int subrectX, int subrectY, int subrectW, int subrectH) = 0;
 
 		/*
@@ -54,19 +56,19 @@ namespace OBoy
     virtual void drawCircle(int x, int y, float radius, int delta) = 0;
 		virtual void drawTriStrip(TriStrip *strip) = 0;
     virtual void drawLineStrip(LineStrip *strip) = 0;
+    virtual void drawLines(Lines *lines) = 0;
     virtual void drawSphere(Sphere *sphere) = 0;
+    virtual void drawCube(Cube *cube) = 0;
 
 		/*
 		 * rendering transform modification methods:
 		 */
 		virtual void scale(float x, float y) = 0;
-		virtual void rotateDeg(float angle) = 0;
-		virtual void rotateRad(float angle) = 0;
-    virtual void rotateRad(float xangle, float yangle, float zangle) = 0;
+		virtual void rotate(float angle) = 0;
+    virtual void rotate(float xangle, float yangle, float zangle) = 0;
 		virtual void translate(float x, float y) = 0;
 		virtual void preScale(float x, float y) = 0;
-		virtual void preRotateDeg(float angle) = 0;
-		virtual void preRotateRad(float angle) = 0;
+		virtual void preRotate(float angle) = 0;
 		virtual void preTranslate(float x, float y) = 0;
 
 		/*
@@ -81,6 +83,8 @@ namespace OBoy
 		 * use for subsequent drawing operations
 		 */
 		virtual void setColor(Color color) = 0;
+
+    virtual void setLineWidth(float width) = 0;
 
 		/*
 		 * changes the alpha value of the current

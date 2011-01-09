@@ -2,7 +2,7 @@
 
 #include "OBoyUtil.h"
 
-using namespace OBoyLib;
+using namespace oboylib;
 
 #include "CrtDbgNew.h"
 
@@ -36,8 +36,8 @@ void Rect::set(float x, float y, float width, float height, bool isCentered)
 bool Rect::contains(const Vector2 &point)
 {
 	return 
-		point.x>=mMinX && point.x<=mMaxX &&
-		point.y>=mMinY && point.y<=mMaxY;
+		point.x()>=mMinX && point.x()<=mMaxX &&
+		point.y()>=mMinY && point.y()<=mMaxY;
 }
 
 Boundary *Rect::clone()

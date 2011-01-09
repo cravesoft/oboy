@@ -6,7 +6,7 @@
 #include "Graphics.h"
 #include <string>
 
-namespace OBoy
+namespace oboy
 {
 	// define our flexible vertex format;
 	#define BOYFVF D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1
@@ -21,7 +21,9 @@ namespace OBoy
 	class WinImage;
 	class WinTriStrip;
   class WinLineStrip;
+  class WinLines;
   class WinSphere;
+  class WinCube;
 
 	class WinD3DInterface
 	{
@@ -45,8 +47,10 @@ namespace OBoy
     void drawCircle(int x, int y, float radius, int delta, Color color);
 		void drawTriStrip(WinTriStrip *strip);
     void drawLineStrip(WinLineStrip *strip);
+    void drawLines(WinLines *lines);
 		void drawLine(int x0, int y0, int x1, int y1, Color color);
-    void drawSphere(WinSphere *image, DWORD color, float z);
+    void drawSphere(WinSphere *sphere, DWORD color, float z);
+    void drawCube(WinCube *cube, DWORD color, float z);
 
 		// world transformation:
 		void setTransform(D3DXMATRIX &xform);
@@ -83,6 +87,7 @@ namespace OBoy
 		void assertSuccess(HRESULT hr);
 		void drawImage(IDirect3DTexture9 *tex);
     void drawSphere(WinSphere *sphere, IDirect3DTexture9 *tex);
+    void drawCube(WinCube *cube, IDirect3DTexture9 *tex);
 		void printDisplayModes(D3DFORMAT format, bool windowed);
 		void handleError(HRESULT hr);
 
@@ -90,7 +95,7 @@ namespace OBoy
 
 		std::string				mTitle;
 
-		OBoy::Game				*mGame;
+		oboy::Game				*mGame;
 
 		D3DPRESENT_PARAMETERS	mPresentationParameters;
 

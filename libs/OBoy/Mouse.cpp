@@ -1,15 +1,15 @@
 #include "Mouse.h"
 
 #include <algorithm>
-#include "OBoyLib/OBoyUtil.h"
+#include "oboylib/OBoyUtil.h"
 #include "Environment.h"
 #include "Graphics.h"
 #include "Image.h"
 #include "MouseListener.h"
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 Mouse::Mouse(int id)
 {
@@ -69,8 +69,8 @@ void Mouse::fireMoveEvent(float x, float y)
 		return;
 	}
 
-	mPosition.x = x;
-	mPosition.y = y;
+	mPosition.x() = x;
+	mPosition.y() = y;
 	mIsInBounds = true;
 	if (mListeners.size()>0 && isEnabled())
 	{
@@ -188,12 +188,12 @@ void Mouse::fireLeaveEvent()
 	}
 }
 
-const OBoyLib::Vector2 &Mouse::getPosition()
+const oboylib::Vector2 &Mouse::getPosition()
 {
 	return mPosition;
 }
 
-void Mouse::setPosition(const OBoyLib::Vector2 &pos)
+void Mouse::setPosition(const oboylib::Vector2 &pos)
 {
 	mPosition = pos;
 }
@@ -250,7 +250,7 @@ bool Mouse::isInBounds()
 
 bool Mouse::isValidMouseCoord(float x, float y)
 {
-	OBoy::Graphics *g = OBoy::Environment::instance()->getGraphics();
+	oboy::Graphics *g = oboy::Environment::instance()->getGraphics();
 	int gw = g->getWidth();
 	int gh = g->getHeight();
 	if (x >= -gw/2 && x <= gw*3/2 &&

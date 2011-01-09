@@ -21,9 +21,9 @@
 	#include "LinuxEnvironment.h"
 #endif
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 #if defined(OBOY_PLATFORM_WIN32)
 	static WinEnvironment sEnvObj;
@@ -197,7 +197,7 @@ void Environment::fireGamePadRemoved(int gamePadId)
 	}
 }
 
-void Environment::init(OBoy::Game *game, 
+void Environment::init(oboy::Game *game, 
 					   int screenWidth, 
 					   int screenHeight, 
 					   bool fullscreen, 

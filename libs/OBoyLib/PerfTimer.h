@@ -6,7 +6,7 @@
 #include <string>
 #include <time.h>
 
-namespace OBoyLib
+namespace oboylib
 {
 	struct PerfTimerEntry
 	{

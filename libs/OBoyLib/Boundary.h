@@ -3,7 +3,7 @@
 #include "Vector2.h"
 #include <map>
 
-namespace OBoyLib
+namespace oboylib
 {
 	class Boundary
 	{

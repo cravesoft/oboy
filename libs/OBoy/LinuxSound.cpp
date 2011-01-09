@@ -5,9 +5,9 @@
 #include "ResourceLoader.h"
 #include "LinuxSoundPlayer.h"
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 LinuxSound::LinuxSound(ResourceLoader *loader, const std::string &path) : Sound(loader,path)
 {

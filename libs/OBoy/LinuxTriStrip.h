@@ -1,17 +1,16 @@
 #pragma once
 
 #include "TriStrip.h"
-#include <GL/glus.h>
-#include <GL/glew.h>
+#include "LinuxShape.h"
 
-namespace OBoy
+namespace oboy
 {
-	class LinuxTriStrip : public TriStrip
+	class LinuxTriStrip : public LinuxShape, public TriStrip
 	{
 	public:
 
 		LinuxTriStrip(int numVerts);
-		virtual ~LinuxTriStrip();
+    virtual ~LinuxTriStrip() {};
 
 		virtual void setColor(Color color);
 
@@ -19,10 +18,13 @@ namespace OBoy
 		virtual void setVertTex(int i, float u, float v);
 		virtual void setVertColor(int i, Color color);
 
-	private:
-    
-    GLUSshape mShape;
-    GLuint mNumIndices;
+    virtual bool build() { return LinuxShape::build(); };
+
+    virtual void draw();
+
+  private:
+
+    int mNumVerts;
 
 	};
 };

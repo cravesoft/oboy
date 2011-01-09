@@ -1,7 +1,7 @@
 #include "WinEnvironment.h"
 
 #include <assert.h>
-#include "OBoyLib/md5.h"
+#include "oboylib/md5.h"
 #include "DXUT.h"
 #include <fstream>
 #include "Game.h"
@@ -28,9 +28,9 @@
 // uncomment this to get timing info for every update/draw call on the console
 //#define _VERBOSE_TIMING_STATS
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 // an environment is a static object now so ctor/dtor stuff should be done in init/destroy
 WinEnvironment::WinEnvironment() {}
@@ -102,8 +102,8 @@ void WinEnvironment::init(Game *game,
 		refreshRate = atoi(rrStr->second.c_str());
 	}
 	mPlatformInterface = new WinD3DInterface(game, screenWidth, screenHeight, windowTitle, windowed, refreshRate);
-	mLastKnownWindowSize.x = screenWidth;
-	mLastKnownWindowSize.y = screenHeight;
+	mLastKnownWindowSize.x() = screenWidth;
+	mLastKnownWindowSize.y() = screenHeight;
 
 	// resource loader:
 	std::vector<std::string> langs;
@@ -308,6 +308,13 @@ Sphere *WinEnvironment::createSphere(float radius, int numSlices, int numStacks)
 {
   WinSphere *sphere = new WinSphere(radius, numSlices, numStacks);
 	return sphere;
+}
+
+Cube *WinEnvironment::createCube(float halfExtent)
+{
+  /*WinCube *cube = new WinCube(halfExtent);
+	return cube;*/
+  return NULL;
 }
 
 SDL_semaphore *gLoadingSemaphore;
@@ -607,14 +614,14 @@ void WinEnvironment::updateVirtualMice()
 {
 	for (int i=0 ; i<MOUSE_COUNT_MAX ; i++)
 	{
-		int x = mMouseVelocity[i].x;
-		int y = mMouseVelocity[i].y;
+		int x = mMouseVelocity[i].x();
+		int y = mMouseVelocity[i].y();
 		if (x!=0 || y!=0)
 		{
 			Mouse *m = mMice[i];
 			m->fireMoveEvent(
-				m->getPosition().x + x,
-				m->getPosition().y + y);
+				m->getPosition().x() + x,
+				m->getPosition().y() + y);
 		}
 	}
 }
@@ -632,21 +639,21 @@ bool WinEnvironment::processVirtualMouseEvents(UINT key, bool down)
 		switch(key)
 		{
 		case VK_UP:
-			mMouseVelocity[1].y = -VIRTUAL_MOUSE_SPEED;
+			mMouseVelocity[1].y() = -VIRTUAL_MOUSE_SPEED;
 			return true;
 		case VK_DOWN:
-			mMouseVelocity[1].y = VIRTUAL_MOUSE_SPEED;
+			mMouseVelocity[1].y() = VIRTUAL_MOUSE_SPEED;
 			return true;
 		case VK_RIGHT:
-			mMouseVelocity[1].x = VIRTUAL_MOUSE_SPEED;
+			mMouseVelocity[1].x() = VIRTUAL_MOUSE_SPEED;
 			return true;
 		case VK_LEFT:
-			mMouseVelocity[1].x = -VIRTUAL_MOUSE_SPEED;
+			mMouseVelocity[1].x() = -VIRTUAL_MOUSE_SPEED;
 			return true;
 		case VK_OEM_2: // this is / and ? for US keyboards
 			if (!mIsLeftMouseButtonDown[1])
 			{
-				mMice[1]->fireDownEvent(OBoy::Mouse::BUTTON_LEFT,1);
+				mMice[1]->fireDownEvent(oboy::Mouse::BUTTON_LEFT,1);
 				mIsLeftMouseButtonDown[1] = true;
 			}
 			return true;
@@ -658,16 +665,16 @@ bool WinEnvironment::processVirtualMouseEvents(UINT key, bool down)
 		{
 		case VK_UP:
 		case VK_DOWN:
-			mMouseVelocity[1].y = 0;
+			mMouseVelocity[1].y() = 0;
 			return true;
 		case VK_RIGHT:
 		case VK_LEFT:
-			mMouseVelocity[1].x = 0;
+			mMouseVelocity[1].x() = 0;
 			return true;
 		case VK_OEM_2: // this is / and ? for US keyboards
 			if (mIsLeftMouseButtonDown[1])
 			{
-				getMouse(1)->fireUpEvent(OBoy::Mouse::BUTTON_LEFT);
+				getMouse(1)->fireUpEvent(oboy::Mouse::BUTTON_LEFT);
 				mIsLeftMouseButtonDown[1] = false;
 			}
 			return true;

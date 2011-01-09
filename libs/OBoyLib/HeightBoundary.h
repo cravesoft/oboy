@@ -2,7 +2,7 @@
 
 #include "Boundary.h"
 
-namespace OBoyLib
+namespace oboylib
 {
 	/*
 	 * a 2D version of a height field.  this can represent the region above OR 

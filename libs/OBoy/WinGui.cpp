@@ -6,7 +6,7 @@
 #include "DXUT.h"
 //#include "CEGuiWindow.h"
 
-using namespace OBoy;
+using namespace oboy;
 
 WinGui::WinGui() : Gui()
 {

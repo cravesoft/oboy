@@ -1,18 +1,18 @@
 #include "LinuxGraphics.h"
 
 #include <assert.h>
-#include <GL/glew.h>
-#include <GL/glus.h>
-#include "OBoyLib/OBoyUtil.h"
+#include "oboylib/OBoyUtil.h"
 #include "LinuxImage.h"
 #include "LinuxGLInterface.h"
 #include "LinuxTriStrip.h"
 #include "LinuxLineStrip.h"
 #include "LinuxSphere.h"
+#include "LinuxCube.h"
+#include "LinuxLines.h"
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 LinuxGraphics::LinuxGraphics(LinuxGLInterface *platformInterface)
 {
@@ -67,6 +67,14 @@ void LinuxGraphics::drawSphere(Sphere *sphere)
 		mZ);
 }
 
+void LinuxGraphics::drawCube(Cube *cube)
+{
+	mInterface->drawCube(
+		dynamic_cast<LinuxCube*>(cube), 
+		mColorizationEnabled ? mColor : 0xffffffff,
+		mZ);
+}
+
 void LinuxGraphics::fillRect(int x0, int y0, int w, int h)
 {
 	pushTransform();
@@ -86,21 +94,16 @@ void LinuxGraphics::scale(float x, float y)
   glScalef(x, y, 1);
 }
 
-void LinuxGraphics::rotateDeg(float angle)
+void LinuxGraphics::rotate(float angle)
 {
   glRotatef(-angle, 0, 0, 1);
 }
 
-void LinuxGraphics::rotateRad(float angle)
+void LinuxGraphics::rotate(float xangle, float yangle, float zangle)
 {
-  glRotatef(rad2deg(-angle), 0, 0, 1);
-}
-
-void LinuxGraphics::rotateRad(float xangle, float yangle, float zangle)
-{
-  glRotatef(rad2deg(-xangle), 1, 0, 0);
-  glRotatef(rad2deg(-yangle), 0, 1, 0);
-  glRotatef(rad2deg(-zangle), 0, 0, 1);
+  glRotatef(-xangle, 1, 0, 0);
+  glRotatef(-yangle, 0, 1, 0);
+  glRotatef(-zangle, 0, 0, 1);
 }
 
 void LinuxGraphics::translate(float x, float y)
@@ -110,58 +113,47 @@ void LinuxGraphics::translate(float x, float y)
 
 void LinuxGraphics::preScale(float x, float y)
 {
-#if 0
   float xform[16];
   glGetFloatv(GL_MODELVIEW_MATRIX, xform);
-  glPushMatrix();
-    glLoadIdentity();
-    glScalef(x, y, 1);
-    glMultMatrix(xform);
-  glPopMatrix();
-#endif
+  glLoadIdentity();
+  glScalef(x, y, 1.0f);
+  glMultMatrixf(xform);
 }
 
-void LinuxGraphics::preRotateDeg(float angle)
+void LinuxGraphics::preRotate(float angle)
 {
-#if 0
   float xform[16];
   glGetFloatv(GL_MODELVIEW_MATRIX, xform);
   glLoadIdentity();
   glRotatef(-angle, 0, 0, 1);
-  glMultMatrix(xform);
-#endif
-}
-
-void LinuxGraphics::preRotateRad(float angle)
-{
-#if 0
-  float xform[16];
-  glGetFloatv(GL_MODELVIEW_MATRIX, xform);
-  glLoadIdentity();
-  glRotatef(rad2deg(-angle), 0, 0, 1);
-  glMultMatrix(xform);
-#endif
+  glMultMatrixf(xform);
 }
 
 void LinuxGraphics::preTranslate(float x, float y)
 {
-#if 0
   float xform[16];
   glGetFloatv(GL_MODELVIEW_MATRIX, xform);
   glLoadIdentity();
   glTranslatef(x, y, 0);
-  glMultMatrix(xform);
-#endif
+  glMultMatrixf(xform);
 }
 
 void LinuxGraphics::pushTransform()
 {
+  glPushMatrix();
+  mTransformStackSize++;
+#if 0
   glPushName(++mTransformStackSize);
+#endif
 }
 
 void LinuxGraphics::popTransform()
 {
-	glPopName(mTransformStackSize--);
+  glPopMatrix();
+  mTransformStackSize--;
+#if 0
+	glPopName();
+#endif
 }
 
 int LinuxGraphics::getTransformStackSize()
@@ -172,6 +164,11 @@ int LinuxGraphics::getTransformStackSize()
 void LinuxGraphics::setColor(Color color)
 {
 	mColor = color;
+}
+
+void LinuxGraphics::setLineWidth(float width)
+{
+  glLineWidth(width);
 }
 
 void LinuxGraphics::setAlpha(float alpha)
@@ -258,12 +255,10 @@ void LinuxGraphics::setDrawMode(DrawMode mode)
 	switch (mode)
 	{
 	case DRAWMODE_NORMAL:
-		mInterface->setBlendFunc(GL_SRC_ALPHA,GL_SRC_ALPHA);
-		mInterface->setBlendFunc(GL_DST_ALPHA,GL_ONE_MINUS_DST_ALPHA);
+    mInterface->setBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 		break;
 	case DRAWMODE_ADDITIVE:
-		mInterface->setBlendFunc(GL_SRC_ALPHA,GL_SRC_ALPHA);
-		mInterface->setBlendFunc(GL_DST_ALPHA,GL_ONE);
+    mInterface->setBlendFunc(GL_SRC_ALPHA,GL_ONE);
 		break;
 	}
 }
@@ -335,6 +330,12 @@ void LinuxGraphics::drawLineStrip(LineStrip *strip)
 {
 	LinuxLineStrip *s = dynamic_cast<LinuxLineStrip*>(strip);
   mInterface->drawLineStrip(s);
+}
+
+void LinuxGraphics::drawLines(Lines *lines)
+{
+	LinuxLines *s = dynamic_cast<LinuxLines*>(lines);
+  mInterface->drawLines(s);
 }
 
 int LinuxGraphics::getWidth()

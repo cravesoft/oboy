@@ -3,9 +3,9 @@
 #include <assert.h>
 #include "ResourceLoader.h"
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 LinuxImage::LinuxImage(ResourceLoader *loader, const std::string &path) : Image(loader,path)
 {
@@ -36,9 +36,10 @@ bool LinuxImage::init(bool includeSounds)
 
 void LinuxImage::destroy(bool includeSounds)
 {
-	if (glIsTexture(mTexture))
+	if (mTexture)
 	{
     glDeleteTextures(1, &mTexture);
+    mTexture = NULL;
 	}
 }
 

@@ -1,18 +1,17 @@
 #include "LinuxResourceLoader.h"
 
 #include <assert.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include <GL/glus.h>
 #include "Environment.h"
 #include "LinuxImage.h"
+#include "LinuxImageDataLoader.h"
 #include "LinuxGLInterface.h"
 #include "LinuxSound.h"
 #include "LinuxSoundPlayer.h"
+#include "oboylib/OBoyUtil.h"
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 LinuxResourceLoader::LinuxResourceLoader(const std::string &language1, 
 									 const std::string &language2) 
@@ -37,10 +36,11 @@ Sound *LinuxResourceLoader::createSound(const std::string &filename)
 bool LinuxResourceLoader::load(Image *image)
 {
 	LinuxImage *img = dynamic_cast<LinuxImage*>(image);
+  LinuxImageDataLoader imLoader;
 
 	// try to find a localized version:
-  GLUSpngimage pngimage;
-  GLuint tex;
+  ImageData pngimage;
+  GLuint tex=0;
 	std::string fname = img->getPath()+"."+mLanguage1+".png";
 	FILE *f = fopen(fname.c_str(),"rb");
 	if (f==NULL)
@@ -69,10 +69,10 @@ bool LinuxResourceLoader::load(Image *image)
 		fclose(f);
 	}
 
-  // load the image
-  GLUSboolean success = glusLoadPngImage(fname.c_str(), &pngimage);
+  // load the image data
+  pngimage = imLoader.loadImageData(fname);
 
-	if (!success)
+	if (pngimage.pixels == NULL)
 	{
 		envDebugLog("could not load texture: %s.png\n",img->getPath().c_str());
 	}
@@ -81,33 +81,36 @@ bool LinuxResourceLoader::load(Image *image)
   glGenTextures(1, &tex);
 
 	glBindTexture(GL_TEXTURE_2D, tex);
-	
-  glTexImage2D(GL_TEXTURE_2D, 0, pngimage.format, pngimage.width, pngimage.height, 0, pngimage.format, GL_UNSIGNED_BYTE, pngimage.data);
-
-  glusDestroyPngImage(&pngimage);
 
 	if (img->useMipmap())
 	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	}
-	else
-	{
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
 	}
+	else
+	{
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	}
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-  // TODO: get scaled parameter
+  int w = findNextHigherPowerOf2(pngimage.width);
+  int h = findNextHigherPowerOf2(pngimage.height);
+
+  glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, pngimage.alpha);
+  glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, pngimage.width, pngimage.height, GL_BGRA, GL_UNSIGNED_BYTE, pngimage.pixels);
 
   // set the texture:
 	img->setTexture(tex, false);
 
 	// remember the original image size:
 	img->setSize(pngimage.width, pngimage.height);
+
+  imLoader.destroyImageData();
 
   return true;
 }

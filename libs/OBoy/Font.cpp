@@ -2,8 +2,8 @@
 
 #include <assert.h>
 #include "OBoy/Util.h"
-#include "OBoyLib/OBoyUtil.h"
-#include "OBoyLib/UStringStream.h"
+#include "oboylib/OBoyUtil.h"
+#include "oboylib/UStringStream.h"
 #include <iostream>
 #include <sstream>
 #include "Graphics.h"
@@ -11,9 +11,9 @@
 #include "ResourceLoader.h"
 #include "Storage.h"
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 Font::Font(ResourceLoader *loader, const std::string &path) : Resource(loader,path)
 {
@@ -64,7 +64,7 @@ void Font::setWidth(wchar_t ch, int width)
 	mChars[ch]->width = width;
 }
 
-void Font::setSubrect(wchar_t ch, const OBoyLib::Rect &subrect)
+void Font::setSubrect(wchar_t ch, const oboylib::Rect &subrect)
 {
 	// make sure this character has been added:
 	assert(mChars.find(ch)!=mChars.end());
@@ -76,7 +76,7 @@ void Font::setSubrect(wchar_t ch, const OBoyLib::Rect &subrect)
 	mHeight = std::max(mHeight, subrect.getHeight());
 }
 
-void Font::setOffset(wchar_t ch, const OBoyLib::Vector2 &offset)
+void Font::setOffset(wchar_t ch, const oboylib::Vector2 &offset)
 {
 	// make sure this character has been added:
 	assert(mChars.find(ch)!=mChars.end());
@@ -91,7 +91,7 @@ int Font::getHeight()
 	return mHeight*mScale;
 }
 
-int Font::getStringWidth(const OBoy::UString &str)
+int Font::getStringWidth(const oboy::UString &str)
 {
 	int width = 0;
 	FontChar *fcCurr = NULL;
@@ -137,11 +137,12 @@ int Font::getLineSpacing()
 	return (mLineSpacing>=0 ? mLineSpacing : mHeight) * mScale;
 }
 
-float Font::drawString(Graphics *g, const OBoy::UString &str, float scale)
+float Font::drawString(Graphics *g, const oboy::UString &str, float scale)
 {
 	scale *= mScale;
+#ifdef OBOY_PLATFORM_WIN32
 	g->pushTransform();
-
+#endif
 	// iterate over all characters of the string:
 	FontChar *fcCurr = NULL;
 	FontChar *fcPrev = NULL;
@@ -175,16 +176,23 @@ float Font::drawString(Graphics *g, const OBoy::UString &str, float scale)
 
 		// kearning value + half character width + prev char width:
 		float dx = kerning + fcCurr->width/2.0f*scale + prevCharWidth;
+#ifdef OBOY_PLATFORM_WIN32
 		g->preTranslate(dx, 0);
+#endif
 
 		// keep track of total width:
 		totalWidth += dx;
 
 		// scale the char:
 		g->pushTransform();
-			// scale:
+      // scale:
+#ifdef OBOY_PLATFORM_WIN32
 			g->preScale(scale,scale);
-			// draw the character:
+#else
+      g->scale(scale,scale);
+      g->preTranslate(totalWidth, 0);
+#endif
+      // draw the character:
 			g->drawImage(mImage, fcCurr->subrect);
 		g->popTransform();
 
@@ -194,7 +202,9 @@ float Font::drawString(Graphics *g, const OBoy::UString &str, float scale)
 		// the current char is the new previous char:
 		fcPrev = fcCurr;
 	}
+#ifdef OBOY_PLATFORM_WIN32
 	g->popTransform();
+#endif
 
 	totalWidth += prevCharWidth;
 
@@ -204,7 +214,7 @@ float Font::drawString(Graphics *g, const OBoy::UString &str, float scale)
 bool Font::parseImageSetFile(const std::string &fileName)
 {
 	TiXmlDocument doc;
-  OBoy::UString buf;
+  oboy::UString buf;
 	int x,y,width,height,off;
   wchar_t ch;
 
@@ -218,7 +228,7 @@ bool Font::parseImageSetFile(const std::string &fileName)
 
 	for (TiXmlElement *e = root->FirstChildElement() ; e!=NULL ; e = e->NextSiblingElement())
 	{
-    if (OBoy::Environment::instance()->stricmp(e->Value(),"image")==0)
+    if (oboy::Environment::instance()->stricmp(e->Value(),"image")==0)
 		{
 				const char *name = e->Attribute("Name");
         int utf8value = atoi(name);
@@ -237,12 +247,12 @@ bool Font::parseImageSetFile(const std::string &fileName)
         buf = e->Attribute("Height");
         assert(buf.isAsciiOnly());
         height = atoi(buf.toUtf8());
-        setSubrect(ch, OBoyLib::Rect(x,y,width,height));
+        setSubrect(ch, oboylib::Rect(x,y,width,height));
 
         buf = e->Attribute("XOffset");
         assert(buf.isAsciiOnly());
         off = atoi(buf.toUtf8());
-	      setOffset(ch, off);
+        setOffset(ch, oboylib::Vector2(off, off));
 		}
 		else
 		{
@@ -258,7 +268,7 @@ bool Font::parseImageSetFile(const std::string &fileName)
 bool Font::parseFontFile(const std::string &fileName)
 {
 	TiXmlDocument doc;
-  OBoy::UString buf;
+  oboy::UString buf;
 	int width;
   wchar_t ch;
 
@@ -272,7 +282,7 @@ bool Font::parseFontFile(const std::string &fileName)
 
 	for (TiXmlElement *e = root->FirstChildElement() ; e!=NULL ; e = e->NextSiblingElement())
 	{
-    if (OBoy::Environment::instance()->stricmp(e->Value(),"mapping")==0)
+    if (oboy::Environment::instance()->stricmp(e->Value(),"mapping")==0)
 		{
         const char *name = e->Attribute("Image");
         int utf8value = atoi(name);
@@ -332,7 +342,7 @@ void Font::setKerning(wchar_t ch1, wchar_t ch2, int kvalue)
 	fc->kearningValues[ch2] = kvalue;
 }
 
-/*void Font::loadCharList(OBoy::UStringStream &fontStream, std::vector<wchar_t> &charList)
+/*void Font::loadCharList(oboy::UStringStream &fontStream, std::vector<wchar_t> &charList)
 {
 	while (true)
 	{
@@ -359,9 +369,9 @@ void Font::setKerning(wchar_t ch1, wchar_t ch2, int kvalue)
 		}
 	}
 }
-void Font::loadWidthList(OBoy::UStringStream &fontStream, std::vector<int> &widthList)
+void Font::loadWidthList(oboy::UStringStream &fontStream, std::vector<int> &widthList)
 {
-	OBoy::UString buf;
+	oboy::UString buf;
 
 	// find the next paren:
 	fontStream.skipUntil('(');
@@ -391,9 +401,9 @@ void Font::loadWidthList(OBoy::UStringStream &fontStream, std::vector<int> &widt
 	}
 }
 
-void Font::loadRectList(OBoy::UStringStream &fontStream, std::vector<OBoyLib::Rect> &rectList)
+void Font::loadRectList(oboy::UStringStream &fontStream, std::vector<oboylib::Rect> &rectList)
 {
-	OBoy::UString buf;
+	oboy::UString buf;
 	int x,y,width,height;
 
 	// find the next paren:
@@ -419,7 +429,7 @@ void Font::loadRectList(OBoy::UStringStream &fontStream, std::vector<OBoyLib::Re
 		height = atoi(buf.toUtf8());
 
 		// remember the rect:
-		rectList.push_back(OBoyLib::Rect(x,y,width,height));
+		rectList.push_back(oboylib::Rect(x,y,width,height));
 
 		// find the next comma or close paren:
 		wchar_t delim = fontStream.skipUntil(",)");
@@ -436,9 +446,9 @@ void Font::loadRectList(OBoy::UStringStream &fontStream, std::vector<OBoyLib::Re
 	}
 }
 
-void Font::loadOffsetList(OBoy::UStringStream &fontStream, std::vector<OBoyLib::Vector2> &offsetList)
+void Font::loadOffsetList(oboy::UStringStream &fontStream, std::vector<oboylib::Vector2> &offsetList)
 {
-	OBoy::UString buf;
+	oboy::UString buf;
 	int x,y;
 
 	// find the next paren:
@@ -458,7 +468,7 @@ void Font::loadOffsetList(OBoy::UStringStream &fontStream, std::vector<OBoyLib::
 		y = atoi(buf.toUtf8());
 
 		// remember the offset:
-		offsetList.push_back(OBoyLib::Vector2(x,y));
+		offsetList.push_back(oboylib::Vector2(x,y));
 
 		// find the next comma or close paren:
 		wchar_t delim = fontStream.skipUntil(",)");
@@ -475,9 +485,9 @@ void Font::loadOffsetList(OBoy::UStringStream &fontStream, std::vector<OBoyLib::
 	}
 }
 
-void Font::loadKerningPairs(OBoy::UStringStream &fontStream, std::vector<OBoy::UString> &kerningPairs)
+void Font::loadKerningPairs(oboy::UStringStream &fontStream, std::vector<oboy::UString> &kerningPairs)
 {
-	OBoy::UString buf;
+	oboy::UString buf;
 
 	// skip to the start of the first pair:
 	fontStream.skipUntil('"');
@@ -506,9 +516,9 @@ void Font::loadKerningPairs(OBoy::UStringStream &fontStream, std::vector<OBoy::U
 	}
 }
 
-void Font::loadKerningValues(OBoy::UStringStream &fontStream, std::vector<int> &kerningValues)
+void Font::loadKerningValues(oboy::UStringStream &fontStream, std::vector<int> &kerningValues)
 {
-	OBoy::UString buf;
+	oboy::UString buf;
 
 	// find the next paren:
 	fontStream.skipUntil('(');
@@ -568,18 +578,18 @@ void Font::loadKerningValues(OBoy::UStringStream &fontStream, std::vector<int> &
 	pStorage->FileClose( hFile );
 
 	// convert to unicode string stream:
-	OBoy::UStringStream fontStream( pFileData );
+	oboy::UStringStream fontStream( pFileData );
 	delete [] pFileData;
 
 	// data holders:
 	std::vector<wchar_t> charList;
 	std::vector<int> widthList;
-	std::vector<OBoyLib::Rect> rectList;
-	std::vector<OBoyLib::Vector2> offsetList;
-	std::vector<OBoy::UString> kerningPairs;
+	std::vector<oboylib::Rect> rectList;
+	std::vector<oboylib::Vector2> offsetList;
+	std::vector<oboy::UString> kerningPairs;
 	std::vector<int> kerningValues;
 
-	OBoy::UString buf;
+	oboy::UString buf;
 	while (!fontStream.eof())
 	{
 		// read the next word:
@@ -687,7 +697,7 @@ void Font::loadKerningValues(OBoy::UStringStream &fontStream, std::vector<int> &
 				// add the space char:
 				charList.push_back(' ');
 				widthList.push_back(width);
-				rectList.push_back(OBoyLib::Rect(0,0,0,0));
+				rectList.push_back(oboylib::Rect(0,0,0,0));
 				offsetList.push_back(0);
 			}
 
@@ -716,7 +726,7 @@ void Font::loadKerningValues(OBoy::UStringStream &fontStream, std::vector<int> &
 	int numKerningPairs = (int)kerningPairs.size();
 	for (int i=0 ; i<numKerningPairs ; i++)
 	{
-		OBoy::UString pair = kerningPairs[i];
+		oboy::UString pair = kerningPairs[i];
 		setKerning(pair[0],pair[1],kerningValues[i]);
 	}
 

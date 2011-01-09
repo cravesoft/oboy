@@ -1,11 +1,11 @@
 #pragma once
 
-#include "OBoyLib/CrtDbgInc.h"
+#include "oboylib/CrtDbgInc.h"
 
 #include "irrKlang.h"
 #include "ResourceLoader.h"
 
-namespace OBoy
+namespace oboy
 {
 	class LinuxGLInterface;
 

@@ -4,8 +4,8 @@
 #include "OBoy/Game.h"
 #include "OBoy/Graphics.h"
 #include "OBoy/KeyboardListener.h"
-#include "OBoyLib/OBoyUtil.h"
-#include "OBoyLib/Vector2.h"
+#include "oboylib/OBoyUtil.h"
+#include "oboylib/Vector2.h"
 
 enum BodyType
 {
@@ -24,16 +24,16 @@ public:
 	Body(BodyType type, float posx=0, float posy=0, float velx=0, float vely=0);
 
 	bool collidesWith(Body *body);
-	void draw(OBoy::Graphics *g);
+	void draw(oboy::Graphics *g);
 	void update(float dt);
 
 private:
-	void _draw(OBoy::Graphics *g, OBoyLib::Vector2 &pos);
+	void _draw(oboy::Graphics *g, oboylib::Vector2 &pos);
 
 public:
-	OBoy::Image *mImage;
-	OBoyLib::Vector2 mPos;
-	OBoyLib::Vector2 mVel;
+	oboy::Image *mImage;
+	oboylib::Vector2 mPos;
+	oboylib::Vector2 mVel;
 	float mRot;
 	float mRotVel;
 	float mRadius;

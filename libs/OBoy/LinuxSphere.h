@@ -1,24 +1,22 @@
 #pragma once
 
 #include "Sphere.h"
-#include <GL/glus.h>
-#include <GL/glew.h>
+#include "LinuxShape.h"
 
-namespace OBoy
+namespace oboy
 {
-	class LinuxSphere : public Sphere
+	class LinuxSphere : public LinuxShape, public Sphere
 	{
 	public:
 
-		LinuxSphere(float radius, int numSlices, int numStacks);
-		virtual ~LinuxSphere();
+		LinuxSphere(float radius, unsigned int numSlices, unsigned int numStacks);
+    virtual ~LinuxSphere() {};
 
 		virtual void setColor(Color color);
 
-  private:
-    
-    GLUSshape mShape;
-    GLuint mNumIndices;
+    virtual bool build() { return LinuxShape::build(); };
+
+    virtual void draw();
 
 	};
 };

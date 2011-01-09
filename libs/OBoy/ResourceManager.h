@@ -1,13 +1,13 @@
 #pragma once
 
-#include "OBoyLib/Rect.h"
-#include "OBoyLib/UString.h"
-#include "OBoyLib/Vector2.h"
+#include "oboylib/Rect.h"
+#include "oboylib/UString.h"
+#include "oboylib/Vector2.h"
 #include <string>
 #include "tinyxml/tinyxml.h"
 #include <vector>
 
-namespace OBoy
+namespace oboy
 {
 
 	class Font;
@@ -43,7 +43,7 @@ namespace OBoy
 		// id based resource access:
 		virtual Image *getImage(const std::string &id);
 		virtual bool hasString(const std::string &id);
-		virtual OBoy::UString getString(const std::string &id);
+		virtual oboy::UString getString(const std::string &id);
 		virtual Sound *getSound(const std::string &id);
 		virtual Font *getFont(const std::string &id);
 
@@ -91,7 +91,7 @@ namespace OBoy
 		std::map<std::string,Resource*> mResourcesById;
 
 		// string resources:
-		std::map<std::string,OBoy::UString> mText;
+		std::map<std::string,oboy::UString> mText;
 
 		// language:
 		std::string mLanguage1;

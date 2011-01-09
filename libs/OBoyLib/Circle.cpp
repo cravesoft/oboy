@@ -2,14 +2,14 @@
 
 #include "OBoyUtil.h"
 
-using namespace OBoyLib;
+using namespace oboylib;
 
 #include "CrtDbgNew.h"
 
 Circle::Circle(float x, float y, float radius)
 {
-	mCenter.x = x;
-	mCenter.y = y;
+	mCenter.x() = x;
+	mCenter.y() = y;
 	mRadius = radius;
 }
 
@@ -24,7 +24,7 @@ bool Circle::contains(const Vector2 &point)
 
 Boundary *Circle::clone()
 {
-	Circle *clone = new Circle(mCenter.x,mCenter.y,mRadius);
+	Circle *clone = new Circle(mCenter.x(),mCenter.y(),mRadius);
 	return clone;
 }
 

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "OBoyLib/CrtDbgInc.h"
+#include "oboylib/CrtDbgInc.h"
 
 #include <string>
 #include <stdio.h>
-#include "OBoyLib/UString.h"
+#include "oboylib/UString.h"
 
 #define MOUSE_COUNT_MAX 4
 #define GAMEPAD_COUNT_MAX 4
 
-namespace OBoy
+namespace oboy
 {
 	class Game;
 	class GamePad;
@@ -26,7 +26,9 @@ namespace OBoy
 	class SoundPlayer;
 	class TriStrip;
   class LineStrip;
+  class Lines;
   class Sphere;
+  class Cube;
 	class Updater;
 	class Wiimote;
 	class Storage;
@@ -66,7 +68,9 @@ namespace OBoy
     virtual Gui     			*getGui() = 0;
 		virtual TriStrip			*createTriStrip(int numVerts) = 0;
     virtual LineStrip			*createLineStrip(int numVerts) = 0;
+    virtual Lines   			*createLines(int numVerts) = 0;
     virtual Sphere        *createSphere(float radius, int numSlices, int numStacks) = 0;
+    virtual Cube          *createCube(float halfExtent) = 0;
 
 		// controllers:
 		virtual int					getMouseCount() = 0;
@@ -162,16 +166,16 @@ namespace OBoy
 	#if defined(OBOY_CONFIG_FINAL)
 		#define envDebugLog(format, args...) do {} while(0)
 	#else
-		#define envDebugLog(format, args...) OBoy::Environment::instance()->debugLog( format , ## args )
+		#define envDebugLog(format, args...) oboy::Environment::instance()->debugLog( format , ## args )
 	#endif
 #elif defined(OBOY_PLATFORM_WIN32)
-	#define envDebugLog(format,...) OBoy::Environment::instance()->debugLog( format , __VA_ARGS__ )
+	#define envDebugLog(format,...) oboy::Environment::instance()->debugLog( format , __VA_ARGS__ )
 #elif defined(OBOY_PLATFORM_OSX)
 	#if defined(OBOY_CONFIG_FINAL)
 		#define envDebugLog(format, args...) do {} while(0)
 	#else
-		#define envDebugLog(format, args...) OBoy::Environment::instance()->debugLog( format , ## args )
+		#define envDebugLog(format, args...) oboy::Environment::instance()->debugLog( format , ## args )
 	#endif
 #elif defined(OBOY_PLATFORM_LINUX)
-  #define envDebugLog(format,...) OBoy::Environment::instance()->debugLog( format , __VA_ARGS__ )
+  #define envDebugLog(format,...) oboy::Environment::instance()->debugLog( format , __VA_ARGS__ )
 #endif

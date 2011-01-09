@@ -2,9 +2,9 @@
 
 #include <assert.h>
 
-using namespace OBoy;
+using namespace oboy;
 
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 Resource::Resource(ResourceLoader *loader, const std::string &path)
 {

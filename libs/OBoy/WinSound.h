@@ -3,7 +3,7 @@
 #include "Sound.h"
 #include "irrKlang.h"
 
-namespace OBoy
+namespace oboy
 {
 	class WinSound : public Sound
 	{

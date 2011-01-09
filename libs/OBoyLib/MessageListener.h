@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-namespace OBoyLib
+namespace oboylib
 {
 	class MessageSource;
 

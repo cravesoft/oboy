@@ -3,7 +3,7 @@
 #include "Cloneable.h"
 #include "Vector2.h"
 
-namespace OBoyLib
+namespace oboylib
 {
 	class Positionable : public Cloneable
 	{

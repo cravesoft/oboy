@@ -2,7 +2,7 @@
 
 #include "CrtDbgInc.h"
 
-namespace OBoyLib
+namespace oboylib
 {
 	class Tickable
 	{

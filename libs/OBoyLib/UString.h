@@ -2,7 +2,7 @@
 
 #include "CrtDbgInc.h"
 
-namespace OBoy
+namespace oboy
 {
 	class UString
 	{

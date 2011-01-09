@@ -1,6 +1,6 @@
 #include "TickableSet.h"
 
-using namespace OBoyLib;
+using namespace oboylib;
 
 #include "CrtDbgNew.h"
 

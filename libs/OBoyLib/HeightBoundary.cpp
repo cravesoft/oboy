@@ -2,7 +2,7 @@
 
 #include "OBoyUtil.h"
 
-using namespace OBoyLib;
+using namespace oboylib;
 
 #include "CrtDbgNew.h"
 
@@ -59,22 +59,22 @@ void HeightBoundary::setHeight(int i, float height)
 bool HeightBoundary::contains(const Vector2 &point)
 {
 	// if the point is out of bounds horizontally:
-	if (point.x<mMinX || point.x>mMaxX)
+	if (point.x()<mMinX || point.x()>mMaxX)
 	{
 		// this boundary doesn't contain the point:
 		return false;
 	}
 
 	// figure out which segment this point lines up with:
-	int segment = (int)((point.x-mMinX) / (mMaxX-mMinX) * (mNumHeights-1));
+	int segment = (int)((point.x()-mMinX) / (mMaxX-mMinX) * (mNumHeights-1));
 	float y0 = mHeights[segment];
 	float y1 = mHeights[segment+1];
 
 	// if it's below both points:
-	if (point.y<=y0 && point.y<=y1)
+	if (point.y()<=y0 && point.y()<=y1)
 	{
 		// if it's above the bottom:
-		if (point.y>mBottom)
+		if (point.y()>mBottom)
 		{
 			return true;
 		}
@@ -84,13 +84,13 @@ bool HeightBoundary::contains(const Vector2 &point)
 		}
 	}
 	// if it's above both points:
-	else if (point.y>=y0 && point.y>=y1)
+	else if (point.y()>=y0 && point.y()>=y1)
 	{
 		return false;
 	}
 	else
 	{
-		return point.y < (y0+y1)/2;
+		return point.y() < (y0+y1)/2;
 	}
 	/*
 	else
@@ -107,7 +107,7 @@ bool HeightBoundary::contains(const Vector2 &point)
 		float b1 = x0-x1;
 		float c1 = x1*y0 - x0*y1;
 		float a2 = a1;
-		float c2 = point.x*y0 - point.x*y1;
+		float c2 = point.x()*y0 - point.x()*y1;
 		float denom = -a1*b1;
 		assert(denom!=0); // make sure these lines intersect
 
@@ -115,7 +115,7 @@ bool HeightBoundary::contains(const Vector2 &point)
 		float y = a1 * (c1 - c2) / denom;
 
 		// if the point is below the line, it's contained in the height boundary:
-		return (point.y<=y);
+		return (point.y()<=y);
 	}
 	*/
 }

@@ -1,28 +1,29 @@
 #pragma once
 
 #include "LineStrip.h"
-#include <GL/glus.h>
-#include <GL/glew.h>
+#include "LinuxShape.h"
 
-namespace OBoy
+namespace oboy
 {
-	class LinuxLineStrip : public LineStrip
+	class LinuxLineStrip : public LinuxShape, public LineStrip
 	{
 	public:
 
 		LinuxLineStrip(int numVerts);
-		virtual ~LinuxLineStrip();
+    virtual ~LinuxLineStrip() {};
 
 		virtual void setColor(Color color);
 
 		virtual void setVertPos(int i, float x, float y, float z);
-		virtual void setVertTex(int i, float u, float v);
 		virtual void setVertColor(int i, Color color);
 
-	private:
-    
-    GLUSshape mShape;
-    GLuint mNumIndices;
+    virtual bool build() { return LinuxShape::build(); };
+
+    virtual void draw();
+
+  private:
+
+    int mNumVerts;
 
 	};
 };

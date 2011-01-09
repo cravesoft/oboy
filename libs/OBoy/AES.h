@@ -1,4 +1,4 @@
-#include "OBoyLib/CrtDbgInc.h"
+#include "oboylib/CrtDbgInc.h"
 
 /* AES - Advanced Encryption Standard
   

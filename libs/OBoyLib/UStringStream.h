@@ -3,7 +3,7 @@
 #include "OBoyUtil.h"
 #include "UString.h"
 
-namespace OBoy
+namespace oboy
 {
 	class UStringStream
 	{

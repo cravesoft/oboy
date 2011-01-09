@@ -3,7 +3,7 @@
 #include "Image.h"
 #include "d3d9.h"
 
-namespace OBoy
+namespace oboy
 {
 	class WinImage : public Image
 	{

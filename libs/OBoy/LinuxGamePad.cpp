@@ -1,6 +1,6 @@
 #include "LinuxGamePad.h"
 
-using namespace OBoy;
+using namespace oboy;
 
 LinuxGamePad::LinuxGamePad(int id) : GamePad(id)
 {
@@ -48,11 +48,11 @@ void LinuxGamePad::vibrate(int leftVal, int rightVal)
 			}
 
 			// mouse position:
-			OBoyLib::Vector2 pos;
+			oboylib::Vector2 pos;
 			float w = screenWidth();
 			float h = screenHeight();
-			pos.x = w/2 * (1 + ((float)gps.Gamepad.sThumbLX) / 32768.0f);
-			pos.y = h/2 * (1 - ((float)gps.Gamepad.sThumbLY) / 32768.0f);
+			pos.x() = w/2 * (1 + ((float)gps.Gamepad.sThumbLX) / 32768.0f);
+			pos.y() = h/2 * (1 - ((float)gps.Gamepad.sThumbLY) / 32768.0f);
 			mMice[0]->setPosition(pos);
 		}
 	}

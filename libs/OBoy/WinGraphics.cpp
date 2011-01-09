@@ -1,16 +1,17 @@
 #include "WinGraphics.h"
 
 #include <assert.h>
-#include "OBoyLib/OBoyUtil.h"
+#include "oboylib/OBoyUtil.h"
 #include "WinImage.h"
 #include "WinD3DInterface.h"
 #include "WinTriStrip.h"
 #include "WinLineStrip.h"
+#include "WinLines.h"
 #include "WinSphere.h"
+#include "WinCube.h"
+using namespace oboy;
 
-using namespace OBoy;
-
-#include "OBoyLib/CrtDbgNew.h"
+#include "oboylib/CrtDbgNew.h"
 
 WinGraphics::WinGraphics(WinD3DInterface *platformInterface)
 {
@@ -93,6 +94,15 @@ void WinGraphics::drawSphere(Sphere *sphere)
 		mZ);
 }
 
+void WinGraphics::drawCube(Cube *cube)
+{
+	updateTransform();
+	mInterface->drawCube(
+		dynamic_cast<WinCube*>(cube), 
+		mColorizationEnabled ? mColor : 0xffffffff,
+		mZ);
+}
+
 void WinGraphics::fillRect(int x0, int y0, int w, int h)
 {
 	pushTransform();
@@ -118,7 +128,7 @@ void WinGraphics::scale(float x, float y)
 	mTransformUpToDate = false;
 }
 
-void WinGraphics::rotateDeg(float angle)
+void WinGraphics::rotate(float angle)
 {
 	D3DXMATRIX xform;
 	D3DXMatrixRotationZ(&xform, deg2rad(-angle));
@@ -127,29 +137,19 @@ void WinGraphics::rotateDeg(float angle)
 	mTransformUpToDate = false;
 }
 
-void WinGraphics::rotateRad(float angle)
+void WinGraphics::rotate(float xangle, float yangle, float zangle)
 {
 	D3DXMATRIX xform;
-	D3DXMatrixRotationZ(&xform, -angle);
-	mTransformStack.top() *= xform;
-//	mUseBilinearFiltering.top() = true;
-	mTransformUpToDate = false;
-}
-
-void WinGraphics::rotateRad(float xangle, float yangle, float zangle)
-{
-	D3DXMATRIX xform;
-	D3DXMatrixRotationX(&xform, -xangle);
+	D3DXMatrixRotationX(&xform, deg2rad(-xangle));
 	mTransformStack.top() *= xform;
 
 	D3DXMATRIX yform;
-	D3DXMatrixRotationY(&yform, -yangle);
+	D3DXMatrixRotationY(&yform, deg2rad(-yangle));
 	mTransformStack.top() *= yform;
 
 	D3DXMATRIX zform;
-	D3DXMatrixRotationZ(&zform, -zangle);
+	D3DXMatrixRotationZ(&zform, deg2rad(-zangle));
 	mTransformStack.top() *= zform;
-
 //	mUseBilinearFiltering.top() = true;
 	mTransformUpToDate = false;
 }
@@ -171,19 +171,10 @@ void WinGraphics::preScale(float x, float y)
 	mTransformUpToDate = false;
 }
 
-void WinGraphics::preRotateDeg(float angle)
+void WinGraphics::preRotate(float angle)
 {
 	D3DXMATRIX xform;
 	D3DXMatrixRotationZ(&xform, deg2rad(angle));
-	mTransformStack.top() = xform * mTransformStack.top();
-//	mUseBilinearFiltering.top() = true;
-	mTransformUpToDate = false;
-}
-
-void WinGraphics::preRotateRad(float angle)
-{
-	D3DXMATRIX xform;
-	D3DXMatrixRotationZ(&xform, angle);
 	mTransformStack.top() = xform * mTransformStack.top();
 //	mUseBilinearFiltering.top() = true;
 	mTransformUpToDate = false;
@@ -217,6 +208,11 @@ int WinGraphics::getTransformStackSize()
 void WinGraphics::setColor(Color color)
 {
 	mColor = color;
+}
+
+void WinGraphics::setLineWidth(float width)
+{
+  // TODO
 }
 
 void WinGraphics::setAlpha(float alpha)
@@ -393,6 +389,19 @@ void WinGraphics::drawLineStrip(LineStrip *strip)
 		D3DXMatrixIdentity(&identity);
 		mInterface->setTransform(identity);
 		mInterface->drawTriStrip(s);
+	popTransform();*/
+}
+
+void WinGraphics::drawLines(Lines *lines)
+{
+	WinLines *s = dynamic_cast<WinLines*>(lines);
+  updateTransform();
+  mInterface->drawLines(s);
+	/*pushTransform();
+		D3DXMATRIX identity;
+		D3DXMatrixIdentity(&identity);
+		mInterface->setTransform(identity);
+		mInterface->drawLines(s);
 	popTransform();*/
 }
 
