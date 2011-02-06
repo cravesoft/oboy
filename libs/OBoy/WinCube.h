@@ -13,7 +13,7 @@ namespace oboy
 		WinCube(float halfExtent);
 		virtual ~WinCube();
 
-		virtual void setColor(Color color);
+		virtual void setColor(oboylib::Color color);
 
     virtual bool build();
 

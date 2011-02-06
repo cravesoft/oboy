@@ -4,6 +4,7 @@
 #include "d3dx9.h"
 #include "Environment.h"
 #include "Graphics.h"
+#include "oboylib/Color.h"
 #include <string>
 
 namespace oboy
@@ -44,11 +45,11 @@ namespace oboy
 		void drawImage(WinImage *image, DWORD color, float z);
 		void drawImage(WinImage *image, DWORD color, float z, int x, int y, int w, int h);
 		void drawRect(int x, int y, int w, int h, float z, DWORD color);
-    void drawCircle(int x, int y, float radius, int delta, Color color);
+    void drawCircle(int x, int y, float radius, int delta, DWORD color);
 		void drawTriStrip(WinTriStrip *strip);
     void drawLineStrip(WinLineStrip *strip);
     void drawLines(WinLines *lines);
-		void drawLine(int x0, int y0, int x1, int y1, Color color);
+    void drawLine(int x0, int y0, int x1, int y1, DWORD color);
     void drawSphere(WinSphere *sphere, DWORD color, float z);
     void drawCube(WinCube *cube, DWORD color, float z);
 

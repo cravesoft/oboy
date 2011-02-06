@@ -12,10 +12,10 @@ namespace oboy
 		LinuxLines(int numVerts);
     virtual ~LinuxLines() {};
 
-		virtual void setColor(Color color);
+		virtual void setColor(oboylib::Color color);
 
 		virtual void setVertPos(int i, float x, float y, float z);
-		virtual void setVertColor(int i, Color color);
+		virtual void setVertColor(int i, oboylib::Color color);
 
     virtual bool build() { return LinuxShape::build(); };
 

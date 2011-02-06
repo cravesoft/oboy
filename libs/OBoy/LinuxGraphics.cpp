@@ -19,7 +19,7 @@ LinuxGraphics::LinuxGraphics(LinuxGLInterface *platformInterface)
 	mInterface = platformInterface;
   /*glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();*/
-	mColor = 0xffffffff;
+  mColor = oboylib::Color();
 	mColorizationEnabled = false;
   mTransformStackSize = 0;
 	mZ = 0;
@@ -33,7 +33,7 @@ void LinuxGraphics::drawImage(Image *img)
 {
 	mInterface->drawImage(
 		dynamic_cast<LinuxImage*>(img), 
-		mColorizationEnabled ? mColor : 0xffffffff,
+    mColorizationEnabled ? mColor : oboylib::Color(oboylib::Color::White),
 		mZ);
 }
 
@@ -41,7 +41,7 @@ void LinuxGraphics::drawImage(Image *img, int subrectX, int subrectY, int subrec
 {
 	mInterface->drawImage(
 		dynamic_cast<LinuxImage*>(img), 
-		mColorizationEnabled ? mColor : 0xffffffff,
+		mColorizationEnabled ? mColor : oboylib::Color(oboylib::Color::White),
 		mZ,
 		subrectX,
 		subrectY,
@@ -63,7 +63,7 @@ void LinuxGraphics::drawSphere(Sphere *sphere)
 {
 	mInterface->drawSphere(
 		dynamic_cast<LinuxSphere*>(sphere), 
-		mColorizationEnabled ? mColor : 0xffffffff,
+		mColorizationEnabled ? mColor : oboylib::Color(),
 		mZ);
 }
 
@@ -71,7 +71,7 @@ void LinuxGraphics::drawCube(Cube *cube)
 {
 	mInterface->drawCube(
 		dynamic_cast<LinuxCube*>(cube), 
-		mColorizationEnabled ? mColor : 0xffffffff,
+		mColorizationEnabled ? mColor : oboylib::Color(),
 		mZ);
 }
 
@@ -161,7 +161,7 @@ int LinuxGraphics::getTransformStackSize()
 	return mTransformStackSize;
 }
 
-void LinuxGraphics::setColor(Color color)
+void LinuxGraphics::setColor(oboylib::Color color)
 {
 	mColor = color;
 }
@@ -173,8 +173,12 @@ void LinuxGraphics::setLineWidth(float width)
 
 void LinuxGraphics::setAlpha(float alpha)
 {
-	mColor &= 0x00ffffff;
+#if 0
+	mColor.rgba &= 0x00ffffff;
 	mColor |= ((int)(255.0f * alpha)) << 24;
+#else
+  mColor.setAlpha(alpha);
+#endif
 }
 
 void LinuxGraphics::setColorizationEnabled(bool enabled)
@@ -353,7 +357,7 @@ void LinuxGraphics::setClearZ(float z)
 	mInterface->setClearZ(z);
 }
 
-void LinuxGraphics::setClearColor(Color color)
+void LinuxGraphics::setClearColor(oboylib::Color color)
 {
 	mInterface->setClearColor(color);
 }

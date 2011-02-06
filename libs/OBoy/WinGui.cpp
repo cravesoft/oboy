@@ -4,7 +4,6 @@
 #include <RendererModules/Direct3D9/CEGUIDirect3D9Renderer.h>
 #include <CEGUIDefaultResourceProvider.h>
 #include "DXUT.h"
-//#include "CEGuiWindow.h"
 
 using namespace oboy;
 
@@ -91,8 +90,8 @@ void WinGui::draw()
 {
   CEGUI::System::getSingleton().renderGUI();
 }
-
-/*void WinGui::destroyAllWindows()
+#if 0
+void WinGui::destroyAllWindows()
 {
   CEGUI::WindowManager::getSingleton().destroyAllWindows();
 }
@@ -118,4 +117,5 @@ GuiWindow* WinGui::getWindow(const std::string& name)
 void WinGui::setGUISheet(GuiWindow* window)
 {
   CEGUI::System::getSingleton().setGUISheet(dynamic_cast<CEGUI::Window*>(window));
-}*/
+}
+#endif

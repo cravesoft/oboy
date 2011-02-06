@@ -15,7 +15,7 @@ WinCube::~WinCube()
 {
 }
 
-void WinCube::setColor(Color color)
+void WinCube::setColor(oboylib::Color color)
 {
 }
 

@@ -27,12 +27,13 @@ namespace oboy
     virtual void loadFont(const std::string& fontName, const float pointSize, const bool antiAliased, const std::string& fontFileName);
 
     virtual void draw();
-
-    /*virtual void destroyAllWindows();
+#if 0
+    virtual void destroyAllWindows();
     
     virtual GuiWindow* createWindow(const std::string& name);
     virtual GuiWindow* loadWindowLayout(const std::string& fileName);
     virtual GuiWindow* getWindow(const std::string& name);
     virtual void setGUISheet(GuiWindow* window);*/
+#endif
 	};
 }

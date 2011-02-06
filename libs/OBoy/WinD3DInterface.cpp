@@ -739,7 +739,7 @@ void WinD3DInterface::drawRect(int x, int y, int w, int h, float z, DWORD color)
 	drawImage(NULL);
 }
 
-void WinD3DInterface::drawCircle(int x, int y, float radius, int delta, Color color)
+void WinD3DInterface::drawCircle(int x, int y, float radius, int delta, DWORD color)
 {
 	BoyVertex *verts;
   int numVertex = 360/delta+1;
@@ -981,7 +981,7 @@ void WinD3DInterface::drawLines(WinLines *lines)
 	vb->Release();
 }
 
-void WinD3DInterface::drawLine(int x0, int y0, int x1, int y1, Color color)
+void WinD3DInterface::drawLine(int x0, int y0, int x1, int y1, DWORD color)
 {
 	BoyVertex verts[2];
 	verts[0].x = (float)x0;

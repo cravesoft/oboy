@@ -247,11 +247,11 @@ inline unsigned long parseRGB(const std::string& str)
 	return 0xff000000 | rgb[0]<<16 | rgb[1]<<8 | rgb[2];
 }
 
-inline unsigned long parseARGB(const char *str, oboy::Color color)
+inline unsigned long parseARGB(const char *str, oboylib::Color color)
 {
 	if (str==NULL)
 	{
-		return color;
+		return color.rgba;
 	}
 
 	std::vector<int> argb;

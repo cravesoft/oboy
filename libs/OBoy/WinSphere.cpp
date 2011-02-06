@@ -51,7 +51,7 @@ WinSphere::~WinSphere()
 	mSphereMesh->Release();
 }
 
-void WinSphere::setColor(Color color)
+void WinSphere::setColor(oboylib::Color color)
 {
   ID3DXMesh *tempSphereMesh;
 
@@ -73,7 +73,7 @@ void WinSphere::setColor(Color color)
 	if(FAILED(hr)) return;
 
 	for (int i=0 ; i<vertexCount ; i++)
-		verts[i].color = (D3DCOLOR)color;
+		verts[i].color = (D3DCOLOR)color.rgba;
 
 	// unlock it:
 	vb->Unlock();

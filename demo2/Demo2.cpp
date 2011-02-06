@@ -326,7 +326,7 @@ void Demo2::draw(oboy::Graphics *g)
 		// draw score:
 		oboy::UString score = oboy::UString::format("%04d",mScore);
 		g->setColorizationEnabled(true);
-		g->setColor(0xffffffff);
+    g->setColor(oboylib::Color(oboylib::Color::White));
 		g->pushTransform();
 		g->translate(50,50);
 		mFont->drawString(g,score,0.5f);

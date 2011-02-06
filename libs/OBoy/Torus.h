@@ -13,7 +13,7 @@ namespace oboy
     Torus(float innerRadius, float outerRadius, unsigned int numSides, unsigned int numFaces) {}
 		virtual ~Torus() {}
 
-		virtual void setColor(Color color) = 0;
+		virtual void setColor(oboylib::Color color) = 0;
 
     virtual bool build() = 0;
 

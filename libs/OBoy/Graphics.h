@@ -3,11 +3,10 @@
 #include "oboylib/CrtDbgInc.h"
 
 #include "oboylib/Rect.h"
+#include "oboylib/Color.h"
 
 namespace oboy
 {
-	typedef unsigned long Color;
-
 	class Image;
 	class TriStrip;
   class LineStrip;
@@ -82,7 +81,7 @@ namespace oboy
 		 * tells the graphics object which color to  
 		 * use for subsequent drawing operations
 		 */
-		virtual void setColor(Color color) = 0;
+    virtual void setColor(oboylib::Color color) = 0;
 
     virtual void setLineWidth(float width) = 0;
 
@@ -118,7 +117,7 @@ namespace oboy
 		 * value to clear the z buffer and frame buffer to)
 		 */
 		virtual void setClearZ(float z) = 0;
-		virtual void setClearColor(Color color) = 0;
+    virtual void setClearColor(oboylib::Color color) = 0;
 
 		/*
 		 * methods for controlling alpha testing (whether to draw 

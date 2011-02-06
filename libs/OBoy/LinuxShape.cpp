@@ -44,7 +44,7 @@ bool LinuxShape::build()
     mSizeNormals = 0;
 
 	if (!mColors.empty()) 
-		mSizeColors	= mColors.size()*sizeof(float);
+		mSizeColors	= mColors.size()*sizeof(GLubyte);
   else
     mSizeColors = 0;
 
@@ -115,7 +115,7 @@ void LinuxShape::draw(GLuint tex, GLenum mode)
 	if(!mColors.empty()) 
 	{
     glEnableClientState(GL_COLOR_ARRAY);
-		glColorPointer(4, GL_FLOAT, 0, (void*)(mSizeVertices+mSizeNormals));
+		glColorPointer(4, GL_UNSIGNED_BYTE, 0, (void*)(mSizeVertices+mSizeNormals));
 	}
 
   // texture coordinates

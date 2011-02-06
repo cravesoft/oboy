@@ -48,7 +48,7 @@ namespace oboy
     void setLineWidth(float width);
 
 		virtual void setAlpha(float alpha);
-		virtual void setColor(Color color);
+		virtual void setColor(oboylib::Color color);
 		virtual void setColorizationEnabled(bool enabled);
 
 		virtual void setZTestEnabled(bool enabled);
@@ -72,13 +72,13 @@ namespace oboy
 		virtual int getHeight();
 
 		virtual void setClearZ(float z);
-		virtual void setClearColor(Color color);
+		virtual void setClearColor(oboylib::Color color);
 
 		void dumpInfo(std::ofstream &file);
 
 	private:
 
-		Color mColor;
+		oboylib::Color mColor;
 		bool mColorizationEnabled;
 
 		float mZ;

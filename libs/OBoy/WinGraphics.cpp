@@ -205,9 +205,9 @@ int WinGraphics::getTransformStackSize()
 	return (int)mTransformStack.size();
 }
 
-void WinGraphics::setColor(Color color)
+void WinGraphics::setColor(oboylib::Color color)
 {
-	mColor = color;
+	mColor = color.rgba;
 }
 
 void WinGraphics::setLineWidth(float width)
@@ -420,9 +420,9 @@ void WinGraphics::setClearZ(float z)
 	mInterface->setClearZ(z);
 }
 
-void WinGraphics::setClearColor(Color color)
+void WinGraphics::setClearColor(oboylib::Color color)
 {
-	mInterface->setClearColor(color);
+	mInterface->setClearColor(color.rgba);
 }
 
 void WinGraphics::dumpInfo(std::ofstream &file)

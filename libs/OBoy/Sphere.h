@@ -13,7 +13,7 @@ namespace oboy
     Sphere(float radius, unsigned int numSlices, unsigned int numStacks) {}
 		virtual ~Sphere() {}
 
-		virtual void setColor(Color color) = 0;
+		virtual void setColor(oboylib::Color color) = 0;
 
     virtual bool build() = 0;
 

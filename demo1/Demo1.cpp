@@ -48,7 +48,7 @@ void Demo1::update(float dt)
 
 void Demo1::draw(oboy::Graphics *g)
 {
-	g->setColor(0xFFFFFFFF);
+  g->setColor(oboylib::Color(oboylib::Color::White));
 	g->fillRect((int)mPos.x()-5,(int)mPos.y()-5,10,10);
 }
 

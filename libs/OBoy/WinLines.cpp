@@ -31,16 +31,16 @@ void WinLines::setVertTex(int i, float u, float v)
 	mVerts[i].v = v;
 }
 
-void WinLines::setVertColor(int i, Color color)
+void WinLines::setVertColor(int i, oboylib::Color color)
 {
-	mVerts[i].color = (D3DCOLOR)color; // both are ARGB format
+	mVerts[i].color = (D3DCOLOR)color.rgba; // both are ARGB format
 }
 
-void WinLines::setColor(Color color)
+void WinLines::setColor(oboylib::Color color)
 {
 	for (int i=0 ; i<mVertexCount ; i++)
 	{
-		mVerts[i].color = (D3DCOLOR)color;
+		mVerts[i].color = (D3DCOLOR)color.rgba;
 	}
 }
 

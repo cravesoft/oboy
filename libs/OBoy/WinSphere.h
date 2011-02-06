@@ -22,7 +22,7 @@ namespace oboy
 		WinSphere(float radius, unsigned int numSlices, unsigned int numStacks);
 		virtual ~WinSphere();
 
-		virtual void setColor(Color color);
+		virtual void setColor(oboylib::Color color);
 
     virtual bool build();
 

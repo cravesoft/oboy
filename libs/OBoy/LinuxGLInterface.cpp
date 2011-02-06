@@ -123,10 +123,7 @@ LinuxGLInterface::LinuxGLInterface(Game *game, int width, int height, const char
 
 	// clearing params:
 	mClearZ = PROJECTION_Z_FAR;
-  mClearColor.red = 0;
-  mClearColor.green = 0;
-  mClearColor.blue = 0;
-  mClearColor.alpha = 0;
+  mClearColor.rgba = oboylib::Color::Black;
 }
 
 LinuxGLInterface::~LinuxGLInterface()
@@ -160,7 +157,7 @@ bool LinuxGLInterface::beginScene()
 	// set the rendering flag:
 	mRendering = true;
 
-  glClearColor(mClearColor.red, mClearColor.green, mClearColor.blue, mClearColor.alpha);
+  glClearColor(mClearColor.r, mClearColor.g, mClearColor.b, mClearColor.a);
 
   glClearDepth(1.0f);
 
@@ -219,12 +216,12 @@ void LinuxGLInterface::endScene()
   SDL_GL_SwapBuffers();
 }
 
-void LinuxGLInterface::drawImage(LinuxImage *image, unsigned long color, float z)
+void LinuxGLInterface::drawImage(LinuxImage *image, oboylib::Color color, float z)
 {
 	drawImage(image, color, z, 0, 0, image->getWidth(), image->getHeight());
 }
 
-void LinuxGLInterface::drawImage(LinuxImage *image, unsigned long color, float z, int x, int y, int w, int h)
+void LinuxGLInterface::drawImage(LinuxImage *image, oboylib::Color color, float z, int x, int y, int w, int h)
 {
   // make sure beginScene was called:
   assert(mRendering);
@@ -265,8 +262,6 @@ void LinuxGLInterface::drawImage(LinuxImage *image, unsigned long color, float z
 	}
 #endif
 
-  glColor vcolor = parseColor(color);
-
   GLfloat vertices[] = 
 	{
     minX, minY, z, // bottom left
@@ -275,12 +270,12 @@ void LinuxGLInterface::drawImage(LinuxImage *image, unsigned long color, float z
     maxX, maxY, z  // bottom right
 	};
 
-  GLfloat colors[] = 
+  GLubyte colors[] = 
 	{
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha,
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha,
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha, 
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha
+    color.r, color.g, color.b, color.a,
+    color.r, color.g, color.b, color.a,
+    color.r, color.g, color.b, color.a, 
+    color.r, color.g, color.b, color.a
   };
 
   GLfloat texCoords[] =
@@ -318,7 +313,7 @@ void LinuxGLInterface::drawImage(LinuxImage *image, unsigned long color, float z
   glVertexPointer(3, GL_FLOAT, 0, 0);
 
   // set color values:
-  glColorPointer(4, GL_FLOAT, 0, (void*)(sizeof(vertices)));
+  glColorPointer(4, GL_UNSIGNED_BYTE, 0, (void*)(sizeof(vertices)));
 
   // set texture coordinates:
   glClientActiveTexture(GL_TEXTURE0);
@@ -346,7 +341,7 @@ void LinuxGLInterface::drawImage(LinuxImage *image, unsigned long color, float z
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void LinuxGLInterface::drawRect(int x, int y, int w, int h, float z, unsigned long color)
+void LinuxGLInterface::drawRect(int x, int y, int w, int h, float z, oboylib::Color color)
 {
   // make sure beginScene was called:
 	assert(mRendering);
@@ -367,14 +362,12 @@ void LinuxGLInterface::drawRect(int x, int y, int w, int h, float z, unsigned lo
     maxX, maxY, z
   };
 
-  glColor vcolor = parseColor(color);
-
-  GLfloat colors[] =
+  GLubyte colors[] =
   {
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha,
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha,
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha,
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha
+    color.r, color.g, color.b, color.a,
+    color.r, color.g, color.b, color.a,
+    color.r, color.g, color.b, color.a,
+    color.r, color.g, color.b, color.a
   };
 
   GLuint indices[] = { 0, 1, 2, 3 };
@@ -404,7 +397,7 @@ void LinuxGLInterface::drawRect(int x, int y, int w, int h, float z, unsigned lo
   glVertexPointer(3, GL_FLOAT, 0, 0);
 
   // set color values:
-  glColorPointer(4, GL_FLOAT, 0, (void*)(sizeVertices));
+  glColorPointer(4, GL_UNSIGNED_BYTE, 0, (void*)(sizeVertices));
 
   // render from vertex buffer:
   glDrawElements(GL_TRIANGLE_STRIP, numVertex, GL_UNSIGNED_INT, 0);
@@ -420,7 +413,7 @@ void LinuxGLInterface::drawRect(int x, int y, int w, int h, float z, unsigned lo
   glDeleteBuffers(1, &indexBuffer);
 }
 
-void LinuxGLInterface::drawCircle(int x, int y, float radius, int delta, unsigned long color)
+void LinuxGLInterface::drawCircle(int x, int y, float radius, int delta, oboylib::Color color)
 {
 	// make sure beginScene was called:
 	assert(mRendering);
@@ -430,19 +423,17 @@ void LinuxGLInterface::drawCircle(int x, int y, float radius, int delta, unsigne
   int angle = 0, idx = 0;
 
   GLfloat *vertices = new GLfloat[3*numVertex];
-  GLfloat *colors = new GLfloat[3*numVertex];
+  GLubyte *colors = new GLubyte[3*numVertex];
   GLuint *indices = new GLuint[numVertex];
-
-  glColor vcolor = parseColor(color);
 
   while (angle <= 360)
   {
 	  vertices[3*idx+0] = (float)x + radius*cos(deg2rad(angle));
 	  vertices[3*idx+1] = (float)y + radius*sin(deg2rad(angle));
 	  vertices[3*idx+2] = 0;
-	  colors[3*idx+0] = vcolor.red;
-    colors[3*idx+1] = vcolor.green;
-    colors[3*idx+2] = vcolor.blue;
+	  colors[3*idx+0] = color.r;
+    colors[3*idx+1] = color.g;
+    colors[3*idx+2] = color.b;
     indices[idx] = idx;
     angle += delta;
     ++idx;
@@ -473,7 +464,7 @@ void LinuxGLInterface::drawCircle(int x, int y, float radius, int delta, unsigne
   glVertexPointer(3, GL_FLOAT, 0, 0);
 
   // set color values:
-  glColorPointer(3, GL_FLOAT, 0, (void*)(sizeVertices));
+  glColorPointer(3, GL_UNSIGNED_BYTE, 0, (void*)(sizeVertices));
 
   // render from vertex buffer:
   glDrawElements(GL_LINE_STRIP, numVertex, GL_UNSIGNED_INT, 0);
@@ -493,7 +484,7 @@ void LinuxGLInterface::drawCircle(int x, int y, float radius, int delta, unsigne
   delete[] indices;
 }
 
-void LinuxGLInterface::drawSphere(LinuxSphere *sphere, DWORD color, float z)
+void LinuxGLInterface::drawSphere(LinuxSphere *sphere, oboylib::Color color, float z)
 {
   // make sure beginScene was called:
 	assert(mRendering);
@@ -502,7 +493,7 @@ void LinuxGLInterface::drawSphere(LinuxSphere *sphere, DWORD color, float z)
 	sphere->draw();
 }
 
-void LinuxGLInterface::drawCube(LinuxCube *cube, DWORD color, float z)
+void LinuxGLInterface::drawCube(LinuxCube *cube, oboylib::Color color, float z)
 {
 	// make sure beginScene was called:
 	assert(mRendering);
@@ -538,7 +529,7 @@ void LinuxGLInterface::drawLines(LinuxLines *lines)
   lines->draw();
 }
 
-void LinuxGLInterface::drawLine(int x0, int y0, int x1, int y1, Color color)
+void LinuxGLInterface::drawLine(int x0, int y0, int x1, int y1, oboylib::Color color)
 {
 	// make sure beginScene was called:
 	assert(mRendering);
@@ -552,12 +543,10 @@ void LinuxGLInterface::drawLine(int x0, int y0, int x1, int y1, Color color)
     x1, y1, 0,
   };
 
-  glColor vcolor = parseColor(color);
-
-  GLfloat colors[] =
+  GLubyte colors[] =
   {
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha,
-    vcolor.red, vcolor.green, vcolor.blue, vcolor.alpha
+    color.r, color.g, color.b, color.a,
+    color.r, color.g, color.b, color.a
   };
 
   GLuint indices[] = { 0, 1 };
@@ -587,7 +576,7 @@ void LinuxGLInterface::drawLine(int x0, int y0, int x1, int y1, Color color)
   glVertexPointer(3, GL_FLOAT, 0, 0);
 
   // set color values:
-  glColorPointer(4, GL_FLOAT, 0, (void*)(sizeVertices));
+  glColorPointer(4, GL_UNSIGNED_BYTE, 0, (void*)(sizeVertices));
 
   // render from vertex buffer:
   glDrawElements(GL_LINES, numVertex, GL_UNSIGNED_INT, 0);

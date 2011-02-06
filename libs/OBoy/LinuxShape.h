@@ -28,7 +28,7 @@ namespace oboy
 	protected:
 
     std::vector<oboylib::Vector3>	mVertices;
-    std::vector<float> mColors;
+    std::vector<GLubyte> mColors;
 	  std::vector<oboylib::Vector3>	mNormals;
 	  std::vector<oboylib::Vector3>	mTangents;
 	  std::vector<oboylib::Vector2>	mTexCoords;

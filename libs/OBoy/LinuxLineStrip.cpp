@@ -32,25 +32,23 @@ void LinuxLineStrip::setVertPos(int i, float x, float y, float z)
   mVertices[i].z() = z;
 }
 
-void LinuxLineStrip::setVertColor(int i, Color color)
+void LinuxLineStrip::setVertColor(int i, oboylib::Color color)
 {
   assert(i < mNumVerts);
-  glColor vcolor = parseColor(color);
-	mColors[4*i+0] = vcolor.red;
-  mColors[4*i+1] = vcolor.green;
-  mColors[4*i+2] = vcolor.blue;
-  mColors[4*i+3] = vcolor.alpha;
+	mColors[4*i+0] = color.r;
+  mColors[4*i+1] = color.g;
+  mColors[4*i+2] = color.b;
+  mColors[4*i+3] = color.a;
 }
 
-void LinuxLineStrip::setColor(Color color)
+void LinuxLineStrip::setColor(oboylib::Color color)
 {
-  glColor vcolor = parseColor(color);
 	for (int i=0 ; i<mNumVerts ; i++)
 	{
-		mColors[4*i+0] = vcolor.red;
-    mColors[4*i+1] = vcolor.green;
-    mColors[4*i+2] = vcolor.blue;
-    mColors[4*i+3] = vcolor.alpha;
+		mColors[4*i+0] = color.r;
+    mColors[4*i+1] = color.g;
+    mColors[4*i+2] = color.b;
+    mColors[4*i+3] = color.a;
 	}
 }
 

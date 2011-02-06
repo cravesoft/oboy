@@ -15,24 +15,6 @@ namespace oboy
 		float u, v; // texture coords
 	};
 
-  typedef struct glColor
-  {
-    float red;
-    float green;
-    float blue;
-    float alpha;
-  } glColor;
-
-  inline glColor parseColor(const oboy::Color color)
-  {
-    glColor col;
-    col.red = ((color & 0x00ff0000) >> 16) / 256.0;
-    col.green = ((color & 0x0000ff00) >> 8) / 256.0;
-    col.blue = (color & 0x000000ff) / 256.0;
-    col.alpha = ((color & 0xff000000) >> 24) / 256.0;
-    return col;
-  };
-
 	class Game;
 	class LinuxImage;
 	class LinuxTriStrip;
@@ -57,16 +39,16 @@ namespace oboy
 		// rendering methods:
 		bool beginScene();
 		void endScene();
-		void drawImage(LinuxImage *image, Color color, float z);
-		void drawImage(LinuxImage *image, Color color, float z, int x, int y, int w, int h);
-		void drawRect(int x, int y, int w, int h, float z, Color color);
-    void drawCircle(int x, int y, float radius, int delta, Color color);
+		void drawImage(LinuxImage *image, oboylib::Color color, float z);
+		void drawImage(LinuxImage *image, oboylib::Color color, float z, int x, int y, int w, int h);
+		void drawRect(int x, int y, int w, int h, float z, oboylib::Color color);
+    void drawCircle(int x, int y, float radius, int delta, oboylib::Color color);
 		void drawTriStrip(LinuxTriStrip *strip);
     void drawLineStrip(LinuxLineStrip *strip);
     void drawLines(LinuxLines *lines);
-		void drawLine(int x0, int y0, int x1, int y1, Color color);
-    void drawSphere(LinuxSphere *sphere, Color color, float z);
-    void drawCube(LinuxCube *cube, Color color, float z);
+		void drawLine(int x0, int y0, int x1, int y1, oboylib::Color color);
+    void drawSphere(LinuxSphere *sphere, oboylib::Color color, float z);
+    void drawCube(LinuxCube *cube, oboylib::Color color, float z);
 
     // toggle screen mode
     void toggleFullScreen();
@@ -76,7 +58,7 @@ namespace oboy
 
 		// clearing:
 		inline void setClearZ(float z) { mClearZ = z; }
-    inline void setClearColor(oboy::Color color) { mClearColor = parseColor(color); }
+    inline void setClearColor(oboylib::Color color) { mClearColor = color; }
 
 		// gl state:
     void setCapability(int state, bool enabled);
@@ -124,7 +106,7 @@ namespace oboy
     SDL_Surface  *mScreen;
 
 		float					mClearZ;
-		glColor				mClearColor;
+    oboylib::Color mClearColor;
 
     bool mWindowed;
 

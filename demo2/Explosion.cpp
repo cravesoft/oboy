@@ -28,7 +28,7 @@ Explosion::Explosion(float x, float y, float radius)
 
 void Explosion::draw(oboy::Graphics *g)
 {
-	g->setColor(0xFFFFFFFF);
+  g->setColor(oboylib::Color(oboylib::Color::White));
 	g->setColorizationEnabled(true); // required for alpha to affect rendering
 	float alpha = 1 - (oboy::Environment::instance()->getTime() - mStartTime) / mDuration;
 	g->setAlpha(alpha);

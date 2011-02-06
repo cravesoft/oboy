@@ -12,7 +12,7 @@ namespace oboy
 		LinuxSphere(float radius, unsigned int numSlices, unsigned int numStacks);
     virtual ~LinuxSphere() {};
 
-		virtual void setColor(Color color);
+		virtual void setColor(oboylib::Color color);
 
     virtual bool build() { return LinuxShape::build(); };
 

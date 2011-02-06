@@ -12,7 +12,7 @@ namespace oboy
 		LinuxCube(float halfExtend);
     virtual ~LinuxCube() {};
 
-    virtual void setColor(Color color);
+    virtual void setColor(oboylib::Color color);
 
     virtual bool build() { return LinuxShape::build(); };
 

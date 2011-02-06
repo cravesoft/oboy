@@ -80,15 +80,14 @@ LinuxSphere::LinuxSphere(float radius, unsigned int numSlices, unsigned int numS
 	}
 }
 
-void LinuxSphere::setColor(Color color)
+void LinuxSphere::setColor(oboylib::Color color)
 {
-  glColor vcolor = parseColor(color);
   for (int i=0 ; i<(int)mColors.size() ; i+=4)
   {
-    mColors[i+0] = vcolor.red;
-    mColors[i+1] = vcolor.green;
-    mColors[i+2] = vcolor.blue;
-    mColors[i+3] = vcolor.alpha;
+    mColors[i+0] = color.r;
+    mColors[i+1] = color.g;
+    mColors[i+2] = color.b;
+    mColors[i+3] = color.a;
   }
 }
 
