@@ -18,6 +18,7 @@
 #include "WinSoundPlayer.h"
 #include "WinTriStrip.h"
 #include "WinLineStrip.h"
+#include "WinLines.h"
 #include "WinSphere.h"
 #include "WinStorage.h"
 
@@ -302,6 +303,12 @@ LineStrip *WinEnvironment::createLineStrip(int numVerts)
 {
 	WinLineStrip *strip = new WinLineStrip(numVerts);
 	return strip;
+}
+
+Lines *WinEnvironment::createLines(int numVerts)
+{
+	WinLines *lines = new WinLines(numVerts);
+	return lines;
 }
 
 Sphere *WinEnvironment::createSphere(float radius, int numSlices, int numStacks)

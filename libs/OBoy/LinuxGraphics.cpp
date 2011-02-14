@@ -174,7 +174,7 @@ void LinuxGraphics::setLineWidth(float width)
 void LinuxGraphics::setAlpha(float alpha)
 {
 #if 0
-	mColor.rgba &= 0x00ffffff;
+	mColor.argb &= 0x00ffffff;
 	mColor |= ((int)(255.0f * alpha)) << 24;
 #else
   mColor.setAlpha(alpha);

@@ -123,7 +123,7 @@ LinuxGLInterface::LinuxGLInterface(Game *game, int width, int height, const char
 
 	// clearing params:
 	mClearZ = PROJECTION_Z_FAR;
-  mClearColor.rgba = oboylib::Color::Black;
+  mClearColor.argb = oboylib::Color::Black;
 }
 
 LinuxGLInterface::~LinuxGLInterface()

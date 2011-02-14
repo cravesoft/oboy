@@ -207,7 +207,7 @@ int WinGraphics::getTransformStackSize()
 
 void WinGraphics::setColor(oboylib::Color color)
 {
-	mColor = color.rgba;
+	mColor = color.argb;
 }
 
 void WinGraphics::setLineWidth(float width)
@@ -422,7 +422,7 @@ void WinGraphics::setClearZ(float z)
 
 void WinGraphics::setClearColor(oboylib::Color color)
 {
-	mInterface->setClearColor(color.rgba);
+	mInterface->setClearColor(color.argb);
 }
 
 void WinGraphics::dumpInfo(std::ofstream &file)

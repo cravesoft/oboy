@@ -251,7 +251,7 @@ inline unsigned long parseARGB(const char *str, oboylib::Color color)
 {
 	if (str==NULL)
 	{
-		return color.rgba;
+		return color.argb;
 	}
 
 	std::vector<int> argb;

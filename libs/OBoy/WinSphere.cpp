@@ -73,7 +73,7 @@ void WinSphere::setColor(oboylib::Color color)
 	if(FAILED(hr)) return;
 
 	for (int i=0 ; i<vertexCount ; i++)
-		verts[i].color = (D3DCOLOR)color.rgba;
+		verts[i].color = (D3DCOLOR)color.argb;
 
 	// unlock it:
 	vb->Unlock();

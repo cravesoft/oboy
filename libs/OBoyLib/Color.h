@@ -10,9 +10,10 @@ namespace oboylib
     {
       struct
       {
-        unsigned char a, b, g, r;
+        //unsigned char a, b, g, r;
+        unsigned char b, g, r, a;
       };
-      unsigned int rgba;
+      unsigned int argb;
     };
 
     enum ColorConstant
@@ -24,9 +25,9 @@ namespace oboylib
       Azure = 0xF0FFFFFF,
       Beige = 0xF5F5DCFF,
       Bisque = 0xFFE4C4FF,
-      Black = 0x000000FF,
+      Black = 0xFF000000,
       BlanchedAlmond = 0xFFEBCDFF,
-      Blue = 0x0000FFFF,
+      Blue = 0xFF0000FF,
       BlueViolet = 0x8A2BE2FF,
       Brown = 0xA52A2AFF,
       BurlyWood = 0xDEB887FF,
@@ -37,7 +38,7 @@ namespace oboylib
       CornflowerBlue = 0x6495EDFF,
       Cornsilk = 0xFFF8DCFF,
       Crimson = 0xDC143CFF,
-      Cyan = 0x00FFFFFF,
+      Cyan = 0xFF00FFFF,
       DarkBlue = 0x00008BFF,
       DarkCyan = 0x008B8BFF,
       DarkGoldenrod = 0xB8860BFF,
@@ -67,8 +68,8 @@ namespace oboylib
       GhostWhite = 0xF8F8FFFF,
       Gold = 0xFFD700FF,
       Goldenrod = 0xDAA520FF,
-      Gray = 0x808080FF,
-      Green = 0x008000FF,
+      Gray = 0xFF808080,
+      Green = 0xFF008000,
       GreenYellow = 0xADFF2FFF,
       Honeydew = 0xF0FFF0FF,
       HotPink = 0xFF69B4FF,
@@ -96,7 +97,7 @@ namespace oboylib
       Lime = 0x00FF00FF,
       LimeGreen = 0x32CD32FF,
       Linen = 0xFAF0E6FF,
-      Magenta = 0xFF00FFFF,
+      Magenta = 0xFFFF00FF,
       Maroon = 0x800000FF,
       MediumAquamarine = 0x66CDAAFF,
       MediumBlue = 0x0000CDFF,
@@ -126,11 +127,11 @@ namespace oboylib
       PapayaWhip = 0xFFEFD5FF,
       PeachPuff = 0xFFDAB9FF,
       Peru = 0xCD853FFF,
-      Pink = 0xFFC0CBFF,
-      Plum = 0xDDA0DDFF,
+      Pink = 0xFFFFC0CB,
+      Plum = 0xFFDDA0DD,
       PowderBlue = 0xB0E0E6FF,
       Purple = 0x800080FF,
-      Red = 0xFF0000FF,
+      Red = 0xFFFF0000,
       RosyBrown = 0xBC8F8FFF,
       RoyalBlue = 0x4169E1FF,
       SaddleBrown = 0x8B4513FF,
@@ -155,13 +156,13 @@ namespace oboylib
       Wheat = 0xF5DEB3FF,
       White = 0xFFFFFFFF,
       WhiteSmoke = 0xF5F5F5FF,
-      Yellow = 0xFFFF00FF,
+      Yellow = 0xFFFFFF00,
       YellowGreen = 0x9ACD32FF
     };
 
     Color(void)
     {
-      rgba = White;
+      argb = White;
     }
 
     Color(unsigned char red, unsigned char green, unsigned char blue, float alpha = 1.0f)
@@ -174,12 +175,12 @@ namespace oboylib
 
     Color(unsigned int color)
     {
-      rgba = color;
+      argb = color;
     }
 
     Color(unsigned int color, float alpha)
     {
-      rgba = color;
+      argb = color;
       a = static_cast<unsigned char>(a * alpha);
     }
 
@@ -188,13 +189,13 @@ namespace oboylib
       a = static_cast<unsigned char>(alpha * 0xFF);
     }
 
-    inline bool operator == (const Color& color) const { return rgba==color.rgba; }
+    inline bool operator == (const Color& color) const { return argb==color.argb; }
 
-    inline bool operator == (unsigned int& color) const { return rgba==color; }
+    inline bool operator == (unsigned int& color) const { return argb==color; }
 
-    inline Color& operator = (const Color& color) { rgba = color.rgba; return *this; }
+    inline Color& operator = (const Color& color) { argb = color.argb; return *this; }
 
-    inline Color& operator = (unsigned int& color) { rgba = color; return *this; }
+    inline Color& operator = (unsigned int& color) { argb = color; return *this; }
 
   };
 

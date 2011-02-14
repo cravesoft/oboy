@@ -112,6 +112,7 @@ namespace oboy
 
 		// hardware capabilities:
 		GLint  mMaxTextureSize;
+
 	};
 }
 

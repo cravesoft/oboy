@@ -48,6 +48,7 @@ namespace oboy
 		virtual SoundPlayer			*getSoundPlayer();
 		virtual TriStrip			*createTriStrip(int numVerts);
     virtual LineStrip			*createLineStrip(int numVerts);
+    virtual Lines			    *createLines(int numVerts);
     virtual Sphere        *createSphere(float radius, int numSlices, int numStacks);
     virtual Cube          *createCube(float halfExtent);
 		virtual void				startMainLoop();

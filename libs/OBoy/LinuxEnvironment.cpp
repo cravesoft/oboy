@@ -439,7 +439,7 @@ void LinuxEnvironment::update()
 
 void LinuxEnvironment::draw()
 {
-	// begin the scene:
+  // begin the scene:
 	Uint32 t0 = SDL_GetTicks();
 	bool canDraw = mPlatformInterface->beginScene();
 	Uint32 t1 = SDL_GetTicks();
