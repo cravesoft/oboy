@@ -74,7 +74,7 @@ bool LinuxResourceLoader::load(Image *image)
 
 	if (pngimage.pixels == NULL)
 	{
-		envDebugLog("could not load texture: %s.png\n",img->getPath().c_str());
+		envDebugLog("could not load texture '%s.png'\n",img->getPath().c_str());
 	}
 
   // create a new name for the texture

@@ -17,7 +17,7 @@
     <Image id="IMAGE_ASTEROID_SMALL_2"   path="res/asteroids2"/>
     <Image id="IMAGE_ASTEROID_SMALL_3"   path="res/asteroids3"/>
 
-    <font  id="FONT_MAIN"                path="res/Stick72Bold"/>
+    <font  id="FONT_MAIN"                path="res/VectorBattle60"/>
 
     <sound id="SOUND_FIRE"               path="res/fire"/>
     <sound id="SOUND_BOOM"               path="res/boom"/>

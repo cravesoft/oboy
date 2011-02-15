@@ -322,10 +322,12 @@ bool Font::init(bool includeSounds)
 	}
 
   // parse the imageset file:
-  parseImageSetFile(mPath+".imageset");
+  if (!parseImageSetFile(mPath+".imageset"))
+    envDebugLog("error loading font '%s'\n",mPath.c_str());
   
   // parse the font file:
-  parseFontFile(mPath+".font");
+  if (!parseFontFile(mPath+".font"))
+    envDebugLog("error loading font '%s'\n",mPath.c_str());
 
 	// success
 	return true;
