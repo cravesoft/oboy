@@ -7,9 +7,9 @@
 #include "ResourceManager.h"
 #include "WinSound.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinSoundPlayer::WinSoundPlayer()
 {

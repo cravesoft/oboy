@@ -14,27 +14,27 @@
 
 	inline void __cdecl operator delete(void * _P, const char* sFile, int nLine)
 	{
-		oboylib::MemRemoveTrack(_P);
+		OBoyLib::MemRemoveTrack(_P);
 		::operator delete(_P);
 	}
 
 	inline void __cdecl operator delete[](void * _P, const char* sFile, int nLine)
 	{
-//		oboylib::MemRemoveTrack(_P);
+//		OBoyLib::MemRemoveTrack(_P);
 		::operator delete[](_P);
 	}
 
 	inline void* __cdecl operator new(unsigned int s, const char* sFile, int nLine)
 	{
 		void *ptr = ::operator new(s, _NORMAL_BLOCK, sFile, nLine);
-//		oboylib::MemAddTrack(ptr, s, sFile, nLine);
+//		OBoyLib::MemAddTrack(ptr, s, sFile, nLine);
 		return ptr;
 	}
 
 	inline void* __cdecl operator new[](unsigned int s, const char* sFile, int nLine)
 	{
 		void *ptr = ::operator new[](s, _NORMAL_BLOCK, sFile, nLine);
-//		oboylib::MemAddTrack(ptr, s, sFile, nLine);
+//		OBoyLib::MemAddTrack(ptr, s, sFile, nLine);
 		return ptr;
 	}
 

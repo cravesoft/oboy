@@ -4,7 +4,7 @@
 #include "Storage.h"
 #include <map>
 
-namespace oboy
+namespace OBoy
 {
 
 	class WinStorage : public Storage

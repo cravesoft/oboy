@@ -1,10 +1,10 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 #include "Graphics.h"
 #include "Texturable.h"
 
-namespace oboy
+namespace OBoy
 {
   class Sphere : public Texturable
 	{
@@ -13,7 +13,7 @@ namespace oboy
     Sphere(float radius, unsigned int numSlices, unsigned int numStacks) {}
 		virtual ~Sphere() {}
 
-		virtual void setColor(oboylib::Color color) = 0;
+		virtual void setColor(OBoyLib::Color color) = 0;
 
     virtual bool build() = 0;
 

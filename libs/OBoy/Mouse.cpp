@@ -1,15 +1,15 @@
 #include "Mouse.h"
 
 #include <algorithm>
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 #include "Environment.h"
 #include "Graphics.h"
 #include "Image.h"
 #include "MouseListener.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 Mouse::Mouse(int id)
 {
@@ -188,12 +188,12 @@ void Mouse::fireLeaveEvent()
 	}
 }
 
-const oboylib::Vector2 &Mouse::getPosition()
+const OBoyLib::Vector2 &Mouse::getPosition()
 {
 	return mPosition;
 }
 
-void Mouse::setPosition(const oboylib::Vector2 &pos)
+void Mouse::setPosition(const OBoyLib::Vector2 &pos)
 {
 	mPosition = pos;
 }
@@ -250,7 +250,7 @@ bool Mouse::isInBounds()
 
 bool Mouse::isValidMouseCoord(float x, float y)
 {
-	oboy::Graphics *g = oboy::Environment::instance()->getGraphics();
+	OBoy::Graphics *g = OBoy::Environment::instance()->getGraphics();
 	int gw = g->getWidth();
 	int gh = g->getHeight();
 	if (x >= -gw/2 && x <= gw*3/2 &&

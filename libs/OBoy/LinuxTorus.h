@@ -3,7 +3,7 @@
 #include "LinuxShape.h"
 #include "Torus.h"
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxTorus : public LinuxShape, public Torus
 	{

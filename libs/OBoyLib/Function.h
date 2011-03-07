@@ -2,7 +2,7 @@
 
 #include "CrtDbgInc.h"
 
-namespace oboylib
+namespace OBoyLib
 {
 	class Function
 	{

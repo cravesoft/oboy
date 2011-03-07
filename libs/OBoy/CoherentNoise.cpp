@@ -4,7 +4,7 @@
 #include "noiseutils.h"
 
 using namespace noise;
-using namespace oboy;
+using namespace OBoy;
 
 CoherentNoise::CoherentNoise()
 {

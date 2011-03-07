@@ -4,7 +4,7 @@
 #include "GuiEventArgs.h"*/
 #include <string>
 
-namespace oboy
+namespace OBoy
 {
   //class GuiWindow;
 

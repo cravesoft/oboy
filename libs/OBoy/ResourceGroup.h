@@ -1,11 +1,11 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 
 #include <string>
 #include <vector>
 
-namespace oboy
+namespace OBoy
 {
 	class ResourceGroup
 	{

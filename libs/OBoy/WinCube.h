@@ -4,7 +4,7 @@
 #include "Cube.h"
 #include "WinD3DInterface.h"
 
-namespace oboy
+namespace OBoy
 {
 	class WinCube : public Cube
 	{
@@ -13,7 +13,7 @@ namespace oboy
 		WinCube(float halfExtent);
 		virtual ~WinCube();
 
-		virtual void setColor(oboylib::Color color);
+		virtual void setColor(OBoyLib::Color color);
 
     virtual bool build();
 

@@ -1,7 +1,7 @@
 #include "LinuxGraphics.h"
 
 #include <assert.h>
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 #include "LinuxImage.h"
 #include "LinuxGLInterface.h"
 #include "LinuxTriStrip.h"
@@ -10,16 +10,16 @@
 #include "LinuxCube.h"
 #include "LinuxLines.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 LinuxGraphics::LinuxGraphics(LinuxGLInterface *platformInterface)
 {
 	mInterface = platformInterface;
   /*glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();*/
-  mColor = oboylib::Color();
+  mColor = OBoyLib::Color();
 	mColorizationEnabled = false;
   mTransformStackSize = 0;
 	mZ = 0;
@@ -33,7 +33,7 @@ void LinuxGraphics::drawImage(Image *img)
 {
 	mInterface->drawImage(
 		dynamic_cast<LinuxImage*>(img), 
-    mColorizationEnabled ? mColor : oboylib::Color(oboylib::Color::White),
+    mColorizationEnabled ? mColor : OBoyLib::Color(OBoyLib::Color::White),
 		mZ);
 }
 
@@ -41,7 +41,7 @@ void LinuxGraphics::drawImage(Image *img, int subrectX, int subrectY, int subrec
 {
 	mInterface->drawImage(
 		dynamic_cast<LinuxImage*>(img), 
-		mColorizationEnabled ? mColor : oboylib::Color(oboylib::Color::White),
+		mColorizationEnabled ? mColor : OBoyLib::Color(OBoyLib::Color::White),
 		mZ,
 		subrectX,
 		subrectY,
@@ -63,7 +63,7 @@ void LinuxGraphics::drawSphere(Sphere *sphere)
 {
 	mInterface->drawSphere(
 		dynamic_cast<LinuxSphere*>(sphere), 
-		mColorizationEnabled ? mColor : oboylib::Color(),
+		mColorizationEnabled ? mColor : OBoyLib::Color(),
 		mZ);
 }
 
@@ -71,7 +71,7 @@ void LinuxGraphics::drawCube(Cube *cube)
 {
 	mInterface->drawCube(
 		dynamic_cast<LinuxCube*>(cube), 
-		mColorizationEnabled ? mColor : oboylib::Color(),
+		mColorizationEnabled ? mColor : OBoyLib::Color(),
 		mZ);
 }
 
@@ -161,7 +161,7 @@ int LinuxGraphics::getTransformStackSize()
 	return mTransformStackSize;
 }
 
-void LinuxGraphics::setColor(oboylib::Color color)
+void LinuxGraphics::setColor(OBoyLib::Color color)
 {
 	mColor = color;
 }
@@ -357,7 +357,7 @@ void LinuxGraphics::setClearZ(float z)
 	mInterface->setClearZ(z);
 }
 
-void LinuxGraphics::setClearColor(oboylib::Color color)
+void LinuxGraphics::setClearColor(OBoyLib::Color color)
 {
 	mInterface->setClearColor(color);
 }

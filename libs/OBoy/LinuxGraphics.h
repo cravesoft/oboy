@@ -1,6 +1,6 @@
 #pragma once
 
-#include "oboylib/Rect.h"
+#include "OBoyLib/Rect.h"
 #include "Graphics.h"
 #include "TriStrip.h"
 #include "LineStrip.h"
@@ -8,7 +8,7 @@
 #include <GL/glew.h>
 #include <stack>
 
-namespace oboy
+namespace OBoy
 {
 	class GraphicsState;
 	class LinuxGLInterface;
@@ -48,7 +48,7 @@ namespace oboy
     void setLineWidth(float width);
 
 		virtual void setAlpha(float alpha);
-		virtual void setColor(oboylib::Color color);
+		virtual void setColor(OBoyLib::Color color);
 		virtual void setColorizationEnabled(bool enabled);
 
 		virtual void setZTestEnabled(bool enabled);
@@ -72,13 +72,13 @@ namespace oboy
 		virtual int getHeight();
 
 		virtual void setClearZ(float z);
-		virtual void setClearColor(oboylib::Color color);
+		virtual void setClearColor(OBoyLib::Color color);
 
 		void dumpInfo(std::ofstream &file);
 
 	private:
 
-		oboylib::Color mColor;
+		OBoyLib::Color mColor;
 		bool mColorizationEnabled;
 
 		float mZ;

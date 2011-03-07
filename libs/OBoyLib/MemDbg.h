@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <map>
 
-namespace oboylib
+namespace OBoyLib
 {
 	struct AllocInfo
 	{

@@ -1,7 +1,7 @@
 #include "WinGraphics.h"
 
 #include <assert.h>
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 #include "WinImage.h"
 #include "WinD3DInterface.h"
 #include "WinTriStrip.h"
@@ -9,9 +9,9 @@
 #include "WinLines.h"
 #include "WinSphere.h"
 #include "WinCube.h"
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinGraphics::WinGraphics(WinD3DInterface *platformInterface)
 {
@@ -205,7 +205,7 @@ int WinGraphics::getTransformStackSize()
 	return (int)mTransformStack.size();
 }
 
-void WinGraphics::setColor(oboylib::Color color)
+void WinGraphics::setColor(OBoyLib::Color color)
 {
 	mColor = color.argb;
 }
@@ -420,7 +420,7 @@ void WinGraphics::setClearZ(float z)
 	mInterface->setClearZ(z);
 }
 
-void WinGraphics::setClearColor(oboylib::Color color)
+void WinGraphics::setClearColor(OBoyLib::Color color)
 {
 	mInterface->setClearColor(color.argb);
 }

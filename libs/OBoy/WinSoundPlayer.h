@@ -1,6 +1,6 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 
 #include "irrKlang.h"
 #include <map>
@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace oboy
+namespace OBoy
 {
 	class WinSound;
 

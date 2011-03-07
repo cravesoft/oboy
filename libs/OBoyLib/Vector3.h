@@ -6,7 +6,7 @@
 #include "OBoyMath.h"
 #include "Vector2.h"
 
-namespace oboylib
+namespace OBoyLib
 {
 	class Vector3
 	{

@@ -50,14 +50,14 @@ inline float dist(float x0, float y0, float x1, float y1)
 	return boy_sqrtf(dx*dx+dy*dy);
 }
 
-inline float dist(const oboylib::Vector2 &p0, const oboylib::Vector2 &p1) 
+inline float dist(const OBoyLib::Vector2 &p0, const OBoyLib::Vector2 &p1) 
 {
 	float dx = p0.x()-p1.x();
 	float dy = p0.y()-p1.y();
 	return boy_sqrtf(dx*dx+dy*dy);
 }
 
-inline float dist(float x, float y, const oboylib::Vector2 &p) 
+inline float dist(float x, float y, const OBoyLib::Vector2 &p) 
 {
 	float dx = p.x()-x;
 	float dy = p.y()-y;
@@ -66,7 +66,7 @@ inline float dist(float x, float y, const oboylib::Vector2 &p)
 
 // shortest distance from point p to line through points l0 and l1
 // taken from: http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
-inline float distPointToLine(const oboylib::Vector2 &p, const oboylib::Vector2 &l0, const oboylib::Vector2 &l1) 
+inline float distPointToLine(const OBoyLib::Vector2 &p, const OBoyLib::Vector2 &l0, const OBoyLib::Vector2 &l1) 
 {
 	float ldx = l1.x()-l0.x(); // dx for line
 	float ldy = l1.y()-l0.y(); // dy for line
@@ -96,36 +96,36 @@ inline int randi(int min, int max)
 
 // reflects a point p off a line l that passes through the
 // two points l0 and l1.
-inline oboylib::Vector2 reflect(const oboylib::Vector2 &p, const oboylib::Vector2 &l0, const oboylib::Vector2 &l1)
+inline OBoyLib::Vector2 reflect(const OBoyLib::Vector2 &p, const OBoyLib::Vector2 &l0, const OBoyLib::Vector2 &l1)
 {
 	// calculate the normal along the line:
-	oboylib::Vector2 n = (l1-l0);
+	OBoyLib::Vector2 n = (l1-l0);
 	n /= n.magnitude();
 
 	return l0*2 - p + n*2*(p-l0).dot(n);
 }
 
-inline float getAngleBetween(const oboylib::Vector2 &v0, const oboylib::Vector2& v1)
+inline float getAngleBetween(const OBoyLib::Vector2 &v0, const OBoyLib::Vector2& v1)
 {
 	return acos(v0.dot(v1) / (v0.magnitude()*v1.magnitude()));
 }
 
 // this function rotates a point p1 around the point p0.
 // based on http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/BASICMAT/node4.html
-inline oboylib::Vector2 rotate(const oboylib::Vector2 &p1, const oboylib::Vector2 &p0, float angle)
+inline OBoyLib::Vector2 rotate(const OBoyLib::Vector2 &p1, const OBoyLib::Vector2 &p0, float angle)
 {
-	oboylib::Vector2 d = p1-p0;
+	OBoyLib::Vector2 d = p1-p0;
 
-	return p0 + oboylib::Vector2(
+	return p0 + OBoyLib::Vector2(
 		d.x() * cos(angle) - d.y() * sin(angle), 
 		d.x() * sin(angle) + d.y() * cos(angle));
 }
 
 // this function rotates a point p around the point origin.
 // based on http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/BASICMAT/node4.html
-inline oboylib::Vector2 rotate(const oboylib::Vector2 &p, float angle)
+inline OBoyLib::Vector2 rotate(const OBoyLib::Vector2 &p, float angle)
 {
-	return oboylib::Vector2(
+	return OBoyLib::Vector2(
 		p.x() * cos(angle) - p.y() * sin(angle), 
 		p.x() * sin(angle) + p.y() * cos(angle));
 }
@@ -135,7 +135,7 @@ inline bool getIntersectPoint(
 			float x2, float y2,
 			float x3, float y3,
 			float x4, float y4,
-			oboylib::Vector2 &intersectPoint,
+			OBoyLib::Vector2 &intersectPoint,
 			bool allowOffSegment=false)
 {
 	// let's find the intersection of lines L12 and L34:
@@ -169,10 +169,10 @@ inline bool getIntersectPoint(
 	return onSegment;
 }
 
-inline oboylib::Vector2 closestPointOnLine(
-	const oboylib::Vector2 &lp0,
-	const oboylib::Vector2 &lp1,
-	const oboylib::Vector2 &p)
+inline OBoyLib::Vector2 closestPointOnLine(
+	const OBoyLib::Vector2 &lp0,
+	const OBoyLib::Vector2 &lp1,
+	const OBoyLib::Vector2 &p)
 {
 
 	float dx = lp1.x() - lp0.x();
@@ -181,7 +181,7 @@ inline oboylib::Vector2 closestPointOnLine(
 	float perpdx = dy;
 	float perpdy = -dx;
 
-	oboylib::Vector2 closestPoint;
+	OBoyLib::Vector2 closestPoint;
 	getIntersectPoint(
 		lp0.x(), lp0.y(),
 		lp1.x(), lp1.y(),

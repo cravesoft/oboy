@@ -3,9 +3,9 @@
 #include "DXUT.h"
 #include <assert.h>
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinSphere::WinSphere(float radius, unsigned int numSlices, unsigned int numStacks) : Sphere(radius, numSlices, numStacks)
 {
@@ -51,7 +51,7 @@ WinSphere::~WinSphere()
 	mSphereMesh->Release();
 }
 
-void WinSphere::setColor(oboylib::Color color)
+void WinSphere::setColor(OBoyLib::Color color)
 {
   ID3DXMesh *tempSphereMesh;
 

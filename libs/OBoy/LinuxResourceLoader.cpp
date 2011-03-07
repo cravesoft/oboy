@@ -7,11 +7,11 @@
 #include "LinuxGLInterface.h"
 #include "LinuxSound.h"
 #include "LinuxSoundPlayer.h"
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 LinuxResourceLoader::LinuxResourceLoader(const std::string &language1, 
 									 const std::string &language2) 

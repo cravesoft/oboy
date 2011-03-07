@@ -5,9 +5,9 @@
 #include "Environment.h"
 #include "KeyboardListener.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 Keyboard::Keyboard()
 {

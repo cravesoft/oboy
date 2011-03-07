@@ -3,7 +3,7 @@
 #include <assert.h>
 #include "LinuxGLInterface.h"
 
-using namespace oboy;
+using namespace OBoy;
 
 LinuxTriStrip::LinuxTriStrip(int numVerts)
 {
@@ -39,7 +39,7 @@ void LinuxTriStrip::setVertTex(int i, float u, float v)
   mTexCoords[i].y() = v;
 }
 
-void LinuxTriStrip::setVertColor(int i, oboylib::Color color)
+void LinuxTriStrip::setVertColor(int i, OBoyLib::Color color)
 {
   assert(i < mNumVerts);
 	mColors[4*i+0] = color.r;
@@ -48,7 +48,7 @@ void LinuxTriStrip::setVertColor(int i, oboylib::Color color)
   mColors[4*i+3] = color.a;
 }
 
-void LinuxTriStrip::setColor(oboylib::Color color)
+void LinuxTriStrip::setColor(OBoyLib::Color color)
 {
 	for (int i=0 ; i<mNumVerts ; i++)
 	{

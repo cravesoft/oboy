@@ -3,7 +3,7 @@
 
 #include "Environment.h"
 
-namespace oboy
+namespace OBoy
 {
 	/*
 	 * interface for a generic mass storage device that can read/write files

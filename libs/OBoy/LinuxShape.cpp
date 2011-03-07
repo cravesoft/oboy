@@ -3,7 +3,7 @@
 
 #include <assert.h>
 
-using namespace oboy;
+using namespace OBoy;
 
 void LinuxShape::destroy()
 {
@@ -30,7 +30,7 @@ bool LinuxShape::build()
 
 	if (!mVertices.empty())
   {
-		mSizeVertices = mVertices.size()*sizeof(oboylib::Vector3);
+		mSizeVertices = mVertices.size()*sizeof(OBoyLib::Vector3);
   }
 	else
   {
@@ -39,7 +39,7 @@ bool LinuxShape::build()
 	}
 
 	if (!mNormals.empty()) 
-		mSizeNormals	= mNormals.size()*sizeof(oboylib::Vector3);
+		mSizeNormals	= mNormals.size()*sizeof(OBoyLib::Vector3);
   else
     mSizeNormals = 0;
 
@@ -49,12 +49,12 @@ bool LinuxShape::build()
     mSizeColors = 0;
 
 	if (!mTexCoords.empty()) 
-		mSizeTexCoords = mTexCoords.size()*sizeof(oboylib::Vector2);
+		mSizeTexCoords = mTexCoords.size()*sizeof(OBoyLib::Vector2);
   else
     mSizeTexCoords = 0;
 	
 	if (!mTangents.empty())
-		mSizeTangents = mTangents.size()*sizeof(oboylib::Vector3);
+		mSizeTangents = mTangents.size()*sizeof(OBoyLib::Vector3);
   else
     mSizeTangents = 0;
 	

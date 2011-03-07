@@ -1,8 +1,8 @@
 #include "Gui.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 Gui::Gui()
 {

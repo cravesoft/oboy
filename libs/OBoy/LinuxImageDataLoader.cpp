@@ -1,10 +1,10 @@
 #include "LinuxImageDataLoader.h"
 #include "Environment.h"
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 #include <SDL/SDL_image.h>
 #include <iostream>
 
-using namespace oboy;
+using namespace OBoy;
 
 LinuxImageDataLoader::LinuxImageDataLoader()
 {

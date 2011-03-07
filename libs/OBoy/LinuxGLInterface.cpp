@@ -1,9 +1,8 @@
 #include "LinuxGLInterface.h"
 
 #include <assert.h>
-#include <GL/glut.h>
 #include "OBoy/Mouse.h"
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 #include "Environment.h"
 #include <fstream>
 #include "Game.h"
@@ -19,7 +18,7 @@
 #include "LinuxCube.h"
 #include "LinuxLines.h"
 
-using namespace oboy;
+using namespace OBoy;
 
 #define PROJECTION_Z_NEAR -50//0
 #define PROJECTION_Z_FAR 1//1
@@ -28,7 +27,7 @@ using namespace oboy;
 
 #define DEFAULT_BPP 32
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 LinuxGLInterface::LinuxGLInterface(Game *game, int width, int height, const char *title, bool windowed, unsigned int refreshRate)
 {
@@ -123,7 +122,7 @@ LinuxGLInterface::LinuxGLInterface(Game *game, int width, int height, const char
 
 	// clearing params:
 	mClearZ = PROJECTION_Z_FAR;
-  mClearColor.argb = oboylib::Color::Black;
+  mClearColor.argb = OBoyLib::Color::Black;
 }
 
 LinuxGLInterface::~LinuxGLInterface()
@@ -216,12 +215,12 @@ void LinuxGLInterface::endScene()
   SDL_GL_SwapBuffers();
 }
 
-void LinuxGLInterface::drawImage(LinuxImage *image, oboylib::Color color, float z)
+void LinuxGLInterface::drawImage(LinuxImage *image, OBoyLib::Color color, float z)
 {
 	drawImage(image, color, z, 0, 0, image->getWidth(), image->getHeight());
 }
 
-void LinuxGLInterface::drawImage(LinuxImage *image, oboylib::Color color, float z, int x, int y, int w, int h)
+void LinuxGLInterface::drawImage(LinuxImage *image, OBoyLib::Color color, float z, int x, int y, int w, int h)
 {
   // make sure beginScene was called:
   assert(mRendering);
@@ -341,7 +340,7 @@ void LinuxGLInterface::drawImage(LinuxImage *image, oboylib::Color color, float 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void LinuxGLInterface::drawRect(int x, int y, int w, int h, float z, oboylib::Color color)
+void LinuxGLInterface::drawRect(int x, int y, int w, int h, float z, OBoyLib::Color color)
 {
   // make sure beginScene was called:
 	assert(mRendering);
@@ -413,7 +412,7 @@ void LinuxGLInterface::drawRect(int x, int y, int w, int h, float z, oboylib::Co
   glDeleteBuffers(1, &indexBuffer);
 }
 
-void LinuxGLInterface::drawCircle(int x, int y, float radius, int delta, oboylib::Color color)
+void LinuxGLInterface::drawCircle(int x, int y, float radius, int delta, OBoyLib::Color color)
 {
 	// make sure beginScene was called:
 	assert(mRendering);
@@ -484,7 +483,7 @@ void LinuxGLInterface::drawCircle(int x, int y, float radius, int delta, oboylib
   delete[] indices;
 }
 
-void LinuxGLInterface::drawSphere(LinuxSphere *sphere, oboylib::Color color, float z)
+void LinuxGLInterface::drawSphere(LinuxSphere *sphere, OBoyLib::Color color, float z)
 {
   // make sure beginScene was called:
 	assert(mRendering);
@@ -493,7 +492,7 @@ void LinuxGLInterface::drawSphere(LinuxSphere *sphere, oboylib::Color color, flo
 	sphere->draw();
 }
 
-void LinuxGLInterface::drawCube(LinuxCube *cube, oboylib::Color color, float z)
+void LinuxGLInterface::drawCube(LinuxCube *cube, OBoyLib::Color color, float z)
 {
 	// make sure beginScene was called:
 	assert(mRendering);
@@ -529,7 +528,7 @@ void LinuxGLInterface::drawLines(LinuxLines *lines)
   lines->draw();
 }
 
-void LinuxGLInterface::drawLine(int x0, int y0, int x1, int y1, oboylib::Color color)
+void LinuxGLInterface::drawLine(int x0, int y0, int x1, int y1, OBoyLib::Color color)
 {
 	// make sure beginScene was called:
 	assert(mRendering);

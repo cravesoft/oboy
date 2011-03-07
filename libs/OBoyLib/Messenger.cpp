@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "MessageListener.h"
 
-using namespace oboylib;
+using namespace OBoyLib;
 
 Messenger *Messenger::gInstance = NULL;
 

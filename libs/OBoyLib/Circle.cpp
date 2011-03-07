@@ -2,7 +2,7 @@
 
 #include "OBoyUtil.h"
 
-using namespace oboylib;
+using namespace OBoyLib;
 
 #include "CrtDbgNew.h"
 

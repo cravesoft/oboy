@@ -5,9 +5,9 @@
 #include "WinD3DInterface.h"
 #include "WinImage.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinResourceSaver::WinResourceSaver(const std::string &language1, 
 									 const std::string &language2,

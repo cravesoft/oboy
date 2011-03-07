@@ -5,7 +5,7 @@
 #include <math.h>
 #include "OBoyMath.h"
 
-namespace oboylib
+namespace OBoyLib
 {
 	class Vector2
 	{

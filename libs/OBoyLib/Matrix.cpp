@@ -1,6 +1,6 @@
 #include <math.h>
 
-using namespace OBoyLib;
+using namespace oboylib;
 
 bool isRowZero(const float matrix[16], unsigned int row)
 {

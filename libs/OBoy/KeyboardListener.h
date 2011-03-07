@@ -2,7 +2,7 @@
 
 #include "Keyboard.h"
 
-namespace oboy
+namespace OBoy
 {
 	class KeyboardListener
 	{

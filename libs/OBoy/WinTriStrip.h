@@ -4,7 +4,7 @@
 #include "TriStrip.h"
 #include "WinD3DInterface.h"
 
-namespace oboy
+namespace OBoy
 {
 	class WinTriStrip : public TriStrip
 	{
@@ -13,11 +13,11 @@ namespace oboy
 		WinTriStrip(int numVerts);
 		virtual ~WinTriStrip();
 
-    virtual void setColor(oboylib::Color color);
+    virtual void setColor(OBoyLib::Color color);
 
 		virtual void setVertPos(int i, float x, float y, float z);
 		virtual void setVertTex(int i, float u, float v);
-    virtual void setVertColor(int i, oboylib::Color color);
+    virtual void setVertColor(int i, OBoyLib::Color color);
 
     virtual bool build();
 

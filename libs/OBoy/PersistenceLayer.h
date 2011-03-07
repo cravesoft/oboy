@@ -1,11 +1,11 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 
 #include <map>
 #include <string>
 
-namespace oboy
+namespace OBoy
 {
 	class PersistenceLayer
 	{

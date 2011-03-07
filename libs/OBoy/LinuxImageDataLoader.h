@@ -3,7 +3,7 @@
 #include <SDL/SDL.h>
 #include <string>
 
-namespace oboy
+namespace OBoy
 {
   // struct representing some image data
   struct ImageData

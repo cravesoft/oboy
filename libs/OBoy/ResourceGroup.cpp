@@ -3,9 +3,9 @@
 #include <algorithm>
 #include <assert.h>
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 ResourceGroup::ResourceGroup()
 {

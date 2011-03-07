@@ -3,7 +3,7 @@
 #include "Lines.h"
 #include "LinuxShape.h"
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxLines : public Lines, public LinuxShape
 	{
@@ -12,10 +12,10 @@ namespace oboy
 		LinuxLines(int numVerts);
     virtual ~LinuxLines() {};
 
-		virtual void setColor(oboylib::Color color);
+		virtual void setColor(OBoyLib::Color color);
 
 		virtual void setVertPos(int i, float x, float y, float z);
-		virtual void setVertColor(int i, oboylib::Color color);
+		virtual void setVertColor(int i, OBoyLib::Color color);
 
     virtual bool build() { return LinuxShape::build(); };
 

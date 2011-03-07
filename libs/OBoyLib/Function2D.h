@@ -2,7 +2,7 @@
 
 #include "Vector2.h"
 
-namespace oboylib
+namespace OBoyLib
 {
 	class Function2D
 	{

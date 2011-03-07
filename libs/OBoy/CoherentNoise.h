@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace oboy
+namespace OBoy
 {
 
 	class CoherentNoise

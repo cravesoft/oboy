@@ -3,7 +3,7 @@
 #include "Sound.h"
 #include "irrKlang.h"
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxSound : public Sound
 	{

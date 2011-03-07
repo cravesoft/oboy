@@ -2,9 +2,9 @@
 
 #include <assert.h>
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinLineStrip::WinLineStrip(int numVerts)
 {
@@ -31,12 +31,12 @@ void WinLineStrip::setVertTex(int i, float u, float v)
 	mVerts[i].v = v;
 }
 
-void WinLineStrip::setVertColor(int i, oboylib::Color color)
+void WinLineStrip::setVertColor(int i, OBoyLib::Color color)
 {
 	mVerts[i].color = (D3DCOLOR)color.argb; // both are ARGB format
 }
 
-void WinLineStrip::setColor(oboylib::Color color)
+void WinLineStrip::setColor(OBoyLib::Color color)
 {
 	for (int i=0 ; i<mVertexCount ; i++)
 	{

@@ -1,10 +1,10 @@
 #include "LinuxSphere.h"
 
 #include "LinuxGLInterface.h"
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 #include "LinuxImage.h"
 
-using namespace oboy;
+using namespace OBoy;
 
 LinuxSphere::LinuxSphere(float radius, unsigned int numSlices, unsigned int numStacks) : Sphere(radius, numSlices, numStacks)
 {
@@ -18,7 +18,7 @@ LinuxSphere::LinuxSphere(float radius, unsigned int numSlices, unsigned int numS
 
 	unsigned int* indexBuf;
 
-  oboylib::Vector3 helpVector(0.0f, 1.0f, 0.0f);
+  OBoyLib::Vector3 helpVector(0.0f, 1.0f, 0.0f);
 
 	mVertices.clear();
   mColors.clear();
@@ -31,7 +31,7 @@ LinuxSphere::LinuxSphere(float radius, unsigned int numSlices, unsigned int numS
 	{
     for (j = 0; j < numSlices + 1; j++)
 		{
-      oboylib::Vector3 vertex(
+      OBoyLib::Vector3 vertex(
         radius * sinf(angleStep * (float)i) * sinf(angleStep * (float)j),
         radius * cosf(angleStep * (float)i),
         radius * sinf(angleStep * (float)i) * cosf(angleStep * (float)j));
@@ -42,12 +42,12 @@ LinuxSphere::LinuxSphere(float radius, unsigned int numSlices, unsigned int numS
       mColors.push_back(1.0f); /* blue */
       mColors.push_back(1.0f); /* alpha */
 
-      mNormals.push_back(oboylib::Vector3(
+      mNormals.push_back(OBoyLib::Vector3(
         vertex.x() / radius,
         vertex.y() / radius,
         vertex.z() / radius));
 
-      oboylib::Vector3 tangent;
+      OBoyLib::Vector3 tangent;
       tangent = mNormals.back().cross(helpVector);
       if (tangent.magnitudeSquared() == 0.0f)
 			{
@@ -57,7 +57,7 @@ LinuxSphere::LinuxSphere(float radius, unsigned int numSlices, unsigned int numS
 			}
       mTangents.push_back(tangent);
 
-      mTexCoords.push_back(oboylib::Vector2(
+      mTexCoords.push_back(OBoyLib::Vector2(
         (float) j / (float) numSlices,
         ( 1.0f - (float) i ) / (float) (numParallels - 1 )));
 		}
@@ -80,7 +80,7 @@ LinuxSphere::LinuxSphere(float radius, unsigned int numSlices, unsigned int numS
 	}
 }
 
-void LinuxSphere::setColor(oboylib::Color color)
+void LinuxSphere::setColor(OBoyLib::Color color)
 {
   for (int i=0 ; i<(int)mColors.size() ; i+=4)
   {
@@ -93,7 +93,7 @@ void LinuxSphere::setColor(oboylib::Color color)
 
 void LinuxSphere::draw()
 {
-  oboy::Image *img = this->getTexture();
+  OBoy::Image *img = this->getTexture();
 
   if (img == NULL)
   {

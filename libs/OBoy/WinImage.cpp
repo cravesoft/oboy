@@ -3,9 +3,9 @@
 #include <assert.h>
 #include "ResourceLoader.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinImage::WinImage(ResourceLoader *loader, const std::string &path) : Image(loader,path)
 {

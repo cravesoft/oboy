@@ -5,7 +5,7 @@
 #include <wchar.h>
 #include <wctype.h>
 
-using namespace oboy;
+using namespace OBoy;
 
 #include "CrtDbgNew.h"
 

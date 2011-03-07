@@ -2,7 +2,7 @@
 
 #include "Function.h"
 
-namespace oboylib
+namespace OBoyLib
 {
 	class SmoothTransitionFunction : public Function
 	{

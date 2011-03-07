@@ -2,7 +2,7 @@
 
 #include <assert.h>
 #include "OBoy/Mouse.h"
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 #include "dxerr9.h"
 #include "DXUT.h"
 #include "Environment.h"
@@ -12,7 +12,7 @@
 #include "Keyboard.h"
 #include "PersistenceLayer.h"
 #include "ResourceManager.h"
-#include "SDL.h"
+#include <SDL/SDL.h>
 #include "WinEnvironment.h"
 #include "WinImage.h"
 #include "WinTriStrip.h"
@@ -21,7 +21,7 @@
 #include "WinSphere.h"
 #include "WinCube.h"
 
-using namespace oboy;
+using namespace OBoy;
 
 #define PROJECTION_Z_NEAR -50//0
 #define PROJECTION_Z_FAR 1//1
@@ -30,7 +30,7 @@ using namespace oboy;
 
 #define DEFAULT_D3DFORMAT D3DFMT_X8R8G8B8
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 bool getPresentationParameters(D3DPRESENT_PARAMETERS &pp, int width, int height, bool windowed)
 {
@@ -344,7 +344,7 @@ LRESULT CALLBACK MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, boo
 	case WM_QUIT:
 		break;
 	case WM_CLOSE:
-		oboy::Environment::instance()->stopMainLoop();
+		OBoy::Environment::instance()->stopMainLoop();
 		break;
 	case WM_SYSCOMMAND:
 		/*
@@ -357,7 +357,7 @@ LRESULT CALLBACK MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, boo
 			wParam==HTBOTTOMLEFT ||
 			wParam==HTBOTTOMRIGHT)
 		*/
-		if (!oboy::Environment::instance()->isWindowResizable())
+		if (!OBoy::Environment::instance()->isWindowResizable())
 		{
 			if (wParam==0xf001 || // left
 				wParam==0xf002 || // right
@@ -465,7 +465,7 @@ WinD3DInterface::WinD3DInterface(Game *game, int width, int height, const char *
 	settings.d3d9.pp.FullScreen_RefreshRateInHz = refreshRate;
 	if (windowed)
 	{
-		oboy::UString unicodeTitle(title);
+		OBoy::UString unicodeTitle(title);
 		DXUTCreateWindow(unicodeTitle.wc_str());
 	}
 	DXUTCreateDeviceFromSettings(&settings);
@@ -1410,8 +1410,8 @@ void WinD3DInterface::handleLostDevice()
 void WinD3DInterface::handleResetDevice()
 {
 	// persist the fullscreen setting:
-	oboy::Environment *env = oboy::Environment::instance();
-	oboy::PersistenceLayer *pl = env->getPersistenceLayer();
+	OBoy::Environment *env = OBoy::Environment::instance();
+	OBoy::PersistenceLayer *pl = env->getPersistenceLayer();
 	bool fullscreen = env->isFullScreen();
 	pl->putString("fullscreen",fullscreen?"true":"false",true);
 

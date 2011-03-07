@@ -1,10 +1,10 @@
 #include "LinuxTorus.h"
 
 #include <cstring>
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 #include "LinuxImage.h"
 
-using namespace oboy;
+using namespace OBoy;
 
 LinuxTorus::LinuxTorus(float innerRadius, float outerRadius, unsigned int numSides, unsigned int numFaces)
     : Torus(innerRadius, outerRadius, numSides, numFaces)
@@ -24,7 +24,7 @@ LinuxTorus::LinuxTorus(float innerRadius, float outerRadius, unsigned int numSid
 	unsigned int numIndices;
 
 	// used later to help us calculating tangents vectors
-  oboylib::Vector3 helpVector(0.0f, 1.0f, 0.0f);
+  OBoyLib::Vector3 helpVector(0.0f, 1.0f, 0.0f);
 
 	// indices for each type of buffer (of vertices, indices, normals...)
 	unsigned int indexVertices, indexIndices, indexNormals, indexTangents, indexTexCoords;
@@ -135,7 +135,7 @@ LinuxTorus::LinuxTorus(float innerRadius, float outerRadius, unsigned int numSid
 
 void LinuxTorus::draw()
 {
-  oboy::Image *img = this->getTexture();
+  OBoy::Image *img = this->getTexture();
 
   if (img == NULL)
   {

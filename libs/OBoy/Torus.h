@@ -1,10 +1,10 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 #include "Graphics.h"
 #include "Texturable.h"
 
-namespace oboy
+namespace OBoy
 {
   class Torus : public Texturable
 	{
@@ -13,7 +13,7 @@ namespace oboy
     Torus(float innerRadius, float outerRadius, unsigned int numSides, unsigned int numFaces) {}
 		virtual ~Torus() {}
 
-		virtual void setColor(oboylib::Color color) = 0;
+		virtual void setColor(OBoyLib::Color color) = 0;
 
     virtual bool build() = 0;
 

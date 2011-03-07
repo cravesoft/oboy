@@ -3,7 +3,7 @@
 #include "Sphere.h"
 #include "LinuxShape.h"
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxSphere : public LinuxShape, public Sphere
 	{
@@ -12,7 +12,7 @@ namespace oboy
 		LinuxSphere(float radius, unsigned int numSlices, unsigned int numStacks);
     virtual ~LinuxSphere() {};
 
-		virtual void setColor(oboylib::Color color);
+		virtual void setColor(OBoyLib::Color color);
 
     virtual bool build() { return LinuxShape::build(); };
 

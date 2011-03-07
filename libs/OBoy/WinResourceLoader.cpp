@@ -7,9 +7,9 @@
 #include "WinSound.h"
 #include "WinSoundPlayer.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinResourceLoader::WinResourceLoader(const std::string &language1, 
 									 const std::string &language2, 

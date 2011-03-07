@@ -1,7 +1,7 @@
 #include "LinuxEnvironment.h"
 
 #include <assert.h>
-#include "oboylib/md5.h"
+#include "OBoyLib/md5.h"
 #include <fstream>
 #include "Game.h"
 #include "irrKlang.h"
@@ -23,6 +23,7 @@
 #include "LinuxTorus.h"
 #include "LinuxPlane.h"
 #include "LinuxStorage.h"
+#include "LinuxGui.h"
 
 // the higher this number is, the lower the framerate will 
 // drop before the game (simulation) starts to slow down:
@@ -31,9 +32,9 @@
 // uncomment this to get timing info for every update/draw call on the console
 //#define _VERBOSE_TIMING_STATS
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 // an environment is a static object now so ctor/dtor stuff should be done in init/destroy
 LinuxEnvironment::LinuxEnvironment() {}
@@ -646,7 +647,7 @@ bool LinuxEnvironment::processVirtualMouseEvents(unsigned int key, bool down)
 		case VK_OEM_2: // this is / and ? for US keyboards
 			if (!mIsLeftMouseButtonDown[1])
 			{
-				mMice[1]->fireDownEvent(oboy::Mouse::BUTTON_LEFT,1);
+				mMice[1]->fireDownEvent(OBoy::Mouse::BUTTON_LEFT,1);
 				mIsLeftMouseButtonDown[1] = true;
 			}
 			return true;
@@ -667,7 +668,7 @@ bool LinuxEnvironment::processVirtualMouseEvents(unsigned int key, bool down)
 		case VK_OEM_2: // this is / and ? for US keyboards
 			if (mIsLeftMouseButtonDown[1])
 			{
-				getMouse(1)->fireUpEvent(oboy::Mouse::BUTTON_LEFT);
+				getMouse(1)->fireUpEvent(OBoy::Mouse::BUTTON_LEFT);
 				mIsLeftMouseButtonDown[1] = false;
 			}
 			return true;

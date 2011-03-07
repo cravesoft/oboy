@@ -3,10 +3,10 @@
 #include <GL/glew.h>
 #include <string>
 #include <vector>
-#include "oboylib/Vector2.h"
-#include "oboylib/Vector3.h"
+#include "OBoyLib/Vector2.h"
+#include "OBoyLib/Vector3.h"
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxShape
 	{
@@ -27,11 +27,11 @@ namespace oboy
 
 	protected:
 
-    std::vector<oboylib::Vector3>	mVertices;
+    std::vector<OBoyLib::Vector3>	mVertices;
     std::vector<GLubyte> mColors;
-	  std::vector<oboylib::Vector3>	mNormals;
-	  std::vector<oboylib::Vector3>	mTangents;
-	  std::vector<oboylib::Vector2>	mTexCoords;
+	  std::vector<OBoyLib::Vector3>	mNormals;
+	  std::vector<OBoyLib::Vector3>	mTangents;
+	  std::vector<OBoyLib::Vector2>	mTexCoords;
     std::vector<unsigned int>	mIndices;
 
 	  GLsizeiptr mSizeVertices;

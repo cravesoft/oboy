@@ -1,7 +1,7 @@
 #include "WinPersistenceLayer.h"
 
 #include <assert.h>
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 #include "Crypto.h"
 #include <iostream>
 #include <sstream>
@@ -12,9 +12,9 @@
 #	include <shlobj.h>
 //#endif
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinPersistenceLayer::WinPersistenceLayer(const UString &filename, unsigned char *key)
 {
@@ -106,7 +106,7 @@ void WinPersistenceLayer::load()
 
 		char *decData;
 		int decDataSize;
-		oboy::aesDecrypt(mKey,data,size,&decData,&decDataSize);
+		OBoy::aesDecrypt(mKey,data,size,&decData,&decDataSize);
 
 		parse(decData,decDataSize);
 
@@ -138,7 +138,7 @@ void WinPersistenceLayer::save()
 	int dataSize = (int)writeStr.str().size();
 	int encryptedDataSize;
 	char *encryptedData;
-	oboy::aesEncrypt(mKey,
+	OBoy::aesEncrypt(mKey,
 		writeStr.str().c_str(), dataSize,
 		&encryptedData, &encryptedDataSize);
 

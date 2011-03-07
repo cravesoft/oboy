@@ -1,6 +1,6 @@
 #include "UStringStream.h"
 
-using namespace oboy;
+using namespace OBoy;
 
 #include "CrtDbgNew.h"
 

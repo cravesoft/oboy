@@ -1,15 +1,15 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 
 #include <string>
 #include <stdio.h>
-#include "oboylib/UString.h"
+#include "OBoyLib/UString.h"
 
 #define MOUSE_COUNT_MAX 4
 #define GAMEPAD_COUNT_MAX 4
 
-namespace oboy
+namespace OBoy
 {
 	class Game;
 	class GamePad;
@@ -166,16 +166,16 @@ namespace oboy
 	#if defined(OBOY_CONFIG_FINAL)
 		#define envDebugLog(format, args...) do {} while(0)
 	#else
-		#define envDebugLog(format, args...) oboy::Environment::instance()->debugLog( format , ## args )
+		#define envDebugLog(format, args...) OBoy::Environment::instance()->debugLog( format , ## args )
 	#endif
 #elif defined(OBOY_PLATFORM_WIN32)
-	#define envDebugLog(format,...) oboy::Environment::instance()->debugLog( format , __VA_ARGS__ )
+	#define envDebugLog(format,...) OBoy::Environment::instance()->debugLog( format , __VA_ARGS__ )
 #elif defined(OBOY_PLATFORM_OSX)
 	#if defined(OBOY_CONFIG_FINAL)
 		#define envDebugLog(format, args...) do {} while(0)
 	#else
-		#define envDebugLog(format, args...) oboy::Environment::instance()->debugLog( format , ## args )
+		#define envDebugLog(format, args...) OBoy::Environment::instance()->debugLog( format , ## args )
 	#endif
 #elif defined(OBOY_PLATFORM_LINUX)
-  #define envDebugLog(format,...) oboy::Environment::instance()->debugLog( format , __VA_ARGS__ )
+  #define envDebugLog(format,...) OBoy::Environment::instance()->debugLog( format , __VA_ARGS__ )
 #endif

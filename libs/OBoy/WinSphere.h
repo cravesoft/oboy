@@ -4,7 +4,7 @@
 #include "Sphere.h"
 #include "WinD3DInterface.h"
 
-namespace oboy
+namespace OBoy
 {
   #define MESHFVF D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1
   struct MeshVertex
@@ -22,7 +22,7 @@ namespace oboy
 		WinSphere(float radius, unsigned int numSlices, unsigned int numStacks);
 		virtual ~WinSphere();
 
-		virtual void setColor(oboylib::Color color);
+		virtual void setColor(OBoyLib::Color color);
 
     virtual bool build();
 

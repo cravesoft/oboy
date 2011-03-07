@@ -2,7 +2,7 @@
 
 #include "Function2D.h"
 
-namespace oboylib
+namespace OBoyLib
 {
 	class SinFunction2D : public Function2D
 	{

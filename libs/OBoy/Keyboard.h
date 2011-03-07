@@ -3,7 +3,7 @@
 #include "OBoy/Controller.h"
 #include <vector>
 
-namespace oboy
+namespace OBoy
 {
 	class KeyboardListener;
 

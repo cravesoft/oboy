@@ -1,6 +1,5 @@
-
-#ifndef _BOY_MATH_H_
-#define _BOY_MATH_H_
+#ifndef _OBOY_MATH_H_
+#define _OBOY_MATH_H_
 
 #if defined(OBOY_PLATFORM_WII)
 

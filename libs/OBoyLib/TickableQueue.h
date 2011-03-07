@@ -4,7 +4,7 @@
 #include <queue>
 #include <queue>
 
-namespace oboylib
+namespace OBoyLib
 {
 	class TickableQueue : public Tickable
 	{

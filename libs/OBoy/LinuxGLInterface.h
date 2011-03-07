@@ -4,9 +4,9 @@
 #include "Graphics.h"
 #include <string>
 #include <GL/glew.h>
-#include <SDL.h>
+#include <SDL/SDL.h>
 
-namespace oboy
+namespace OBoy
 {
 	struct BoyVertex
 	{
@@ -39,16 +39,16 @@ namespace oboy
 		// rendering methods:
 		bool beginScene();
 		void endScene();
-		void drawImage(LinuxImage *image, oboylib::Color color, float z);
-		void drawImage(LinuxImage *image, oboylib::Color color, float z, int x, int y, int w, int h);
-		void drawRect(int x, int y, int w, int h, float z, oboylib::Color color);
-    void drawCircle(int x, int y, float radius, int delta, oboylib::Color color);
+		void drawImage(LinuxImage *image, OBoyLib::Color color, float z);
+		void drawImage(LinuxImage *image, OBoyLib::Color color, float z, int x, int y, int w, int h);
+		void drawRect(int x, int y, int w, int h, float z, OBoyLib::Color color);
+    void drawCircle(int x, int y, float radius, int delta, OBoyLib::Color color);
 		void drawTriStrip(LinuxTriStrip *strip);
     void drawLineStrip(LinuxLineStrip *strip);
     void drawLines(LinuxLines *lines);
-		void drawLine(int x0, int y0, int x1, int y1, oboylib::Color color);
-    void drawSphere(LinuxSphere *sphere, oboylib::Color color, float z);
-    void drawCube(LinuxCube *cube, oboylib::Color color, float z);
+		void drawLine(int x0, int y0, int x1, int y1, OBoyLib::Color color);
+    void drawSphere(LinuxSphere *sphere, OBoyLib::Color color, float z);
+    void drawCube(LinuxCube *cube, OBoyLib::Color color, float z);
 
     // toggle screen mode
     void toggleFullScreen();
@@ -58,7 +58,7 @@ namespace oboy
 
 		// clearing:
 		inline void setClearZ(float z) { mClearZ = z; }
-    inline void setClearColor(oboylib::Color color) { mClearColor = color; }
+    inline void setClearColor(OBoyLib::Color color) { mClearColor = color; }
 
 		// gl state:
     void setCapability(int state, bool enabled);
@@ -96,7 +96,7 @@ namespace oboy
 
 		std::string	  mTitle;
 
-		oboy::Game   *mGame;
+		OBoy::Game   *mGame;
 
 		bool					mRendering;
 
@@ -106,7 +106,7 @@ namespace oboy
     SDL_Surface  *mScreen;
 
 		float					mClearZ;
-    oboylib::Color mClearColor;
+    OBoyLib::Color mClearColor;
 
     bool mWindowed;
 

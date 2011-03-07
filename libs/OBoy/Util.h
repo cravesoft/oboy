@@ -1,6 +1,6 @@
 #include <assert.h>
-#include "oboylib/UString.h"
-#include "oboylib/Vector2.h"
+#include "OBoyLib/UString.h"
+#include "OBoyLib/Vector2.h"
 #include "Graphics.h"
 #include <string.h>
 #include <vector>
@@ -24,7 +24,7 @@ inline void BIND_PTR(A *base, B* &ptr)
 	}
 }
 
-inline void tokenize(const oboy::UString& str, const oboy::UString &delimitersNotReturned, const oboy::UString &delimitersReturned, std::vector<oboy::UString> &tokens)
+inline void tokenize(const OBoy::UString& str, const OBoy::UString &delimitersNotReturned, const OBoy::UString &delimitersReturned, std::vector<OBoy::UString> &tokens)
 {
 	// make sure the tokens vector is empty:
 	tokens.clear();
@@ -35,7 +35,7 @@ inline void tokenize(const oboy::UString& str, const oboy::UString &delimitersNo
 		return;
 	}
 
-	oboy::UString delim(delimitersNotReturned);
+	OBoy::UString delim(delimitersNotReturned);
 	delim.append(delimitersReturned);
 	int strLen = str.length();
 
@@ -87,9 +87,9 @@ inline void tokenize(const oboy::UString& str, const oboy::UString &delimitersNo
 	}
 }
 
-inline void tokenize(const oboy::UString& str, const oboy::UString& delimiters, std::vector<oboy::UString> &tokens)
+inline void tokenize(const OBoy::UString& str, const OBoy::UString& delimiters, std::vector<OBoy::UString> &tokens)
 {
-	return tokenize(str,delimiters,oboy::UString(),tokens);
+	return tokenize(str,delimiters,OBoy::UString(),tokens);
 }
 
 inline void tokenize(const std::string& str, const std::string &delimitersNotReturned, const std::string &delimitersReturned, std::vector<std::string> &tokens)
@@ -247,7 +247,7 @@ inline unsigned long parseRGB(const std::string& str)
 	return 0xff000000 | rgb[0]<<16 | rgb[1]<<8 | rgb[2];
 }
 
-inline unsigned long parseARGB(const char *str, oboylib::Color color)
+inline unsigned long parseARGB(const char *str, OBoyLib::Color color)
 {
 	if (str==NULL)
 	{
@@ -266,7 +266,7 @@ inline unsigned long parseRGBA(const std::string& str)
 	return (unsigned long)(rgba[3]<<24 | rgba[0]<<16 | rgba[1]<<8 | rgba[2]);
 }
 
-inline void parseVector2(const std::string &str, oboylib::Vector2 &vec)
+inline void parseVector2(const std::string &str, OBoyLib::Vector2 &vec)
 {
 	std::vector<float> values;
 	tokenizeFloat(str, ", ", values);
@@ -283,7 +283,7 @@ inline bool isspacew(wchar_t ch)
 	return false;
 }
 
-inline oboy::UString trim(const oboy::UString& theString)
+inline OBoy::UString trim(const OBoy::UString& theString)
 {
 	int length = theString.length();
 	int aStartPos = 0;

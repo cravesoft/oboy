@@ -5,7 +5,7 @@
 #include <CEGUIDefaultResourceProvider.h>
 #include "DXUT.h"
 
-using namespace oboy;
+using namespace OBoy;
 
 WinGui::WinGui() : Gui()
 {

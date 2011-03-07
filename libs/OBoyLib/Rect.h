@@ -2,7 +2,7 @@
 
 #include "Boundary.h"
 
-namespace oboylib
+namespace OBoyLib
 {
 	class Rect : public Boundary
 	{

@@ -3,7 +3,7 @@
 #include <assert.h>
 #include "LinuxGLInterface.h"
 
-using namespace oboy;
+using namespace OBoy;
 
 LinuxLines::LinuxLines(int numVerts)
 {
@@ -31,7 +31,7 @@ void LinuxLines::setVertPos(int i, float x, float y, float z)
   mVertices[i].z() = z;
 }
 
-void LinuxLines::setVertColor(int i, oboylib::Color color)
+void LinuxLines::setVertColor(int i, OBoyLib::Color color)
 {
   assert(i < mNumVerts);
 	mColors[4*i+0] = color.r;
@@ -40,7 +40,7 @@ void LinuxLines::setVertColor(int i, oboylib::Color color)
   mColors[4*i+3] = color.a;
 }
 
-void LinuxLines::setColor(oboylib::Color color)
+void LinuxLines::setColor(OBoyLib::Color color)
 {
 	for (int i=0 ; i<mNumVerts ; i++)
 	{

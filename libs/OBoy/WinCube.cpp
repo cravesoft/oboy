@@ -3,9 +3,9 @@
 #include "DXUT.h"
 #include <assert.h>
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinCube::WinCube(float halfExtent) : Cube(halfExtent)
 {
@@ -15,7 +15,7 @@ WinCube::~WinCube()
 {
 }
 
-void WinCube::setColor(oboylib::Color color)
+void WinCube::setColor(OBoyLib::Color color)
 {
 }
 

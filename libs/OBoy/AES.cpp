@@ -38,7 +38,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 // todo - make faster 128 blocksize version with 128 blocksize hardcoded as necessary
 

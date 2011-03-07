@@ -1,10 +1,10 @@
 #pragma once
 
-#include "oboylib/Vector2.h"
+#include "OBoyLib/Vector2.h"
 #include "Controller.h"
 #include <vector>
 
-namespace oboy
+namespace OBoy
 {
 	class GamePadListener;
 
@@ -37,8 +37,8 @@ namespace oboy
 
 		void vibrate(int leftVal, int rightVal);
 
-		const oboylib::Vector2 &getAnalogL();
-		const oboylib::Vector2 &getAnalogR();
+		const OBoyLib::Vector2 &getAnalogL();
+		const OBoyLib::Vector2 &getAnalogR();
 		void setAnalogL(float x, float y);
 		void setAnalogR(float x, float y);
 
@@ -68,8 +68,8 @@ namespace oboy
 
 		std::vector<GamePadListener*> mListeners;
 		int mId;
-		oboylib::Vector2 mAnalogL;
-		oboylib::Vector2 mAnalogR;
+		OBoyLib::Vector2 mAnalogL;
+		OBoyLib::Vector2 mAnalogR;
 		float mTriggerL;
 		float mTriggerR;
 		bool mIsButtonDown[BUTTON_COUNT];

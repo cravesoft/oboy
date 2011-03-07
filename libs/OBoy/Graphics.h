@@ -1,11 +1,11 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 
-#include "oboylib/Rect.h"
-#include "oboylib/Color.h"
+#include "OBoyLib/Rect.h"
+#include "OBoyLib/Color.h"
 
-namespace oboy
+namespace OBoy
 {
 	class Image;
 	class TriStrip;
@@ -43,7 +43,7 @@ namespace oboy
 		 * image drawing methods:
 		 */
 		virtual void drawImage(Image *img) = 0;
-		virtual void drawImage(Image *img, const oboylib::Rect &subrect) { drawImage(img, (int)subrect.getX(), (int)subrect.getY(), (int)subrect.getWidth(), (int)subrect.getHeight()); }
+		virtual void drawImage(Image *img, const OBoyLib::Rect &subrect) { drawImage(img, (int)subrect.getX(), (int)subrect.getY(), (int)subrect.getWidth(), (int)subrect.getHeight()); }
 		virtual void drawImage(Image *img, int subrectX, int subrectY, int subrectW, int subrectH) = 0;
 
 		/*
@@ -81,7 +81,7 @@ namespace oboy
 		 * tells the graphics object which color to  
 		 * use for subsequent drawing operations
 		 */
-    virtual void setColor(oboylib::Color color) = 0;
+    virtual void setColor(OBoyLib::Color color) = 0;
 
     virtual void setLineWidth(float width) = 0;
 
@@ -117,7 +117,7 @@ namespace oboy
 		 * value to clear the z buffer and frame buffer to)
 		 */
 		virtual void setClearZ(float z) = 0;
-    virtual void setClearColor(oboylib::Color color) = 0;
+    virtual void setClearColor(OBoyLib::Color color) = 0;
 
 		/*
 		 * methods for controlling alpha testing (whether to draw 

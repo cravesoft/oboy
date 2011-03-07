@@ -4,10 +4,10 @@
 #include "d3dx9.h"
 #include "Environment.h"
 #include "Graphics.h"
-#include "oboylib/Color.h"
+#include "OBoyLib/Color.h"
 #include <string>
 
-namespace oboy
+namespace OBoy
 {
 	// define our flexible vertex format;
 	#define BOYFVF D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1
@@ -96,7 +96,7 @@ namespace oboy
 
 		std::string				mTitle;
 
-		oboy::Game				*mGame;
+		OBoy::Game				*mGame;
 
 		D3DPRESENT_PARAMETERS	mPresentationParameters;
 

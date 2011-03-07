@@ -1,8 +1,8 @@
 #pragma once
 
-#include "oboylib/Vector2.h"
+#include "OBoyLib/Vector2.h"
 
-namespace oboy
+namespace OBoy
 {
 	class Controller
 	{

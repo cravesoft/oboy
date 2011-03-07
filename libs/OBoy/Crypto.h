@@ -1,8 +1,8 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 
-namespace oboy
+namespace OBoy
 {
 	void aesEncrypt(const unsigned char *key, 
 		const char *inData, int inDataSize, 

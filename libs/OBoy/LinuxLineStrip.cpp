@@ -4,7 +4,7 @@
 #include "LinuxGLInterface.h"
 #include <iostream>
 
-using namespace oboy;
+using namespace OBoy;
 
 LinuxLineStrip::LinuxLineStrip(int numVerts)
 {
@@ -32,7 +32,7 @@ void LinuxLineStrip::setVertPos(int i, float x, float y, float z)
   mVertices[i].z() = z;
 }
 
-void LinuxLineStrip::setVertColor(int i, oboylib::Color color)
+void LinuxLineStrip::setVertColor(int i, OBoyLib::Color color)
 {
   assert(i < mNumVerts);
 	mColors[4*i+0] = color.r;
@@ -41,7 +41,7 @@ void LinuxLineStrip::setVertColor(int i, oboylib::Color color)
   mColors[4*i+3] = color.a;
 }
 
-void LinuxLineStrip::setColor(oboylib::Color color)
+void LinuxLineStrip::setColor(OBoyLib::Color color)
 {
 	for (int i=0 ; i<mNumVerts ; i++)
 	{

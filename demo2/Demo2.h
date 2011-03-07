@@ -6,11 +6,11 @@
 #include "OBoy/Game.h"
 #include "OBoy/Graphics.h"
 #include "OBoy/KeyboardListener.h"
-#include "oboylib/OBoyUtil.h"
-#include "oboylib/Vector2.h"
+#include "OBoyLib/OBoyUtil.h"
+#include "OBoyLib/Vector2.h"
 #include "Explosion.h"
 
-class Demo2: public oboy::Game, public oboy::KeyboardListener
+class Demo2: public OBoy::Game, public OBoy::KeyboardListener
 {
 public:
 
@@ -26,11 +26,11 @@ public:
 	virtual void load();
 	virtual void loadComplete();
 	virtual void update(float dt);
-	virtual void draw(oboy::Graphics *g);
+	virtual void draw(OBoy::Graphics *g);
 
 	// implementation of KeyboardListener:
-	virtual void keyUp(wchar_t unicode, oboy::Keyboard::Key key, oboy::Keyboard::Modifiers mods);
-	virtual void keyDown(wchar_t unicode, oboy::Keyboard::Key key, oboy::Keyboard::Modifiers mods);
+	virtual void keyUp(wchar_t unicode, OBoy::Keyboard::Key key, OBoy::Keyboard::Modifiers mods);
+	virtual void keyDown(wchar_t unicode, OBoy::Keyboard::Key key, OBoy::Keyboard::Modifiers mods);
 
 private:
 
@@ -56,12 +56,12 @@ private:
 	int mLevel;
 	int mLives;
 	bool mLoadComplete;
-	oboy::Image *mShipImage;
-	oboy::Image *mThrustImage;
-	oboy::Sound *mBoomSound;
-	oboy::Sound *mFireSound;
-	oboy::Sound *mThrustSound;
-	oboy::Font *mFont;
+	OBoy::Image *mShipImage;
+	OBoy::Image *mThrustImage;
+	OBoy::Sound *mBoomSound;
+	OBoy::Sound *mFireSound;
+	OBoy::Sound *mThrustSound;
+	OBoy::Font *mFont;
 	int mScore;
 	bool mGameOver;
 	float mLastRespawn;

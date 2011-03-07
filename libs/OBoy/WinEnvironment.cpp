@@ -1,7 +1,7 @@
 #include "WinEnvironment.h"
 
 #include <assert.h>
-#include "oboylib/md5.h"
+#include "OBoyLib/md5.h"
 #include "DXUT.h"
 #include <fstream>
 #include "Game.h"
@@ -21,6 +21,7 @@
 #include "WinLines.h"
 #include "WinSphere.h"
 #include "WinStorage.h"
+#include "WinGui.h"
 
 // the higher this number is, the lower the framerate will 
 // drop before the game (simulation) starts to slow down:
@@ -29,9 +30,9 @@
 // uncomment this to get timing info for every update/draw call on the console
 //#define _VERBOSE_TIMING_STATS
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 // an environment is a static object now so ctor/dtor stuff should be done in init/destroy
 WinEnvironment::WinEnvironment() {}
@@ -134,8 +135,10 @@ void WinEnvironment::init(Game *game,
     mGui = NULL;
   else if (gui == "CEGUI")
   {
+#if 0
 	  mGui = new WinGui();
     showSystemMouse(false);
+#endif
   }
 
 	// we don't want to shut down right away:
@@ -444,8 +447,10 @@ void WinEnvironment::update()
 	Uint32 t = SDL_GetTicks();
   float dt = (t-mLastUpdate)/1000.0f;
 	mGame->update(dt);
+#if 0
   if (mGui != NULL)
     mGui->injectTimePulse(dt);
+#endif
   mLastUpdate = t;
 	mUpdateCount++;
 	mIntervalFrameCount++;
@@ -660,7 +665,7 @@ bool WinEnvironment::processVirtualMouseEvents(UINT key, bool down)
 		case VK_OEM_2: // this is / and ? for US keyboards
 			if (!mIsLeftMouseButtonDown[1])
 			{
-				mMice[1]->fireDownEvent(oboy::Mouse::BUTTON_LEFT,1);
+				mMice[1]->fireDownEvent(OBoy::Mouse::BUTTON_LEFT,1);
 				mIsLeftMouseButtonDown[1] = true;
 			}
 			return true;
@@ -681,7 +686,7 @@ bool WinEnvironment::processVirtualMouseEvents(UINT key, bool down)
 		case VK_OEM_2: // this is / and ? for US keyboards
 			if (mIsLeftMouseButtonDown[1])
 			{
-				getMouse(1)->fireUpEvent(oboy::Mouse::BUTTON_LEFT);
+				getMouse(1)->fireUpEvent(OBoy::Mouse::BUTTON_LEFT);
 				mIsLeftMouseButtonDown[1] = false;
 			}
 			return true;

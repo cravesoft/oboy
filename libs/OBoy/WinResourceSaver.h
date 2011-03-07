@@ -1,10 +1,10 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 
 #include "ResourceSaver.h"
 
-namespace oboy
+namespace OBoy
 {
 	class WinD3DInterface;
 

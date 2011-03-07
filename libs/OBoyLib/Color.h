@@ -1,6 +1,6 @@
 #pragma once
 
-namespace oboylib
+namespace OBoyLib
 {
   class Color
   {

@@ -5,7 +5,7 @@
 #include "LinuxGLInterface.h"
 #include "LinuxImage.h"
 
-using namespace oboy;
+using namespace OBoy;
 
 LinuxCube::LinuxCube(float halfExtend) : Cube(halfExtend)
 {
@@ -159,17 +159,17 @@ LinuxCube::LinuxCube(float halfExtend) : Cube(halfExtend)
     x = i*3;
     y = x+1;
     z = x+2;
-    mVertices.push_back(oboylib::Vector3(cubeVertices[x]*halfExtend,
+    mVertices.push_back(OBoyLib::Vector3(cubeVertices[x]*halfExtend,
       cubeVertices[y]*halfExtend,
       cubeVertices[z]*halfExtend));
-    mNormals.push_back(oboylib::Vector3(cubeNormals[x], cubeNormals[y], cubeNormals[z]));
-    mTangents.push_back(oboylib::Vector3(cubeTangents[x], cubeTangents[y], cubeTangents[z]));
-    mTexCoords.push_back(oboylib::Vector2(cubeTexCoords[i*2], cubeTexCoords[i*2+1]));
+    mNormals.push_back(OBoyLib::Vector3(cubeNormals[x], cubeNormals[y], cubeNormals[z]));
+    mTangents.push_back(OBoyLib::Vector3(cubeTangents[x], cubeTangents[y], cubeTangents[z]));
+    mTexCoords.push_back(OBoyLib::Vector2(cubeTexCoords[i*2], cubeTexCoords[i*2+1]));
   }
   mIndices.assign(cubeIndices, cubeIndices+numIndices);
 }
 
-void LinuxCube::setColor(oboylib::Color color)
+void LinuxCube::setColor(OBoyLib::Color color)
 {
   for (int i=0 ; i<(int)mColors.size() ; i+=4)
   {
@@ -182,7 +182,7 @@ void LinuxCube::setColor(oboylib::Color color)
 
 void LinuxCube::draw()
 {
-  oboy::Image *img = this->getTexture();
+  OBoy::Image *img = this->getTexture();
 
   if (img == NULL)
   {

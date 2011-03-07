@@ -1,10 +1,10 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 
 #include <string>
 
-namespace oboy
+namespace OBoy
 {
 	class Image;
 

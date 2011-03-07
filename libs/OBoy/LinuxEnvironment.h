@@ -1,15 +1,14 @@
 #pragma once
 
-#include "oboylib/UString.h"
+#include "OBoyLib/UString.h"
 #include "Environment.h"
 #include "Keyboard.h"
-#include "LinuxGui.h"
 #include <map>
 #include "Mouse.h"
-#include "SDL.h"
+#include <SDL/SDL.h>
 #include "LinuxGamePad.h"
 
-namespace oboy
+namespace OBoy
 {
 	class Game;
 	class ResourceLoader;
@@ -113,7 +112,7 @@ namespace oboy
 		// controllers:
 		Mouse						*mMice[MOUSE_COUNT_MAX];
 		GamePad						*mGamePads[GAMEPAD_COUNT_MAX];
-		oboylib::Vector2				mMouseVelocity[MOUSE_COUNT_MAX];
+		OBoyLib::Vector2				mMouseVelocity[MOUSE_COUNT_MAX];
 		Keyboard					*mKeyboard;
 		bool						mShowSystemMouse;
 
@@ -131,7 +130,7 @@ namespace oboy
 
 		// graphics stuff:
 		int							mFullScreenToggleDisableCount;
-		oboylib::Vector2				mLastKnownWindowSize;
+		OBoyLib::Vector2				mLastKnownWindowSize;
 		bool						mMouseInBounds;
 
 		// timing related:

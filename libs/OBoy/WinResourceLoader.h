@@ -1,11 +1,11 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 
 #include "irrKlang.h"
 #include "ResourceLoader.h"
 
-namespace oboy
+namespace OBoy
 {
 	class WinD3DInterface;
 

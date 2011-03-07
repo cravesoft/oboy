@@ -3,7 +3,7 @@
 #include "LineStrip.h"
 #include "LinuxShape.h"
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxLineStrip : public LinuxShape, public LineStrip
 	{
@@ -12,10 +12,10 @@ namespace oboy
 		LinuxLineStrip(int numVerts);
     virtual ~LinuxLineStrip() {};
 
-		virtual void setColor(oboylib::Color color);
+		virtual void setColor(OBoyLib::Color color);
 
 		virtual void setVertPos(int i, float x, float y, float z);
-		virtual void setVertColor(int i, oboylib::Color color);
+		virtual void setVertColor(int i, OBoyLib::Color color);
 
     virtual bool build() { return LinuxShape::build(); };
 

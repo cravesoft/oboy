@@ -2,7 +2,7 @@
 
 #include "OBoy/Environment.h"
 #include "OBoy/ResourceManager.h"
-#include "oboylib/OBoyUtil.h"
+#include "OBoyLib/OBoyUtil.h"
 
 #define PARTICLE_MIN_SPEED 100.0f
 #define PARTICLE_MAX_SPEED 200.0f
@@ -13,7 +13,7 @@ Explosion::Explosion(float x, float y, float radius)
 	for (int i=0 ; i<NUM_PARTICLES ; i++)
 	{
 		mParticlePositions[i] = rotate(
-			oboylib::Vector2(0, radius),
+			OBoyLib::Vector2(0, radius),
 			randf(0,6.28f));
 		mParticleVelocities[i] = 
 			mParticlePositions[i].normalize() * randf(PARTICLE_MIN_SPEED, PARTICLE_MAX_SPEED);
@@ -21,18 +21,18 @@ Explosion::Explosion(float x, float y, float radius)
 		mParticlePositions[i].y() += y;
 	}
 
-	mImage = oboy::Environment::getImage("IMAGE_BULLET");
-	mStartTime = oboy::Environment::instance()->getTime();
+	mImage = OBoy::Environment::getImage("IMAGE_BULLET");
+	mStartTime = OBoy::Environment::instance()->getTime();
 	mDuration = 1.0f;
 }
 
-void Explosion::draw(oboy::Graphics *g)
+void Explosion::draw(OBoy::Graphics *g)
 {
-  g->setColor(oboylib::Color(oboylib::Color::White));
+  g->setColor(OBoyLib::Color(OBoyLib::Color::White));
 	g->setColorizationEnabled(true); // required for alpha to affect rendering
-	float alpha = 1 - (oboy::Environment::instance()->getTime() - mStartTime) / mDuration;
+	float alpha = 1 - (OBoy::Environment::instance()->getTime() - mStartTime) / mDuration;
 	g->setAlpha(alpha);
-	g->setDrawMode(oboy::Graphics::DRAWMODE_ADDITIVE);
+	g->setDrawMode(OBoy::Graphics::DRAWMODE_ADDITIVE);
 
 	for (int i=0 ; i<NUM_PARTICLES ; i++)
 	{
@@ -45,7 +45,7 @@ void Explosion::draw(oboy::Graphics *g)
 	}
 
 	g->setColorizationEnabled(false);
-	g->setDrawMode(oboy::Graphics::DRAWMODE_NORMAL);
+	g->setDrawMode(OBoy::Graphics::DRAWMODE_NORMAL);
 }
 
 void Explosion::update(float dt)
@@ -60,5 +60,5 @@ void Explosion::update(float dt)
 
 bool Explosion::isOver()
 {
-	return oboy::Environment::instance()->getTime() - mStartTime > mDuration;
+	return OBoy::Environment::instance()->getTime() - mStartTime > mDuration;
 }

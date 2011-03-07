@@ -4,7 +4,7 @@
 
 #include <map>
 
-namespace oboylib
+namespace OBoyLib
 {
 	/*
 	 * an interface for cloneable objects

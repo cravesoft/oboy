@@ -2,7 +2,7 @@
 
 #include <cstring>
 
-using namespace oboy;
+using namespace OBoy;
 
 LinuxPlane::LinuxPlane(float halfExtend)
 {
@@ -60,10 +60,10 @@ LinuxPlane::LinuxPlane(float halfExtend)
     x = i*3;
     y = x+1;
     z = x+2;
-    mVertices.push_back(oboylib::Vector3(xy_vertices[x]*halfExtend, xy_vertices[y]*halfExtend, xy_vertices[z]));
-    mNormals.push_back(oboylib::Vector3(xy_normals[x], xy_normals[y], xy_normals[z]));
-    mTangents.push_back(oboylib::Vector3(xy_tangents[x], xy_tangents[y], xy_tangents[z]));
-    mTexCoords.push_back(oboylib::Vector2(xy_texCoords[i*2], xy_texCoords[i*2+1]));
+    mVertices.push_back(OBoyLib::Vector3(xy_vertices[x]*halfExtend, xy_vertices[y]*halfExtend, xy_vertices[z]));
+    mNormals.push_back(OBoyLib::Vector3(xy_normals[x], xy_normals[y], xy_normals[z]));
+    mTangents.push_back(OBoyLib::Vector3(xy_tangents[x], xy_tangents[y], xy_tangents[z]));
+    mTexCoords.push_back(OBoyLib::Vector2(xy_texCoords[i*2], xy_texCoords[i*2+1]));
   }
   mIndices.assign(xy_indices, xy_indices+numIndices);
 }

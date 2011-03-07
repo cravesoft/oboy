@@ -3,7 +3,7 @@
 #include "Image.h"
 #include <GL/glew.h>
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxImage : public Image
 	{

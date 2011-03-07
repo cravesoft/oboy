@@ -3,7 +3,7 @@
 #include "LinuxShape.h"
 #include "Cube.h"
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxCube : public LinuxShape, public Cube
 	{
@@ -12,7 +12,7 @@ namespace oboy
 		LinuxCube(float halfExtend);
     virtual ~LinuxCube() {};
 
-    virtual void setColor(oboylib::Color color);
+    virtual void setColor(OBoyLib::Color color);
 
     virtual bool build() { return LinuxShape::build(); };
 

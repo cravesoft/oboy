@@ -2,7 +2,7 @@
 
 #include "LinuxShape.h"
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxPlane : public LinuxShape
 	{

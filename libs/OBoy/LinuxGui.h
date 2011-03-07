@@ -2,7 +2,7 @@
 
 #include "Gui.h"
 
-namespace oboy
+namespace OBoy
 {
 	class LinuxGui : public Gui
 	{

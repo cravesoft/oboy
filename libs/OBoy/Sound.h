@@ -1,9 +1,9 @@
 #pragma once
 
-#include "oboylib/CrtDbgInc.h"
+#include "OBoyLib/CrtDbgInc.h"
 #include "Resource.h"
 
-namespace oboy
+namespace OBoy
 {
 	class Sound : public Resource
 	{

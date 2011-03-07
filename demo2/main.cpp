@@ -4,7 +4,7 @@
 int main(int argc, char* argv[])
 {
 	// initialize the platform:
-	oboy::Environment::instance()->init(
+	OBoy::Environment::instance()->init(
 		Demo2::instance(),
 		1024, // width
 		768, // height
@@ -14,13 +14,13 @@ int main(int argc, char* argv[])
 		NULL); // no encryption
 
 	// start the main loop
-	oboy::Environment::instance()->startMainLoop();
+	OBoy::Environment::instance()->startMainLoop();
 
 	// destroy the game:
 	Demo2::destroy();
 
 	// destroy the environment:
-	oboy::Environment::instance()->destroy();
+	OBoy::Environment::instance()->destroy();
 
 	return 0;
 }

@@ -6,7 +6,7 @@
 
 #pragma comment(lib, "XInput.lib")
 
-namespace oboy
+namespace OBoy
 {
 	class WinGamePad : public GamePad
 	{

@@ -5,9 +5,9 @@
 #include "ResourceLoader.h"
 #include "WinSoundPlayer.h"
 
-using namespace oboy;
+using namespace OBoy;
 
-#include "oboylib/CrtDbgNew.h"
+#include "OBoyLib/CrtDbgNew.h"
 
 WinSound::WinSound(ResourceLoader *loader, const std::string &path) : Sound(loader,path)
 {
