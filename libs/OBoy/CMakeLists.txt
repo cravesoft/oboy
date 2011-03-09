@@ -212,8 +212,12 @@ if(OBOY_BUILD_SHARED)
 		${OBoy_shapes_HDRS}
 		${OBoy_linux_SRCS}
 		${OBoy_linux_HDRS}
+    ${OBoy_linuxshapes_SRCS}
+    ${OBoy_linuxshapes_HDRS}
 		${OBoy_windows_SRCS}
 		${OBoy_windows_HDRS}
+    ${OBoy_winshapes_SRCS}
+		${OBoy_winshapes_HDRS}
 	)
 	set_target_properties(OBoy_shared PROPERTIES
 		OUTPUT_NAME "OBoy"
@@ -236,8 +240,12 @@ if(OBOY_BUILD_STATIC)
 		${OBoy_shapes_HDRS}
 		${OBoy_linux_SRCS}
 		${OBoy_linux_HDRS}
+    ${OBoy_linuxshapes_SRCS}
+    ${OBoy_linuxshapes_HDRS}
 		${OBoy_windows_SRCS}
 		${OBoy_windows_HDRS}
+    ${OBoy_winshapes_SRCS}
+		${OBoy_winshapes_HDRS}
 	)
 	set_target_properties(OBoy PROPERTIES
 		CLEAN_DIRECT_OUTPUT 1
@@ -253,9 +261,9 @@ if(MSVC)
   source_group(noise FILES ${OBoy_noise_SRCS} ${OBoy_noise_HDRS})
   source_group(shapes FILES ${OBoy_shapes_HDRS})
   source_group(linux FILES ${OBoy_linux_SRCS} ${OBoy_linux_HDRS})
-  source_group(linux\\shapes FILES ${OBoy_linuxshapes_SRCS} ${OBoy_linuxshapes_HRDS})
+  source_group(linux\\shapes FILES ${OBoy_linuxshapes_SRCS} ${OBoy_linuxshapes_HDRS})
   source_group(windows FILES ${OBoy_windows_SRCS} ${OBoy_windows_HDRS})
-  source_group(windows\\shapes FILES ${OBoy_winshapes_SRCS} ${OBoy_winshapes_HRDS})
+  source_group(windows\\shapes FILES ${OBoy_winshapes_SRCS} ${OBoy_winshapes_HDRS})
 	source_group("" FILES ${OBoy_general_SRCS} ${OBoy_general_HDRS})
 endif()
 
@@ -267,7 +275,9 @@ if(OBOY_INSTALL)
 	install(FILES ${OBoy_noise_HDRS} DESTINATION include/OBoy)
 	install(FILES ${OBoy_shapes_HDRS} DESTINATION include/OBoy)
 	install(FILES ${OBoy_linux_HDRS} DESTINATION include/OBoy)
+  install(FILES ${OBoy_linuxshapes_HDRS} DESTINATION include/OBoy)
 	install(FILES ${OBoy_windows_HDRS} DESTINATION include/OBoy)
+  install(FILES ${OBoy_winshapes_HDRS} DESTINATION include/OBoy)
 
 	# install libraries
 	if(OBOY_BUILD_SHARED)

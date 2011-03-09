@@ -43,6 +43,7 @@ target_link_libraries(Demo1
   d3dx9
   DxErr9
   DXUT
+  comctl32
   ${CEGUI_DIRECT3D9_LIBRARIES}
 )
 endif()
